@@ -35,6 +35,30 @@ Two things worth knowing before you change them:
   language server rejects it outright. Track
   [withastro/roadmap#1321](https://github.com/withastro/roadmap/discussions/1321).
 
+### Asset provenance
+
+Fonts carry licences too, and theirs are readable — the records live in the
+font's own `name` table. Worth checking before adding one:
+
+```bash
+node scripts/generate-favicon-ico.mjs   # rebuild the .ico from favicon.svg
+```
+
+The starter shipped **"Matrix Code NFI"** for the home-page code rain. It is
+proprietary (© 2003 Norfok Inc. Font Design) and its embedded licence forbids
+redistribution outright — *"copying of the product even if modified, merged, or
+included with other software … is expressly forbidden"* — which is what serving
+it from this domain did. Removed. The canvas effect is the theme's own code and
+still runs; its glyph set is plain ASCII, so it now draws in the platform
+monospace stack.
+
+**Atkinson Hyperlegible** is kept and is explicitly clear: *"free of charge for
+all non-commercial and commercial work. No attribution required."* (Braille
+Institute of America). It is used unaltered, as that licence requires.
+
+Both favicons were Astro's logo. Replaced with an original CC0 terminal-prompt
+mark in `public/favicon.svg`.
+
 ### Image provenance
 
 The upstream theme shipped two clips of **commercial film footage** (*Resident
