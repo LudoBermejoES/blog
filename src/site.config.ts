@@ -1,5 +1,5 @@
 /**
- * Single user-facing config entry for Anglefeint.
+ * Single user-facing config entry for Cyberdream.
  * Edit this file only. Other files under src/config/* and src/i18n/* are adapters.
  */
 import { defineThemeConfig } from './site.config.defaults.ts';

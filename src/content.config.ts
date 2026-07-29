@@ -1,1 +1,1 @@
-export { collections } from '@anglefeint/astro-theme/content-schema';
+export { collections } from '@cyberdream/astro-theme/content-schema';

@@ -7,7 +7,7 @@ import {
   isLocale,
   stripLocaleFromPath,
   type Locale,
-} from '@anglefeint/site-i18n/config';
+} from '@cyberdream/site-i18n/config';
 
 export function resolveCurrentLocale(pathname: string): string {
   const pathParts = pathname.split('/').filter(Boolean);

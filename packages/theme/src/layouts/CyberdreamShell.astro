@@ -1,0 +1,104 @@
+---
+/**
+ * The single cyberdream shell.
+ *
+ * Replaces the five atmosphere shells the old theme carried (Ai, Base, Cyber,
+ * Hacker, Matrix), each with its own stylesheet and effect scripts. One
+ * coherent surface is easier to keep accessible and consistent, and it drops
+ * every line of the bespoke effect JS — CyberCore's effects are CSS-only.
+ */
+import 'cybercore-css/dist/cybercore.min.css';
+import '../styles/cyberdream.css';
+import ambientLoop from '../assets/theme/monitor/monitor-data-cascade.webp';
+import BaseHead from '../components/BaseHead.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '@cyberdream/site-i18n/config';
+import { getMessages } from '@cyberdream/site-i18n/messages';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  locale?: Locale;
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  pageType?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  author?: string;
+  tags?: string[];
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  localeHrefs?: Partial<Record<Locale, string>>;
+  /** Extra class on <body>, for page-specific hooks. */
+  bodyClass?: string;
+  /** Ambient animated backdrop. Off for long-form reading. */
+  ambient?: boolean;
+}
+
+const rawLocale = Astro.props.locale ?? DEFAULT_LOCALE;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  pageType,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags,
+  schema,
+  noindex,
+  localeHrefs,
+  bodyClass = '',
+  ambient = false,
+} = Astro.props as Props;
+const messages = getMessages(locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      imageAlt={imageAlt}
+      pageType={pageType}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+      tags={tags}
+      schema={schema}
+      noindex={noindex}
+      localeHrefs={localeHrefs}
+    />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    {/*
+      First element in the body so it is the first tab stop on every page.
+      WCAG 2.4.1 Bypass Blocks.
+    */}
+    <a class="cd-skip-link" href="#main-content">{messages.nav.skipToContent}</a>
+
+    {
+      ambient && (
+        <div class="cd-ambient" aria-hidden="true">
+          <img class="cd-ambient__loop" src={ambientLoop.src} alt="" decoding="async" />
+          <div class="cd-ambient__vignette" />
+        </div>
+      )
+    }
+
+    <Nav locale={locale} localeHrefs={localeHrefs} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+  </body>
+</html>

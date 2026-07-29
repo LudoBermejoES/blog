@@ -319,7 +319,7 @@ async function main() {
   const projectLocales = await resolveProjectLocales();
   const locales = resolveLocales({
     cliLocales,
-    envLocales: process.env.ANGLEFEINT_LOCALES ?? '',
+    envLocales: process.env.CYBERDREAM_LOCALES ?? '',
     defaultLocales: projectLocales.length > 0 ? projectLocales : FALLBACK_LOCALES,
   });
   const created = [];

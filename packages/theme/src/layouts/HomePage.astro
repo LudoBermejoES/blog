@@ -1,50 +1,79 @@
 ---
+/**
+ * Home page. Hero plus the latest posts as cards.
+ */
 import type { CollectionEntry } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, SITE_TITLE, getSiteHero } from '@anglefeint/site-config/site';
-import { type Locale, blogIdToSlugAnyLocale, localePath } from '@anglefeint/site-i18n/config';
-import { getMessages } from '@anglefeint/site-i18n/messages';
-import MatrixShell from './shells/MatrixShell.astro';
+import CyberdreamShell from './CyberdreamShell.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, getSiteHero } from '@cyberdream/site-config/site';
+import { type Locale, DEFAULT_LOCALE, isLocale, localePath } from '@cyberdream/site-i18n/config';
+import { getMessages } from '@cyberdream/site-i18n/messages';
 
 interface Props {
-  locale: Locale;
-  latestPosts: CollectionEntry<'blog'>[];
+  locale?: Locale;
+  posts: CollectionEntry<'blog'>[];
+  localeHrefs?: Partial<Record<Locale, string>>;
 }
 
-const { locale, latestPosts } = Astro.props;
+const rawLocale = Astro.props.locale ?? DEFAULT_LOCALE;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+const { posts, localeHrefs } = Astro.props as Props;
 const messages = getMessages(locale);
-const heroText = getSiteHero(locale) ?? messages.home.hero;
 const pageDescription = messages.siteDescription || SITE_DESCRIPTION;
+const hero = getSiteHero(locale) ?? messages.home.hero;
+const blogHref = localePath(locale, '/blog/');
 ---
 
-<MatrixShell locale={locale} title={SITE_TITLE} description={pageDescription}>
-  <h1>{SITE_TITLE}</h1>
-  <p class="home-hero-copy">{heroText}</p>
+<CyberdreamShell
+  locale={locale}
+  title={SITE_TITLE}
+  description={pageDescription}
+  localeHrefs={localeHrefs}
+  bodyClass="cd-page-home"
+  ambient
+>
+  <header class="cd-hero">
+    <span class="cd-eyebrow">{pageDescription}</span>
+    {/*
+      The site name is the h1 here and only here — this is the page it names.
+      Every other page keeps its own h1, and the nav brand is a link rather than
+      a heading, so heading order stays intact sitewide.
+    */}
+    <h1 class="cd-hero__title cyber-glitch cyber-glitch--subtle" data-text={SITE_TITLE}>
+      {SITE_TITLE}
+    </h1>
+    <p class="cd-hero__lede">{hero}</p>
+  </header>
 
-  <section class="home-latest">
-    <h2 class="home-section-title">{messages.home.latest}</h2>
-    <ul class="home-post-list">
-      {
-        latestPosts.length > 0 ? (
-          latestPosts.map((post) => (
-            <li>
-              <a
-                class="home-post-title"
-                href={localePath(locale, `/blog/${blogIdToSlugAnyLocale(post.id)}`)}
-              >
-                {post.data.title}
-              </a>
-              <div class="home-post-meta">
-                <FormattedDate date={post.data.pubDate} locale={locale} />
-                {post.data.description && <> · {post.data.description}</>}
-              </div>
-            </li>
-          ))
-        ) : (
-          <li>{messages.home.noPosts}</li>
-        )
-      }
-    </ul>
-    <p><a href={localePath(locale, '/blog/')}>{messages.home.viewAll}</a></p>
+  <section aria-labelledby="cd-latest">
+    <h2 id="cd-latest" class="cyber-heading">{messages.home.latest}</h2>
+
+    {
+      posts.length === 0 ? (
+        <p class="cd-empty">{messages.home.noPosts}</p>
+      ) : (
+        <ul class="cd-grid">
+          {posts.map((post, index) => (
+            <PostCard
+              post={post}
+              locale={locale}
+              readMinutes={post.data.readMinutes}
+              readLabel={messages.blog.metaReadMinutes}
+              eager={index < 3}
+            />
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      posts.length > 0 && (
+        <p style="margin-top: var(--space-lg);">
+          <a class="cyber-btn cyber-btn--filled" href={blogHref}>
+            {messages.home.viewAll}
+          </a>
+        </p>
+      )
+    }
   </section>
-</MatrixShell>
+</CyberdreamShell>

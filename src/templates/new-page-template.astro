@@ -1,17 +1,19 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import BasePageLayout from '@anglefeint/astro-theme/layouts/BasePageLayout.astro';
-import { ENABLED_LOCALES, type Locale } from '@anglefeint/site-i18n/config';
+import CyberdreamShell from '@cyberdream/astro-theme/layouts/CyberdreamShell.astro';
+import { ENABLED_LOCALES, type Locale } from '@cyberdream/site-i18n/config';
 
 export const getStaticPaths = (() =>
-  ENABLED_LOCALES.map((lang: Locale) => ({ params: { lang } }))) satisfies GetStaticPaths;
+  ENABLED_LOCALES.map((locale) => ({ params: { lang: locale } }))) satisfies GetStaticPaths;
 
 const locale = Astro.params.lang as Locale;
-const pageTitle = 'Projects';
-const pageDescription = 'A custom page built from the default layout.';
 ---
 
-<BasePageLayout locale={locale} title={pageTitle} description={pageDescription}>
-  <h1>Projects</h1>
-  <p>Replace this content with your own page content.</p>
-</BasePageLayout>
+<CyberdreamShell locale={locale} title="__PAGE_TITLE__" description="__PAGE_DESCRIPTION__">
+  <header class="cd-hero">
+    <h1 class="cd-hero__title">__PAGE_TITLE__</h1>
+  </header>
+  <div class="cd-prose">
+    <p>__PAGE_DESCRIPTION__</p>
+  </div>
+</CyberdreamShell>

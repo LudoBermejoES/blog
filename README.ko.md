@@ -1,10 +1,10 @@
-<h1 align="center">Anglefeint</h1>
+<h1 align="center">Cyberdream</h1>
 <p align="center">개인 퍼블리싱을 위한 시네마틱 멀티 무드 Astro 테마입니다.</p>
 
 <p align="center">
-  <a href="https://demo.anglefeint.com/">라이브 데모</a>
+  <a href="https://demo.cyberdream.com/">라이브 데모</a>
   ·
-  <a href="https://github.com/anglefeint/astro-theme-anglefeint">저장소</a>
+  <a href="https://github.com/cyberdream/astro-theme-cyberdream">저장소</a>
   ·
   <a href="ASTRO_THEME_LISTING.md">테마 제출 문안</a>
 </p>
@@ -20,13 +20,13 @@
 ## 템플릿 설치
 
 ```bash
-npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+npm create astro@latest -- --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 `pnpm` 사용:
 
 ```bash
-pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+pnpm create astro@latest --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 ## 요구 사항
@@ -71,7 +71,7 @@ pnpm preview
 `#starter` 로 생성한 프로젝트에서 package 업데이트를 가져올 때는 먼저 아래를 실행합니다:
 
 ```bash
-npm update @anglefeint/astro-theme
+npm update @cyberdream/astro-theme
 npm install
 npm run doctor
 # doctor가 adapter drift를 보고하면:
@@ -82,7 +82,7 @@ npm run build
 
 release note 에 starter 쪽 contract 변경이 적혀 있으면 그 변경도 프로젝트에 동기화해야 합니다. `npm update` 는 공개 package 만 업데이트합니다.
 
-커스텀 코드가 `src/consts` 또는 `@anglefeint/astro-theme/consts` 를 참조하고 있다면 `src/config/site.ts` 로 마이그레이션하세요.
+커스텀 코드가 `src/consts` 또는 `@cyberdream/astro-theme/consts` 를 참조하고 있다면 `src/config/site.ts` 로 마이그레이션하세요.
 
 Astro 메이저 버전 마이그레이션은 먼저 공식 가이드를 확인하세요:
 
@@ -104,7 +104,7 @@ Slug 규칙: 소문자 영문, 숫자, 하이픈만 사용하세요 (예: `my-fi
 ```bash
 npm run new-post -- my-first-post --locales en,fr
 # 또는
-ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+CYBERDREAM_LOCALES=en,fr npm run new-post -- my-first-post
 ```
 
 URL 규칙:

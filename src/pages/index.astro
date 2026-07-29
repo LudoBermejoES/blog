@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import HomePage from '@anglefeint/astro-theme/layouts/HomePage.astro';
+import HomePage from '@cyberdream/astro-theme/layouts/HomePage.astro';
 import { THEME } from '../config/theme';
 import { DEFAULT_LOCALE } from '../i18n/config';
 import { postsForLocale } from '../i18n/posts';
@@ -10,4 +10,4 @@ const allPosts = await getCollection('blog');
 const latestPosts = postsForLocale(allPosts, locale).slice(0, THEME.HOME_LATEST_COUNT);
 ---
 
-<HomePage locale={locale} latestPosts={latestPosts} />
+<HomePage locale={locale} posts={latestPosts} />

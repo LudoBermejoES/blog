@@ -1,12 +1,12 @@
 ---
-title: 'Anglefeint Starter Guide 1：先配置你的站点'
+title: 'Cyberdream Starter Guide 1：先配置你的站点'
 subtitle: '从 starter 创建项目后，优先改哪些字段'
 description: '从真正的用户入口开始：站点身份信息、社交链接、About 开关，以及如何替换 starter 示例文章。'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/cyber-02.webp'
 ---
 
-如果你是通过 Anglefeint starter 创建项目，第一步就看 `src/site.config.ts`。
+如果你是通过 Cyberdream starter 创建项目，第一步就看 `src/site.config.ts`。
 
 这个文件就是主要的用户配置入口。一般情况下，你不需要直接去改 `src/config/*` 或 `src/i18n/*`。
 

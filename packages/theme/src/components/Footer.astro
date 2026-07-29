@@ -1,5 +1,31 @@
 ---
-import CommonFooter from './shared/CommonFooter.astro';
+/**
+ * Site footer. Replaces the old Footer + CommonFooter pair.
+ */
+import { SITE_TITLE } from '@cyberdream/site-config/site';
+import { SOCIAL_LINKS } from '@cyberdream/site-config/social';
+import SocialMenu from './shared/SocialMenu.astro';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '@cyberdream/site-i18n/config';
+import { getMessages } from '@cyberdream/site-i18n/messages';
+
+interface Props {
+  locale?: Locale;
+}
+
+const rawLocale = (Astro.props as Props).locale ?? DEFAULT_LOCALE;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+const messages = getMessages(locale);
+const year = new Date().getFullYear();
 ---
 
-<CommonFooter {...Astro.props} />
+<footer class="cd-footer">
+  <div class="cd-footer__inner">
+    {/*
+      One line on purpose. Astro 7 defaults compressHTML to 'jsx', which drops
+      whitespace-only line breaks between expressions the way JSX does — split
+      across lines this renders as "2026Hadinapló".
+    */}
+    <span>&copy; {year} {SITE_TITLE} — {messages.tagline}</span>
+    {SOCIAL_LINKS.length > 0 && <SocialMenu links={SOCIAL_LINKS} tone="footer" gap="0.85rem" />}
+  </div>
+</footer>

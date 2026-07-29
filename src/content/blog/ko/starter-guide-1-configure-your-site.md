@@ -1,12 +1,12 @@
 ---
-title: 'Anglefeint Starter Guide 1: Site Configuration'
+title: 'Cyberdream Starter Guide 1: Site Configuration'
 subtitle: 'starter 생성 직후 먼저 바꿔야 할 항목'
 description: '가장 먼저 확인할 사용자 설정은 site 정보, social links, About 토글, starter 글 교체입니다.'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/cyber-02.webp'
 ---
 
-Anglefeint starter를 만들었다면 첫 진입점은 `src/site.config.ts` 입니다.
+Cyberdream starter를 만들었다면 첫 진입점은 `src/site.config.ts` 입니다.
 
 먼저 확인할 항목:
 

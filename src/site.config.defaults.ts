@@ -1,4 +1,4 @@
-import { deepMerge, type DeepPartial } from '@anglefeint/astro-theme/utils/merge';
+import { deepMerge, type DeepPartial } from '@cyberdream/astro-theme/utils/merge';
 import type { ThemeConfig, AboutConfig } from './site.config.schema.ts';
 
 export const DEFAULT_ABOUT_CONFIG: AboutConfig = {
@@ -50,7 +50,7 @@ export const DEFAULT_ABOUT_CONFIG: AboutConfig = {
       lines: [
         '~ $ ai --status --verbose',
         '',
-        'model: anglefeint-core',
+        'model: cyberdream-core',
         'mode: reasoning + builder',
         'context window: 128k',
         'tools: codex / cursor / claude-code',

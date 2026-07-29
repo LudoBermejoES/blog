@@ -1,5 +1,5 @@
-import type { DeepPartial } from '@anglefeint/astro-theme/utils/merge';
-import type { Messages } from '@anglefeint/theme-default-i18n';
+import type { DeepPartial } from '@cyberdream/astro-theme/utils/merge';
+import type { Messages } from '@cyberdream/theme-default-i18n';
 
 export type LocaleCode = string;
 

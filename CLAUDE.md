@@ -3,7 +3,10 @@
 Personal blog. Astro 7 static site, deployed to <https://blog.ludobermejo.es> via GitHub Pages.
 
 - **Site identity** lives in exactly one place: `src/site.config.ts`. Title, author, URL, and the global description/tagline fallbacks. Everything under `src/config/**` and `src/i18n/**` is a generated adapter — edit the templates in `scripts/adapter-templates/` and run `npm run sync-adapters`, never the generated files.
-- **The theme is vendored** at `packages/theme/` as an npm workspace, not consumed from `node_modules`. Edit it there. `npm update @anglefeint/astro-theme` will not touch it.
+- **The theme is vendored** at `packages/theme/` as an npm workspace, not consumed from `node_modules`. Edit it there. `npm update @cyberdream/astro-theme` will not touch it.
+- **The theme is `cyberdream`, built on [CYBERCORE CSS](https://github.com/sebyx07/cybercore-css)** (MIT), installed as a normal npm dependency. CyberCore supplies tokens, components (`.cyber-nav`, `.cyber-card`, `.cyber-btn`, `.cyber-terminal`, `.cyber-badge`, `.cyber-select`) and CSS-only effects (`.cyber-glitch`, `.cyber-scanlines`, `.cyber-heading`). Reach for a CyberCore class before writing CSS.
+- **One shell, one stylesheet.** `layouts/CyberdreamShell.astro` and `styles/cyberdream.css`. The five atmosphere shells, 21 stylesheets and 16 effect scripts are gone; a page ships one inline script (the locale switcher). Don't reintroduce per-page JS without a reason.
+- **CyberCore wraps its rules in `@layer`**, so the theme layer is unlayered and overrides it with no `!important`. Keep it that way.
 - Background on the deploy, the TypeScript 6 pin, and asset provenance is in `README.md`.
 
 ## Every post must exist in all six languages
@@ -73,13 +76,16 @@ Post content is not the only thing that needs all six languages.
 - **`compressHTML` defaults to `'jsx'` in Astro 7.** Whitespace-only line breaks between adjacent expressions are dropped, exactly as JSX does. `{a}\n{b}` renders as `ab`, not `a b`. Keep visible text runs on one line, or use an explicit `{' '}`. This silently mangled the footer, post meta lines, and the about page's contact paragraph during the Astro 6 → 7 upgrade.
 - **Verify with the built output, not the source.** `npx astro check && npm run build`, then grep `dist/` for the string you changed. Several of the bugs above type-checked cleanly and looked right in the source.
 - **Check licences before adding any asset or font.** A font's terms are embedded in its `name` table and are readable — the starter shipped a proprietary font whose licence forbade redistribution, plus commercial film footage. See `README.md`.
+- **CyberCore uppercases every heading.** The theme layer resets `text-transform` on content headings (post titles, card titles, prose headings) because all-caps slows reading and mangles accented Latin across six languages. Chrome labels keep their caps. If you add a heading class, decide which side it is on.
+- **`check:scaffold` had rotted** — it asserted on a `SUPPORTED_LOCALES` export that does not exist and was never wired into `npm run check`. It is now in the chain. Keep it there.
+- **A dark hero image is not a broken hero image.** Screenshot JPEG compression makes the dark covers read as empty boxes; check `img.complete` / `naturalWidth` or sample pixels before "fixing" it.
 
 ## Commands
 
 ```bash
 npm run dev              # dev server
 npm run build            # production build
-npm run check            # adapters + fonts + astro check + about-runtime validation
+npm run check            # workspace link + adapters + fonts + scaffold + astro check
 npm run new-post -- slug # scaffold a post in all six locales
 npm run assets:monitor   # regenerate the generated CC0 monitor loops and OG still
 npm run assets:favicon   # rebuild favicon.ico from favicon.svg

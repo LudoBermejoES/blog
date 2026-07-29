@@ -1,7 +1,7 @@
 ---
-title: 'Anglefeint Starter Guide 3：配置评论、About 与主题开关'
+title: 'Cyberdream Starter Guide 3：配置评论、About 与主题开关'
 subtitle: 'Giscus、About 内容、首页数量、分页和文章特效'
-description: 'Anglefeint 当前已经验证生效的增强配置：Giscus 评论、About 内容、Red Queen 开关、首页文章数和博客分页行为。'
+description: 'Cyberdream 当前已经验证生效的增强配置：Giscus 评论、About 内容、Red Queen 开关、首页文章数和博客分页行为。'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/matrix-02.webp'
 ---

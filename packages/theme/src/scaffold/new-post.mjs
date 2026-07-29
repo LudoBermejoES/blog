@@ -8,7 +8,7 @@ import {
 } from './shared.mjs';
 
 export function usageNewPost() {
-  return 'Usage: anglefeint-new-post <slug> [--locales en,fr,...]';
+  return 'Usage: cyberdream-new-post <slug> [--locales en,fr,...]';
 }
 
 export function parseNewPostArgs(argv) {

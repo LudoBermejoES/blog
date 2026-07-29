@@ -1,61 +1,58 @@
+/**
+ * `cyberdream-new-page` scaffolding.
+ *
+ * The old version offered five --theme variants, one per atmosphere shell.
+ * cyberdream has a single shell, so the flag is gone. Passing it produces a
+ * clear error rather than being silently ignored.
+ */
+
 import { toTitleFromSlug, validatePageSlug } from './shared.mjs';
-
-export const THEMES = ['base', 'cyber', 'ai', 'hacker', 'matrix'];
-
-export const LAYOUT_BY_THEME = {
-  base: 'BasePageLayout',
-  ai: 'AiPageLayout',
-  cyber: 'CyberPageLayout',
-  hacker: 'HackerPageLayout',
-  matrix: 'MatrixPageLayout',
-};
 
 export function parseNewPageArgs(argv) {
   const args = argv.slice(2);
   const positional = [];
-  let theme = 'base';
+  let removedThemeFlag = false;
 
   for (let i = 0; i < args.length; i += 1) {
     const token = args[i];
     if (token === '--theme') {
-      theme = args[i + 1] ?? '';
-      i += 1;
+      removedThemeFlag = true;
+      i += 1; // skip its value
       continue;
     }
     positional.push(token);
   }
 
-  return { slug: positional[0], theme };
-}
-
-export function isValidNewPageTheme(theme) {
-  return THEMES.includes(theme);
+  return { slug: positional[0], removedThemeFlag };
 }
 
 export function usageNewPage() {
-  return 'Usage: anglefeint-new-page <slug> [--theme <base|cyber|ai|hacker|matrix>]';
+  return 'Usage: cyberdream-new-page <slug>';
 }
 
-export function buildNewPageTemplate({ slug, theme }) {
-  const title = toTitleFromSlug(slug) || 'New Page';
-  const layoutName = LAYOUT_BY_THEME[theme];
+export function buildNewPageTemplate({ slug }) {
+  const title = toTitleFromSlug(slug.split('/').pop());
 
   return `---
 import type { GetStaticPaths } from 'astro';
-import ${layoutName} from '@anglefeint/astro-theme/layouts/${layoutName}.astro';
-import { ENABLED_LOCALES, type Locale } from '@anglefeint/site-i18n/config';
+import CyberdreamShell from '@cyberdream/astro-theme/layouts/CyberdreamShell.astro';
+import { ENABLED_LOCALES, type Locale } from '@cyberdream/site-i18n/config';
 
 export const getStaticPaths = (() => ENABLED_LOCALES.map((lang: Locale) => ({ params: { lang } }))) satisfies GetStaticPaths;
 
 const locale = Astro.params.lang as Locale;
 const pageTitle = '${title}';
-const pageDescription = 'A custom page built from the ${theme} theme shell.';
+const pageDescription = 'A custom ${title} page.';
 ---
 
-<${layoutName} locale={locale} title={pageTitle} description={pageDescription}>
-\t<h1>${title}</h1>
-\t<p>Replace this content with your own page content.</p>
-</${layoutName}>
+<CyberdreamShell locale={locale} title={pageTitle} description={pageDescription}>
+  <header class="cd-hero">
+    <h1 class="cd-hero__title">{pageTitle}</h1>
+  </header>
+  <div class="cd-prose">
+    <p>{pageDescription}</p>
+  </div>
+</CyberdreamShell>
 `;
 }
 

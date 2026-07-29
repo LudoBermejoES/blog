@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from './config';
-import { THEME } from '@anglefeint/site-config/theme';
+import { THEME } from '@cyberdream/site-config/theme';
 
 export const BLOG_PAGE_SIZE = THEME.BLOG_PAGE_SIZE;
 

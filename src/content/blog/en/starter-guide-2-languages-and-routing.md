@@ -1,12 +1,12 @@
 ---
-title: 'Anglefeint Starter Guide 2: Configure Languages and Routing'
+title: 'Cyberdream Starter Guide 2: Configure Languages and Routing'
 subtitle: 'How locales, fallback, and default-locale URLs work'
 description: 'Use the single locale registry in src/site.config.ts to drive routing, labels, fallback behavior, messages, hero copy, and About content.'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/cyber-03.webp'
 ---
 
-Anglefeint uses a single locale registry in `src/site.config.ts`.
+Cyberdream uses a single locale registry in `src/site.config.ts`.
 
 That means routing, locale labels, fallback behavior, localized UI copy, localized home hero text, and localized About content all come from one place.
 

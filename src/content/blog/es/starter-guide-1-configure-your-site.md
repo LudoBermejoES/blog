@@ -1,12 +1,12 @@
 ---
-title: 'Anglefeint Starter Guide 1: Site Configuration'
+title: 'Cyberdream Starter Guide 1: Site Configuration'
 subtitle: 'Qué cambiar primero después de crear el starter'
 description: 'Las primeras opciones reales para usuarios son la identidad del sitio, social links, el toggle de About y el reemplazo del contenido inicial.'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/cyber-02.webp'
 ---
 
-Si creaste tu proyecto con el starter de Anglefeint, el primer punto de entrada es `src/site.config.ts`.
+Si creaste tu proyecto con el starter de Cyberdream, el primer punto de entrada es `src/site.config.ts`.
 
 Campos que conviene revisar primero:
 

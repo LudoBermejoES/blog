@@ -1,10 +1,10 @@
-<h1 align="center">Anglefeint</h1>
+<h1 align="center">Cyberdream</h1>
 <p align="center">一个具有电影感、多氛围切换的 Astro 个人发布主题。</p>
 
 <p align="center">
-  <a href="https://demo.anglefeint.com/">在线演示</a>
+  <a href="https://demo.cyberdream.com/">在线演示</a>
   ·
-  <a href="https://github.com/anglefeint/astro-theme-anglefeint">仓库地址</a>
+  <a href="https://github.com/cyberdream/astro-theme-cyberdream">仓库地址</a>
   ·
   <a href="ASTRO_THEME_LISTING.md">主题提交文案</a>
 </p>
@@ -20,13 +20,13 @@
 ## 模板安装
 
 ```bash
-npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+npm create astro@latest -- --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 使用 `pnpm`：
 
 ```bash
-pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+pnpm create astro@latest --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 ## 环境要求
@@ -71,7 +71,7 @@ pnpm preview
 对于 `#starter` 创建的项目，包层更新可先执行：
 
 ```bash
-npm update @anglefeint/astro-theme
+npm update @cyberdream/astro-theme
 npm install
 npm run doctor
 # 如果 doctor 提示 adapter 漂移：
@@ -82,7 +82,7 @@ npm run build
 
 如果 release note 提到 starter 侧 contract 变化，还需要把对应 starter 改动同步进你的项目；`npm update` 本身只会更新已发布包。
 
-如果你的自定义代码还在引用 `src/consts` 或 `@anglefeint/astro-theme/consts`，请迁移到 `src/config/site.ts`。
+如果你的自定义代码还在引用 `src/consts` 或 `@cyberdream/astro-theme/consts`，请迁移到 `src/config/site.ts`。
 
 如需进行 Astro 大版本升级，请先参考官方升级文档：
 
@@ -104,7 +104,7 @@ Slug 规则：仅使用小写字母、数字和连字符（示例：`my-first-po
 ```bash
 npm run new-post -- my-first-post --locales en,fr
 # 或
-ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+CYBERDREAM_LOCALES=en,fr npm run new-post -- my-first-post
 ```
 
 URL 规则：

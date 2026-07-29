@@ -1,10 +1,10 @@
-<h1 align="center">Anglefeint</h1>
+<h1 align="center">Cyberdream</h1>
 <p align="center">Un tema Astro cinematografico con varias atmosferas para publicacion personal.</p>
 
 <p align="center">
-  <a href="https://demo.anglefeint.com/">Demo en vivo</a>
+  <a href="https://demo.cyberdream.com/">Demo en vivo</a>
   ·
-  <a href="https://github.com/anglefeint/astro-theme-anglefeint">Repositorio</a>
+  <a href="https://github.com/cyberdream/astro-theme-cyberdream">Repositorio</a>
   ·
   <a href="ASTRO_THEME_LISTING.md">Ficha de listado</a>
 </p>
@@ -20,13 +20,13 @@
 ## Instalacion con plantilla
 
 ```bash
-npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+npm create astro@latest -- --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 Con `pnpm`:
 
 ```bash
-pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+pnpm create astro@latest --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 ## Requisitos
@@ -71,7 +71,7 @@ pnpm preview
 Para proyectos creados desde `#starter`, empieza asi cuando solo actualizas el package:
 
 ```bash
-npm update @anglefeint/astro-theme
+npm update @cyberdream/astro-theme
 npm install
 npm run doctor
 # si doctor reporta drift de adapters:
@@ -82,7 +82,7 @@ npm run build
 
 Si las release notes mencionan cambios de contrato del starter, tambien debes sincronizar esos cambios en tu proyecto. `npm update` solo actualiza el package publicado.
 
-Si tu codigo personalizado aun importa `src/consts` o `@anglefeint/astro-theme/consts`, migralo a `src/config/site.ts`.
+Si tu codigo personalizado aun importa `src/consts` o `@cyberdream/astro-theme/consts`, migralo a `src/config/site.ts`.
 
 Para migraciones de versiones mayores de Astro, revisa primero la guia oficial:
 
@@ -104,7 +104,7 @@ Override opcional de idiomas:
 ```bash
 npm run new-post -- my-first-post --locales en,fr
 # o
-ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+CYBERDREAM_LOCALES=en,fr npm run new-post -- my-first-post
 ```
 
 Como funciona la URL:

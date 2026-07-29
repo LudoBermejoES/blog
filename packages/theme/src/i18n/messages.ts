@@ -13,6 +13,7 @@ export type Messages = {
     status: string;
     statusAria: string;
     skipToContent: string;
+    primaryNavAria: string;
   };
   home: {
     hero: string;
@@ -86,6 +87,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       status: 'system: online',
       statusAria: 'System status',
       skipToContent: 'Skip to content',
+      primaryNavAria: 'Primary',
     },
     home: {
       hero: 'Write a short introduction for your site and what readers can expect from your posts.',
@@ -157,6 +159,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       status: 'system: online',
       statusAria: 'システム状態',
       skipToContent: '本文へスキップ',
+      primaryNavAria: 'メインナビゲーション',
     },
     home: {
       hero: 'このサイトの紹介文と、読者がどんな記事を期待できるかを書いてください。',
@@ -228,6 +231,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       status: 'system: online',
       statusAria: '시스템 상태',
       skipToContent: '본문으로 건너뛰기',
+      primaryNavAria: '주요 내비게이션',
     },
     home: {
       hero: '사이트 소개와 방문자가 어떤 글을 기대할 수 있는지 간단히 작성하세요.',
@@ -299,6 +303,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       status: 'system: online',
       statusAria: 'Estado del sistema',
       skipToContent: 'Saltar al contenido',
+      primaryNavAria: 'Principal',
     },
     home: {
       hero: 'Escribe una breve presentación del sitio y qué tipo de contenido encontrarán tus lectores.',
@@ -371,6 +376,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       status: 'system: online',
       statusAria: '系统状态',
       skipToContent: '跳转到正文',
+      primaryNavAria: '主导航',
     },
     home: {
       hero: '在这里写一段站点简介，并告诉读者你将发布什么类型的内容。',
@@ -442,6 +448,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       status: 'sistemo: enreta',
       statusAria: 'Stato de la sistemo',
       skipToContent: 'Salti al la enhavo',
+      primaryNavAria: 'Ĉefa navigado',
     },
     home: {
       hero: 'Skribu mallongan enkondukon pri via retejo kaj pri tio, kion legantoj povas atendi de viaj afiŝoj.',

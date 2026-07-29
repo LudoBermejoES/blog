@@ -8,7 +8,7 @@ import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
 const require = createRequire(import.meta.url);
-const themeEntry = require.resolve('@anglefeint/astro-theme');
+const themeEntry = require.resolve('@cyberdream/astro-theme');
 const themeRoot = path.resolve(path.dirname(themeEntry), '..');
 const cliNewPage = path.join(themeRoot, 'src/cli-new-page.mjs');
 const cliNewPost = path.join(themeRoot, 'src/cli-new-post.mjs');
@@ -18,7 +18,7 @@ async function runNode(scriptPath, args, cwd) {
 }
 
 async function main() {
-	const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'anglefeint-scaffold-'));
+	const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'cyberdream-scaffold-'));
 	try {
 		const pagesRoot = path.join(tempRoot, 'src/pages/[lang]');
 		const coversRoot = path.join(tempRoot, 'src/assets/blog/default-covers');
@@ -26,14 +26,17 @@ async function main() {
 		await mkdir(coversRoot, { recursive: true });
 		await writeFile(path.join(coversRoot, 'ai-01.webp'), 'cover', 'utf8');
 
-		await runNode(cliNewPage, ['scaffold-check', '--theme', 'ai'], tempRoot);
+		await runNode(cliNewPage, ['scaffold-check'], tempRoot);
 		await runNode(cliNewPost, ['scaffold-check-post'], tempRoot);
 
 		const pageFile = path.join(pagesRoot, 'scaffold-check.astro');
 		const pageText = await readFile(pageFile, 'utf8');
-		assert.match(pageText, /import AiPageLayout from '@anglefeint\/astro-theme\/layouts\/AiPageLayout\.astro';/);
-		assert.match(pageText, /import \{ SUPPORTED_LOCALES, type Locale \} from '@anglefeint\/site-i18n\/config';/);
-		assert.doesNotMatch(pageText, /@anglefeint\/astro-theme\/i18n\/config/);
+		assert.match(
+			pageText,
+			/import CyberdreamShell from '@cyberdream\/astro-theme\/layouts\/CyberdreamShell\.astro';/
+		);
+		assert.match(pageText, /import \{ ENABLED_LOCALES, type Locale \} from '@cyberdream\/site-i18n\/config';/);
+		assert.doesNotMatch(pageText, /@cyberdream\/astro-theme\/i18n\/config/);
 
 		const postFile = path.join(tempRoot, 'src/content/blog/en/scaffold-check-post.md');
 		const postText = await readFile(postFile, 'utf8');

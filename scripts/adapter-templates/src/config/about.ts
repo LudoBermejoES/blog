@@ -1,14 +1,14 @@
 // Generated file. Do not edit directly.
 // Edit scripts/adapter-templates/src/config/about.ts and run `npm run sync-adapters`.
 
-import { deepMerge } from '@anglefeint/astro-theme/utils/merge';
+import { deepMerge } from '@cyberdream/astro-theme/utils/merge';
 import { DEFAULT_ABOUT_CONFIG } from '../site.config.defaults.ts';
 import type { AboutConfig } from '../site.config.schema.ts';
 import { getLocaleConfig, getLocaleResolutionChain, type Locale } from '../i18n/config.ts';
 
 /**
  * About page content and runtime behavior configuration.
- * Used by src/pages/[lang]/about.astro and @anglefeint/astro-theme/scripts/about-effects.js.
+ * Used by src/pages/[lang]/about.astro and @cyberdream/astro-theme/scripts/about-effects.js.
  */
 export function getAboutConfig(locale: Locale): AboutConfig {
   let resolved = deepMerge(DEFAULT_ABOUT_CONFIG, {});

@@ -1,7 +1,7 @@
 ---
-title: 'Anglefeint Starter Guide 3: Configure Comments, About, and Theme Toggles'
+title: 'Cyberdream Starter Guide 3: Configure Comments, About, and Theme Toggles'
 subtitle: 'Giscus, About content, home counts, pagination, and post effects'
-description: 'The verified theme toggles in Anglefeint: Giscus comments, About content, Red Queen effect, home post counts, and blog pagination settings.'
+description: 'The verified theme toggles in Cyberdream: Giscus comments, About content, Red Queen effect, home post counts, and blog pagination settings.'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/matrix-02.webp'
 ---

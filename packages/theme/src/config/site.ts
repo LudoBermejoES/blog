@@ -1,4 +1,4 @@
-import type { Locale } from '@anglefeint/site-i18n/config';
+import type { Locale } from '@cyberdream/site-i18n/config';
 
 /**
  * Site identity config. Override via environment variables:

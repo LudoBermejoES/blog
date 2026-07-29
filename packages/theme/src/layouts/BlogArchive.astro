@@ -1,0 +1,99 @@
+---
+/**
+ * Blog archive (paginated list). New: the old theme built this inline in the
+ * site page, which left 165 lines of markup outside the theme.
+ */
+import type { CollectionEntry } from 'astro:content';
+import CyberdreamShell from './CyberdreamShell.astro';
+import PostCard from '../components/PostCard.astro';
+import Pagination from '../components/Pagination.astro';
+import { SITE_TITLE } from '@cyberdream/site-config/site';
+import { THEME } from '@cyberdream/site-config/theme';
+import { type Locale, DEFAULT_LOCALE, isLocale, localePath } from '@cyberdream/site-i18n/config';
+import { getMessages } from '@cyberdream/site-i18n/messages';
+import { buildPaginationModel } from '../utils/pagination';
+
+interface Props {
+  locale?: Locale;
+  posts: CollectionEntry<'blog'>[];
+  currentPage: number;
+  totalPages: number;
+  localeHrefs?: Partial<Record<Locale, string>>;
+}
+
+const rawLocale = Astro.props.locale ?? DEFAULT_LOCALE;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+const { posts, currentPage, totalPages, localeHrefs } = Astro.props as Props;
+const messages = getMessages(locale);
+
+const model = buildPaginationModel({
+  currentPage,
+  totalPages,
+  windowSize: THEME.PAGINATION.WINDOW_SIZE,
+  showJumpThreshold: THEME.PAGINATION.SHOW_JUMP_THRESHOLD,
+});
+
+const blogRoot = localePath(locale, '/blog/');
+const hrefFor = (page: number) => (page === 1 ? blogRoot : `${blogRoot}${page}/`);
+
+const isFirstPage = currentPage === 1;
+const pageTitle = isFirstPage
+  ? `${messages.blog.title} | ${SITE_TITLE}`
+  : `${messages.blog.pageTitle} ${currentPage} | ${SITE_TITLE}`;
+const pageDescription = isFirstPage
+  ? messages.blog.archiveDescription
+  : `${messages.blog.pageDescription} ${currentPage}`;
+
+/* Later pages are near-duplicate listings; keep them out of the search index. */
+const noindex = !isFirstPage;
+---
+
+<CyberdreamShell
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  localeHrefs={localeHrefs}
+  bodyClass="cd-page-archive"
+  noindex={noindex}
+>
+  <header class="cd-hero">
+    <span class="cd-eyebrow">{messages.blog.archiveDescription}</span>
+    <h1 class="cd-hero__title">{messages.blog.title}</h1>
+    {
+      !isFirstPage && (
+        <p class="cd-meta">
+          {messages.blog.pageTitle} {currentPage} / {totalPages}
+        </p>
+      )
+    }
+  </header>
+
+  {
+    posts.length === 0 ? (
+      <p class="cd-empty">{messages.home.noPosts}</p>
+    ) : (
+      <ul class="cd-grid">
+        {posts.map((post, index) => (
+          <PostCard
+            post={post}
+            locale={locale}
+            readMinutes={post.data.readMinutes}
+            readLabel={messages.blog.metaReadMinutes}
+            eager={index < 3}
+          />
+        ))}
+      </ul>
+    )
+  }
+
+  <Pagination
+    model={model}
+    hrefFor={hrefFor}
+    labels={{
+      previous: messages.blog.previous,
+      next: messages.blog.next,
+      paginationAria: messages.blog.paginationAria,
+      pageLabel: messages.blog.jumpInputLabel,
+    }}
+  />
+</CyberdreamShell>

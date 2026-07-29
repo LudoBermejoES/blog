@@ -8,7 +8,6 @@ export const ADAPTER_TEMPLATE_MAP = [
   ['scripts/adapter-templates/src/i18n/runtime.ts', 'src/i18n/runtime.ts'],
   ['scripts/adapter-templates/src/i18n/messages.ts', 'src/i18n/messages.ts'],
   ['scripts/adapter-templates/src/i18n/posts.ts', 'src/i18n/posts.ts'],
-  ['scripts/adapter-templates/src/types/theme-scripts.d.ts', 'src/types/theme-scripts.d.ts'],
 ];
 
 export const ADAPTER_TARGET_FILES = ADAPTER_TEMPLATE_MAP.map(([, targetRel]) => targetRel);
@@ -18,7 +17,7 @@ export const STARTER_CONTENT_ROOT = 'src/content/blog';
 export const STARTER_CONTENT_LOCALES = ['en', 'es', 'ja', 'ko', 'zh'];
 
 export const STARTER_CONTENT_SLUGS = [
-  'welcome-to-anglefeint',
+  'welcome-to-cyberdream',
   'starter-guide-1-configure-your-site',
   'starter-guide-2-languages-and-routing',
   'starter-guide-3-comments-about-and-theme-toggles',
@@ -69,7 +68,6 @@ export const STARTER_STATIC_MANAGED_FILES = [
   'src/pages/[lang]/blog/[...slug].astro',
   'src/pages/[lang]/index.astro',
   'src/pages/[lang]/rss.xml.ts',
-  'src/scripts/cyber-rain-dust.js',
   'src/site.config.ts',
   'src/site.config.defaults.ts',
   'src/site.config.runtime.ts',

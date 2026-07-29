@@ -1,0 +1,615 @@
+/*
+  cyberdream — theme layer on top of CYBERCORE CSS.
+
+  CyberCore (MIT, © 2026 sebyx07 — https://github.com/sebyx07/cybercore-css)
+  supplies the design tokens, components and effects. This file adds only what a
+  reading-first blog needs on top: self-hosted fonts, prose typography, the post
+  card and archive grids, and a few chrome details.
+
+  CyberCore wraps its rules in @layer, so everything here is unlayered and
+  therefore wins against it without a single !important.
+*/
+
+/* ------------------------------------------------------------------ fonts */
+
+/*
+  Rajdhani for display chrome — headings, nav, labels, meta.
+  OFL-1.1, © 2014 Indian Type Foundry. Licence text at /fonts/Rajdhani-OFL.txt.
+  Latin subset only, and the unicode-range says so, so Japanese, Korean and
+  Chinese headings fall through to the system stack instead of rendering in a
+  font with no glyphs for them.
+*/
+@font-face {
+	font-family: "Rajdhani";
+	src: url("/fonts/rajdhani-600.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+		U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+		U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Rajdhani";
+	src: url("/fonts/rajdhani-700.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+		U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+		U+FEFF, U+FFFD;
+}
+
+/*
+  Atkinson Hyperlegible for body prose. Designed by Applied Design Works for the
+  Braille Institute specifically to raise character recognition at low vision —
+  the right call for long-form reading, and a better fit than CyberCore's
+  Exo 2 default for paragraphs. Licence permits commercial use, no attribution
+  required, unaltered.
+*/
+@font-face {
+	font-family: "Atkinson";
+	src: url("/fonts/atkinson-regular.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Atkinson";
+	src: url("/fonts/atkinson-bold.woff") format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* ------------------------------------------------------- tokens & chrome */
+
+:root {
+	color-scheme: dark;
+
+	/* Point CyberCore's font tokens at what we actually self-host. */
+	--font-display: "Rajdhani", system-ui, sans-serif;
+	--font-body: "Atkinson", system-ui, sans-serif;
+
+	/* Reading measure. Generous enough for code blocks, narrow enough to read. */
+	--cd-measure: 68ch;
+	--cd-page-max: 1180px;
+
+	/*
+	  Focus ring. CyberCore ships focus-visible styles, but the ring colour is
+	  pinned here so every control across the theme agrees — cyan-500 is 13.7:1
+	  on the page background.
+	*/
+	--cd-focus: var(--cyber-cyan-500);
+}
+
+body {
+	font-family: var(--font-body);
+	background: var(--cyber-void-500);
+	color: var(--color-text-primary);
+	/* Sticky footer. dvh so mobile browser toolbars stop clipping the viewport. */
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.cd-display {
+	font-family: var(--font-display);
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	line-height: 1.15;
+	text-wrap: balance;
+}
+
+/*
+  CyberCore uppercases every heading. That reads well on short chrome labels but
+  badly on content: all-caps measurably slows reading, and it is worse again for
+  a multilingual blog — accented Latin loses its shape and some screen readers
+  spell out short all-caps runs letter by letter.
+
+  So: chrome labels stay uppercase (site brand, section headings, the eyebrow,
+  meta rows), and anything an author wrote keeps its own case.
+*/
+.cd-post-header__title,
+.cd-card__title,
+.cd-prose h1,
+.cd-prose h2,
+.cd-prose h3,
+.cd-prose h4,
+.cd-prose h5,
+.cd-prose h6 {
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+/* CyberCore's button doesn't clear the UA underline. */
+.cyber-btn {
+	text-decoration: none;
+}
+
+main {
+	flex: 1 1 auto;
+	width: 100%;
+	max-width: var(--cd-page-max);
+	margin-inline: auto;
+	padding: var(--space-xl) var(--space-sm);
+	box-sizing: border-box;
+}
+
+/*
+  One ring for every interactive element in the theme. Applies to links,
+  buttons, the locale select and the pagination input alike.
+*/
+:focus-visible {
+	outline: 2px solid var(--cd-focus);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* --------------------------------------------------------------- skip link */
+
+.cd-skip-link {
+	position: absolute;
+	left: var(--space-2xs);
+	top: var(--space-2xs);
+	z-index: calc(var(--z-sticky) + 1);
+	padding: var(--space-2xs) var(--space-sm);
+	font-family: var(--font-display);
+	font-size: var(--text-sm);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--cyber-void-900);
+	background: var(--cyber-cyan-500);
+	border-radius: var(--radius-md);
+	/* Moved off-screen rather than display:none so it stays focusable. */
+	transform: translateY(calc(-100% - var(--space-sm)));
+	transition: transform var(--duration-fast) ease-out;
+}
+.cd-skip-link:focus {
+	transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------- nav */
+
+.cd-nav-wrap {
+	position: sticky;
+	top: 0;
+	z-index: var(--z-sticky);
+}
+
+.cd-nav-inner {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	width: 100%;
+	max-width: var(--cd-page-max);
+	margin-inline: auto;
+}
+
+.cd-nav-links {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3xs);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cd-nav-tail {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	margin-left: auto;
+}
+
+/* --------------------------------------------------------------------- hero */
+
+.cd-hero {
+	padding: var(--space-xl) 0 var(--space-lg);
+	border-bottom: 1px solid var(--color-border-default);
+}
+
+.cd-hero__title {
+	margin: 0 0 var(--space-xs);
+	font-size: var(--text-4xl);
+	text-transform: uppercase;
+	color: var(--cyber-cyan-500);
+}
+
+.cd-hero__lede {
+	max-width: var(--cd-measure);
+	margin: 0;
+	font-size: var(--text-lg);
+	color: var(--color-text-secondary);
+}
+
+.cd-eyebrow {
+	display: block;
+	margin-bottom: var(--space-2xs);
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--cyber-magenta-500);
+}
+
+/* -------------------------------------------------------------- post cards */
+
+.cd-grid {
+	display: grid;
+	gap: var(--space-sm);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+	padding: 0;
+	margin: var(--space-lg) 0 0;
+	list-style: none;
+}
+
+.cd-card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
+.cd-card__media {
+	display: block;
+	aspect-ratio: 16 / 9;
+	margin: calc(-1 * var(--space-sm)) calc(-1 * var(--space-sm)) var(--space-xs);
+	overflow: hidden;
+	border-bottom: 1px solid var(--color-border-default);
+}
+
+.cd-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* Slight desaturation so the neon chrome stays the loudest thing on screen. */
+	filter: saturate(0.85) contrast(1.05);
+	transition: filter var(--duration-normal) ease;
+}
+
+.cd-card:hover .cd-card__media img {
+	filter: saturate(1.1) contrast(1.1);
+}
+
+.cd-card__title {
+	margin: 0 0 var(--space-3xs);
+	font-size: var(--text-lg);
+}
+
+.cd-card__title a {
+	color: var(--color-text-primary);
+	text-decoration: none;
+}
+
+.cd-card__title a:hover {
+	color: var(--cyber-cyan-500);
+}
+
+.cd-card__excerpt {
+	flex: 1 1 auto;
+	margin: 0 0 var(--space-xs);
+	font-size: var(--text-sm);
+	color: var(--color-text-secondary);
+}
+
+.cd-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2xs);
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------------- prose */
+
+.cd-article {
+	max-width: var(--cd-measure);
+	margin-inline: auto;
+}
+
+.cd-prose {
+	font-size: var(--text-base);
+	line-height: 1.75;
+}
+
+.cd-prose > * + * {
+	margin-top: var(--space-sm);
+}
+
+.cd-prose h2,
+.cd-prose h3,
+.cd-prose h4 {
+	margin-top: var(--space-lg);
+	color: var(--cyber-cyan-300);
+}
+
+.cd-prose h2 {
+	padding-bottom: var(--space-3xs);
+	font-size: var(--text-2xl);
+	border-bottom: 1px solid var(--color-border-default);
+}
+
+.cd-prose h3 {
+	font-size: var(--text-xl);
+}
+
+.cd-prose a {
+	color: var(--cyber-cyan-500);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.cd-prose a:hover {
+	color: var(--cyber-cyan-300);
+}
+
+.cd-prose img {
+	max-width: 100%;
+	height: auto;
+	border: 1px solid var(--color-border-default);
+	border-radius: var(--radius-md);
+}
+
+.cd-prose blockquote {
+	margin: var(--space-md) 0;
+	padding: var(--space-xs) var(--space-sm);
+	border-left: 3px solid var(--cyber-magenta-500);
+	background: var(--cyber-void-400);
+	color: var(--color-text-secondary);
+	font-style: normal;
+}
+
+.cd-prose code {
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+	padding: 0.15em 0.4em;
+	background: var(--cyber-void-200);
+	border: 1px solid var(--color-border-default);
+	border-radius: var(--radius-sm);
+}
+
+.cd-prose pre {
+	/* Wide code scrolls inside its own box; the page never scrolls sideways. */
+	overflow-x: auto;
+	padding: var(--space-sm);
+	background: var(--cyber-void-700);
+	border: 1px solid var(--color-border-default);
+	border-left: 3px solid var(--cyber-cyan-700);
+	border-radius: var(--radius-md);
+}
+
+.cd-prose pre code {
+	padding: 0;
+	background: none;
+	border: none;
+}
+
+.cd-prose ul,
+.cd-prose ol {
+	padding-left: 1.4em;
+}
+
+.cd-prose li + li {
+	margin-top: var(--space-3xs);
+}
+
+.cd-prose table {
+	display: block;
+	overflow-x: auto;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.cd-prose hr {
+	border: none;
+	border-top: 1px solid var(--color-border-default);
+}
+
+/* -------------------------------------------------------------- post header */
+
+.cd-post-header {
+	margin-bottom: var(--space-md);
+}
+
+.cd-post-header__title {
+	margin: var(--space-2xs) 0 var(--space-xs);
+	font-size: var(--text-3xl);
+}
+
+.cd-post-hero {
+	margin: var(--space-md) 0;
+	overflow: hidden;
+	border: 1px solid var(--color-border-default);
+	border-radius: var(--radius-cyber);
+}
+
+.cd-post-hero img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* --------------------------------------------------------------- ambient bg */
+
+/*
+  Ambient backdrop. Fixed, behind everything, non-interactive. The generated
+  CC0 data-cascade loop at low opacity plus a vignette. Hidden outright under
+  reduced motion — a frozen animation frame is just a dimmer page.
+*/
+.cd-ambient {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.cd-ambient__loop {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.07;
+}
+
+.cd-ambient__vignette {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		ellipse at 50% 0%,
+		transparent 0%,
+		var(--cyber-void-500) 78%
+	);
+}
+
+/* ------------------------------------------------------------- pagination */
+
+.cd-pagination {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2xs);
+	margin-top: var(--space-xl);
+	padding-top: var(--space-sm);
+	border-top: 1px solid var(--color-border-default);
+}
+
+.cd-pagination__gap {
+	padding: 0 var(--space-3xs);
+	font-family: var(--font-mono);
+	color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.cd-footer {
+	margin-top: var(--space-2xl);
+	padding: var(--space-lg) var(--space-sm);
+	border-top: 1px solid var(--color-border-default);
+	background: var(--cyber-void-400);
+}
+
+.cd-footer__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-xs);
+	max-width: var(--cd-page-max);
+	margin-inline: auto;
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------ lang switcher */
+
+.cd-lang {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-3xs);
+}
+
+.cd-lang__label {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+}
+
+.cd-lang__fallback {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3xs);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: var(--text-xs);
+}
+
+/* ------------------------------------------------------------------- utility */
+
+.cd-sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+.cd-stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.cd-empty {
+	padding: var(--space-lg);
+	text-align: center;
+	color: var(--color-text-muted);
+	border: 1px dashed var(--color-border-default);
+	border-radius: var(--radius-md);
+}
+
+/* --------------------------------------------------------- reduced motion */
+
+/*
+  CyberCore already honours the setting for its own components. This covers the
+  theme layer, and hides the ambient loop rather than leaving it frozen.
+*/
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	html {
+		scroll-behavior: auto !important;
+	}
+
+	.cd-ambient {
+		display: none !important;
+	}
+}
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 720px) {
+	.cd-nav-inner {
+		flex-wrap: wrap;
+		gap: var(--space-2xs);
+	}
+
+	.cd-nav-tail {
+		width: 100%;
+		margin-left: 0;
+		justify-content: space-between;
+	}
+
+	.cd-hero__title {
+		font-size: var(--text-3xl);
+	}
+}

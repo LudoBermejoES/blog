@@ -1,0 +1,58 @@
+---
+/**
+ * Post card for the home page and blog archive, on CyberCore's .cyber-card.
+ */
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import { type Locale, blogIdToSlugAnyLocale, localePath } from '@cyberdream/site-i18n/config';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  locale: Locale;
+  /** Reading time, in minutes, already resolved by the caller. */
+  readMinutes?: number;
+  readLabel: string;
+  /** Cards near the top of the first screen shouldn't be lazy-loaded. */
+  eager?: boolean;
+}
+
+const { post, locale, readMinutes, readLabel, eager = false } = Astro.props as Props;
+const href = localePath(locale, `/blog/${blogIdToSlugAnyLocale(post.id)}/`);
+const { title, description, pubDate, heroImage, heroImageAlt, tags } = post.data;
+---
+
+<li class="cyber-card cyber-card--interactive cd-card">
+  {
+    heroImage && (
+      <a class="cd-card__media" href={href} tabindex="-1" aria-hidden="true">
+        <Image
+          src={heroImage}
+          alt={heroImageAlt ?? ''}
+          width={640}
+          height={360}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      </a>
+    )
+  }
+
+  <p class="cd-meta">
+    <FormattedDate date={pubDate} locale={locale} />
+    {readMinutes !== undefined && <span>{readMinutes} {readLabel}</span>}
+  </p>
+
+  <h3 class="cd-card__title"><a href={href}>{title}</a></h3>
+  <p class="cd-card__excerpt">{description}</p>
+
+  {
+    tags && tags.length > 0 && (
+      <p class="cd-meta">
+        {tags.slice(0, 3).map((tag) => (
+          <span class="cyber-badge">{tag}</span>
+        ))}
+      </p>
+    )
+  }
+</li>

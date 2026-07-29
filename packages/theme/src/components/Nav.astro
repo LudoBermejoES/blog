@@ -1,0 +1,94 @@
+---
+/**
+ * Site navigation, built on CyberCore's .cyber-nav.
+ *
+ * Replaces the old Header + HeaderLink + CommonHeader trio.
+ */
+import { SITE_TITLE } from '@cyberdream/site-config/site';
+import { SOCIAL_LINKS } from '@cyberdream/site-config/social';
+import { THEME } from '@cyberdream/site-config/theme';
+import LangSwitcher from './shared/LangSwitcher.astro';
+import SocialMenu from './shared/SocialMenu.astro';
+import {
+  DEFAULT_LOCALE,
+  ENABLED_LOCALE_LABELS,
+  ENABLED_LOCALES,
+  type Locale,
+  alternatePathForLocale,
+  isLocale,
+  stripLocaleFromPath,
+} from '@cyberdream/site-i18n/config';
+import { getMessages } from '@cyberdream/site-i18n/messages';
+
+interface Props {
+  locale?: Locale;
+  /** Per-locale overrides, so a post links to its translation rather than the archive. */
+  localeHrefs?: Partial<Record<Locale, string>>;
+}
+
+const props = Astro.props as Props;
+const locale: Locale = props.locale && isLocale(props.locale) ? props.locale : DEFAULT_LOCALE;
+const messages = getMessages(locale);
+const showAbout = THEME.ABOUT_PAGE_ENABLED;
+
+const currentSubpath = stripLocaleFromPath(Astro.url.pathname, locale);
+const homeHref = alternatePathForLocale(locale, '/');
+const blogHref = alternatePathForLocale(locale, '/blog/');
+const aboutHref = alternatePathForLocale(locale, '/about/');
+
+/** Active when the current path is inside this section, not only an exact match. */
+const isActive = (subpath: string) =>
+  subpath === '/' ? currentSubpath === '/' : currentSubpath.startsWith(subpath);
+
+const links = [
+  { href: homeHref, label: messages.nav.home, active: isActive('/') },
+  { href: blogHref, label: messages.nav.blog, active: isActive('/blog') },
+  ...(showAbout
+    ? [{ href: aboutHref, label: messages.nav.about, active: isActive('/about') }]
+    : []),
+];
+
+const buildLocaleHref = (targetLocale: Locale) => {
+  const sectionSubpath =
+    currentSubpath.startsWith('/about') && !showAbout ? '/' : currentSubpath || '/';
+  return alternatePathForLocale(targetLocale, sectionSubpath);
+};
+const localeOptions = ENABLED_LOCALES.map((targetLocale) => ({
+  locale: targetLocale,
+  label: ENABLED_LOCALE_LABELS[targetLocale],
+  href: props.localeHrefs?.[targetLocale] ?? buildLocaleHref(targetLocale),
+}));
+---
+
+<div class="cd-nav-wrap">
+  <nav class="cyber-nav" aria-label={messages.nav.primaryNavAria}>
+    <div class="cd-nav-inner">
+      <a class="cyber-nav__brand" href={homeHref}>{SITE_TITLE}</a>
+
+      <ul class="cd-nav-links">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                class:list={['cyber-nav__link', { 'cyber-nav__link--active': link.active }]}
+                href={link.href}
+                aria-current={link.active ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="cd-nav-tail">
+        <LangSwitcher
+          label={messages.langLabel}
+          currentLocale={locale}
+          options={localeOptions}
+        />
+        {SOCIAL_LINKS.length > 0 && <SocialMenu links={SOCIAL_LINKS} tone="header" gap="0.6rem" />}
+      </div>
+    </div>
+  </nav>
+</div>

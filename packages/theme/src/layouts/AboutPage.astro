@@ -1,0 +1,123 @@
+---
+/**
+ * About page.
+ *
+ * The old version was a 367-line site page driving a fake terminal with modals,
+ * a decryptor animation, a keyboard-shortcut layer and a sidebar of dummy
+ * scripts — around 1,400 lines of JS behind it. This is the same content as
+ * readable sections, so it lives in the theme and the site page stays thin.
+ */
+import CyberdreamShell from './CyberdreamShell.astro';
+import { SITE_AUTHOR } from '@cyberdream/site-config/site';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '@cyberdream/site-i18n/config';
+import { getMessages } from '@cyberdream/site-i18n/messages';
+
+/**
+ * Only the fields this page renders. Declared structurally because the generated
+ * config barrel re-exports getAboutConfig but not the AboutConfig type, and the
+ * theme should not reach into the site's schema file directly.
+ */
+interface AboutContent {
+  metaLine: string;
+  sections: {
+    who: string;
+    what: string;
+    ethos: string[];
+    now: string;
+    contactLead: string;
+    signature: string;
+  };
+  contact: { email: string; githubUrl: string; githubLabel: string };
+  labels: { contactEmailLead: string; contactConnectLead: string; contactEmailLabel: string };
+}
+
+interface Props {
+  locale?: Locale;
+  about: AboutContent;
+  localeHrefs?: Partial<Record<Locale, string>>;
+}
+
+const rawLocale = Astro.props.locale ?? DEFAULT_LOCALE;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+const { about, localeHrefs } = Astro.props as Props;
+const messages = getMessages(locale);
+
+/*
+  Ordered 01..05. Ethos is a list rather than a paragraph, so it renders
+  separately below — but it is section 03, so `now` must not be grouped with the
+  paragraph sections or the page numbers itself 01, 02, 04, 03.
+*/
+const leadSections = [
+  { n: '01', title: messages.about.who, body: about.sections.who },
+  { n: '02', title: messages.about.what, body: about.sections.what },
+];
+const nowSection = { n: '04', title: messages.about.now, body: about.sections.now };
+---
+
+<CyberdreamShell
+  locale={locale}
+  title={messages.about.title}
+  description={messages.about.description}
+  localeHrefs={localeHrefs}
+  bodyClass="cd-page-about"
+  ambient
+>
+  <article class="cd-article">
+    <header class="cd-hero">
+      <span class="cd-eyebrow">{about.metaLine}</span>
+      <h1 class="cd-hero__title">{messages.about.title}</h1>
+      <p class="cd-hero__lede">{messages.about.description}</p>
+    </header>
+
+    <div class="cd-prose">
+      {
+        leadSections.map((section) => (
+          <section>
+            <h2>
+              {section.n} / {section.title}
+            </h2>
+            <p>{section.body}</p>
+          </section>
+        ))
+      }
+
+      <section>
+        <h2>03 / {messages.about.ethos}</h2>
+        <ul>
+          {about.sections.ethos.map((line: string) => <li>{line}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>
+          {nowSection.n} / {nowSection.title}
+        </h2>
+        <p>{nowSection.body}</p>
+      </section>
+
+      <section>
+        <h2>05 / {messages.about.contact}</h2>
+        {/*
+          Explicit {' '} between every text run and inline link. Astro 7's
+          compressHTML: 'jsx' default drops whitespace-only line breaks between
+          expressions, which otherwise joins these into one word.
+        */}
+        <p>
+          {about.sections.contactLead}{' '}
+          {about.labels.contactEmailLead}{' '}
+          <a href={`mailto:${about.contact.email}`}>{about.labels.contactEmailLabel}</a>{' '}
+          {about.labels.contactConnectLead}{' '}
+          <a href={about.contact.githubUrl} target="_blank" rel="noopener noreferrer">
+            {about.contact.githubLabel}
+          </a>.
+        </p>
+      </section>
+
+      <blockquote>{about.sections.signature}</blockquote>
+    </div>
+
+    <p class="cd-meta" style="margin-top: var(--space-lg);">
+      <span>{SITE_AUTHOR}</span>
+    </p>
+  </article>
+</CyberdreamShell>

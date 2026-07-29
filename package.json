@@ -22,24 +22,25 @@
     "check:workspace-link": "node scripts/check-workspace-link.mjs",
     "check:adapters": "node scripts/check-adapter-contract.mjs && node scripts/sync-adapters.mjs --check",
     "check:fonts": "node scripts/check-font-assets.mjs",
-    "check:about-runtime": "npm run build && node scripts/check-about-runtime-config.mjs",
-    "check:no-build": "npm run check:workspace-link && npm run check:adapters && npm run check:fonts && astro check",
+    "check:no-build": "npm run check:workspace-link && npm run check:adapters && npm run check:fonts && npm run check:scaffold && astro check",
     "sync-adapters": "node scripts/sync-adapters.mjs",
     "doctor": "npm run check:adapters && npm run check",
-    "check": "npm run check:no-build && npm run check:about-runtime",
+    "check": "npm run check:no-build",
     "assets:monitor": "node scripts/generate-monitor-assets.mjs",
     "assets:favicon": "node scripts/generate-favicon-ico.mjs",
     "preview": "astro preview",
-    "new-post": "anglefeint-new-post",
-    "new-page": "anglefeint-new-page",
-    "astro": "astro"
+    "new-post": "cyberdream-new-post",
+    "new-page": "cyberdream-new-page",
+    "astro": "astro",
+    "check:scaffold": "node scripts/check-scaffold.mjs"
   },
   "dependencies": {
-    "@anglefeint/astro-theme": "workspace:*",
+    "@cyberdream/astro-theme": "workspace:*",
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.1.5",
+    "cybercore-css": "^0.3.0",
     "sharp": "^0.35.3"
   },
   "devDependencies": {

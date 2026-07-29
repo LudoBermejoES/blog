@@ -1,5 +1,5 @@
 ---
-title: 'Anglefeint Starter Guide 2: Languages and Routing'
+title: 'Cyberdream Starter Guide 2: Languages and Routing'
 subtitle: 'default locale、fallback、URL ルール'
 description: '単一の locale registry から routing、labels、fallback、messages、hero、About content を管理します。'
 pubDate: '2026-03-07'

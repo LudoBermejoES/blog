@@ -1,16 +1,14 @@
 {
-  "name": "@anglefeint/astro-theme",
+  "name": "@cyberdream/astro-theme",
   "version": "0.2.11",
   "type": "module",
-  "description": "Anglefeint core theme package for Astro",
+  "description": "Cyberdream theme for Astro, built on CYBERCORE CSS",
   "keywords": [
     "astro",
     "astro-theme",
     "blog",
-    "portfolio",
     "cyberpunk",
-    "hacker",
-    "matrix"
+    "cybercore"
   ],
   "license": "MIT",
   "engines": {
@@ -23,7 +21,6 @@
     "src/components",
     "src/layouts",
     "src/scaffold",
-    "src/scripts",
     "src/i18n",
     "src/styles",
     "src/utils",
@@ -32,25 +29,24 @@
     "src/cli-new-page.mjs"
   ],
   "bin": {
-    "anglefeint-new-post": "src/cli-new-post.mjs",
-    "anglefeint-new-page": "src/cli-new-page.mjs"
+    "cyberdream-new-post": "src/cli-new-post.mjs",
+    "cyberdream-new-page": "src/cli-new-page.mjs"
   },
   "exports": {
     ".": "./src/index.ts",
     "./components/*": "./src/components/*",
     "./layouts/*": "./src/layouts/*",
-    "./scripts/*": "./src/scripts/*",
     "./i18n/*": "./src/i18n/*",
     "./styles/*": "./src/styles/*",
     "./assets/*": "./src/assets/*",
     "./utils/merge": "./src/utils/merge.ts",
     "./utils/number": "./src/utils/number.ts",
     "./utils/pagination": "./src/utils/pagination.ts",
-    "./utils/pagination-style": "./src/utils/pagination-style.ts",
     "./utils/*": "./src/utils/*",
     "./content-schema": "./src/content-schema.ts"
   },
   "peerDependencies": {
-    "astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
+    "astro": "^5.0.0 || ^6.0.0 || ^7.0.0",
+    "cybercore-css": "^0.3.0"
   }
 }

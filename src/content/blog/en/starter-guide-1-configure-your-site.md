@@ -1,12 +1,12 @@
 ---
-title: 'Anglefeint Starter Guide 1: Configure Your Site'
+title: 'Cyberdream Starter Guide 1: Configure Your Site'
 subtitle: 'The first fields to edit after creating a starter project'
 description: 'Start with the real user-facing entry: site identity, social links, the About toggle, and replacing starter posts.'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/cyber-02.webp'
 ---
 
-If you created your project from the Anglefeint starter, begin in `src/site.config.ts`.
+If you created your project from the Cyberdream starter, begin in `src/site.config.ts`.
 
 That file is the main user-facing configuration entry. You do not need to chase settings across `src/config/*` or `src/i18n/*`.
 

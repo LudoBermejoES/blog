@@ -9,7 +9,7 @@ import { SITE_URL } from './src/config/site';
 
 const THEME_DEFAULT_I18N_LOCAL = './packages/theme/src/i18n/messages.ts';
 const THEME_DEFAULT_I18N_NODE_MODULES =
-  './node_modules/@anglefeint/astro-theme/src/i18n/messages.ts';
+  './node_modules/@cyberdream/astro-theme/src/i18n/messages.ts';
 const themeDefaultI18nEntry = existsSync(
   fileURLToPath(new URL(THEME_DEFAULT_I18N_LOCAL, import.meta.url))
 )
@@ -22,9 +22,9 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@anglefeint/site-config': fileURLToPath(new URL('./src/config', import.meta.url)),
-        '@anglefeint/site-i18n': fileURLToPath(new URL('./src/i18n', import.meta.url)),
-        '@anglefeint/theme-default-i18n': fileURLToPath(
+        '@cyberdream/site-config': fileURLToPath(new URL('./src/config', import.meta.url)),
+        '@cyberdream/site-i18n': fileURLToPath(new URL('./src/i18n', import.meta.url)),
+        '@cyberdream/theme-default-i18n': fileURLToPath(
           new URL(themeDefaultI18nEntry, import.meta.url)
         ),
       },

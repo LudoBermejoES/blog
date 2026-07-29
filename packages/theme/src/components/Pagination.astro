@@ -1,0 +1,71 @@
+---
+/**
+ * Archive pagination, on CyberCore's .cyber-btn. Replaces CyberPagination.
+ *
+ * Reuses the existing buildPaginationModel util, so the windowing and ellipsis
+ * logic is unchanged — only the markup and styling are new.
+ */
+import type { PaginationModel } from '../utils/pagination';
+
+interface Props {
+  model: PaginationModel;
+  /** Builds the href for a page number. */
+  hrefFor: (page: number) => string;
+  labels: {
+    previous: string;
+    next: string;
+    paginationAria: string;
+    pageLabel: string;
+  };
+}
+
+const { model, hrefFor, labels } = Astro.props as Props;
+const { currentPage, totalPages, items } = model;
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+---
+
+{
+  totalPages > 1 && (
+    <nav class="cd-pagination" aria-label={labels.paginationAria}>
+      {hasPrev ? (
+        <a class="cyber-btn cyber-btn--sm" href={hrefFor(currentPage - 1)} rel="prev">
+          {labels.previous}
+        </a>
+      ) : (
+        <span class="cyber-btn cyber-btn--sm" aria-disabled="true">
+          {labels.previous}
+        </span>
+      )}
+
+      {items.map((item) =>
+        item.kind === 'ellipsis' ? (
+          <span class="cd-pagination__gap" aria-hidden="true">
+            …
+          </span>
+        ) : item.page === currentPage ? (
+          /* The current page is not a link — there is nowhere to go. */
+          <span class="cyber-btn cyber-btn--sm cyber-btn--filled" aria-current="page">
+            <span class="cd-sr-only">{labels.pageLabel}</span>
+            {item.page}
+          </span>
+        ) : (
+          <a class="cyber-btn cyber-btn--sm" href={hrefFor(item.page)}>
+            <span class="cd-sr-only">{labels.pageLabel}</span>
+            {item.page}
+          </a>
+        )
+      )}
+
+      {hasNext ? (
+        <a class="cyber-btn cyber-btn--sm" href={hrefFor(currentPage + 1)} rel="next">
+          {labels.next}
+        </a>
+      ) : (
+        <span class="cyber-btn cyber-btn--sm" aria-disabled="true">
+          {labels.next}
+        </span>
+      )}
+    </nav>
+  )
+}

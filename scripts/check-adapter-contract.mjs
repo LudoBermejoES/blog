@@ -8,16 +8,16 @@ import { REQUIRED_ADAPTER_TARGET_FILES } from './starter-manifest.mjs';
 const execFileAsync = promisify(execFile);
 
 const REQUIRED_VITE_ALIASES = [
-  '@anglefeint/site-config',
-  '@anglefeint/site-i18n',
-  '@anglefeint/theme-default-i18n',
+  '@cyberdream/site-config',
+  '@cyberdream/site-i18n',
+  '@cyberdream/theme-default-i18n',
 ];
 const REQUIRED_TSCONFIG_PATHS = [
-  '@anglefeint/site-config',
-  '@anglefeint/site-config/*',
-  '@anglefeint/site-i18n',
-  '@anglefeint/site-i18n/*',
-  '@anglefeint/theme-default-i18n',
+  '@cyberdream/site-config',
+  '@cyberdream/site-config/*',
+  '@cyberdream/site-i18n',
+  '@cyberdream/site-i18n/*',
+  '@cyberdream/theme-default-i18n',
 ];
 
 async function fileExists(filePath) {

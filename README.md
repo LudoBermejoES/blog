@@ -1,21 +1,42 @@
-<h1 align="center">Anglefeint</h1>
-<p align="center">A cinematic, multi-atmosphere Astro theme for personal publishing.</p>
+<h1 align="center">cyberdream</h1>
+<p align="center">A cyberpunk Astro blog theme built on CYBERCORE CSS.</p>
 
 <p align="center">
-  <a href="https://demo.anglefeint.com/">Live Demo</a>
-  ·
-  <a href="https://github.com/anglefeint/astro-theme-anglefeint">Repository</a>
-  ·
-  <a href="ASTRO_THEME_LISTING.md">Theme Listing</a>
-</p>
-
-<p align="center">
-  <img alt="Astro" src="https://img.shields.io/badge/Astro-6.1.3-BC52EE?logo=astro&logoColor=white" />
+  <img alt="Astro" src="https://img.shields.io/badge/Astro-7.1.5-BC52EE?logo=astro&logoColor=white" />
   <img alt="Node" src="https://img.shields.io/badge/Node.js-22.12%2B-339933?logo=node.js&logoColor=white" />
-  <img alt="Locales" src="https://img.shields.io/badge/i18n-en%20%7C%20ja%20%7C%20ko%20%7C%20es%20%7C%20zh-0A7EA4" />
-  <img alt="Deployment" src="https://img.shields.io/badge/Deploy-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white" />
+  <img alt="Locales" src="https://img.shields.io/badge/i18n-en%20%7C%20es%20%7C%20ja%20%7C%20ko%20%7C%20zh%20%7C%20eo-0A7EA4" />
   <img alt="License" src="https://img.shields.io/badge/License-MIT-2EA043" />
 </p>
+
+## The theme
+
+`cyberdream` is a refurbish of the upstream Anglefeint theme, rebuilt on
+[**CYBERCORE CSS**](https://github.com/sebyx07/cybercore-css) (MIT, © 2026
+sebyx07), which supplies the design tokens, components and CSS-only effects.
+It is installed as an ordinary npm dependency rather than vendored, so it stays
+updatable and its licence travels with it.
+
+The theme layer on top lives in one file,
+`packages/theme/src/styles/cyberdream.css`, and adds only what a reading-first
+blog needs: self-hosted fonts, prose typography, the card and archive grids, and
+a few chrome details. CyberCore wraps its rules in `@layer`, so the theme layer
+is unlayered and wins without a single `!important`.
+
+What the refurbish changed structurally:
+
+- **Five atmosphere shells became one.** `Ai`, `Base`, `Cyber`, `Hacker` and
+  `Matrix` shells, each with its own stylesheet, collapsed into
+  `CyberdreamShell`. One surface is far easier to keep accessible and coherent.
+- **All bespoke effect JS is gone** — 16 script files covering canvas
+  animations, modal systems, a fake decryptor and a read-progress bar. CyberCore
+  is CSS-only, so a page now ships exactly one inline script: the locale
+  switcher. 21 bespoke stylesheets became one.
+- **Headings keep their case.** CyberCore uppercases every heading, which reads
+  well on short chrome labels and badly on content — all-caps measurably slows
+  reading and is worse again across six languages, where accented Latin loses
+  its shape. Chrome labels stay uppercase; anything an author wrote does not.
+- **`new-page` lost its `--theme` flag**, since there is one shell. Passing it
+  errors rather than being silently ignored.
 
 ## This Deployment
 
@@ -27,7 +48,7 @@ declares the origin, and `astro.config.mjs` reads it as `site`.
 Two things worth knowing before you change them:
 
 - **The theme lives in `packages/theme/` as an npm workspace**, not in
-  `node_modules`. Edit it there. `npm update @anglefeint/astro-theme` will *not*
+  `node_modules`. Edit it there. `npm update @cyberdream/astro-theme` will *not*
   update it — the workspace link wins, which is the point.
 - **TypeScript is held at `6.x` deliberately.** `npm outdated` will keep
   offering 7.x; taking it breaks `npm run check`. TypeScript 7's native compiler
@@ -48,11 +69,17 @@ The starter shipped **"Matrix Code NFI"** for the home-page code rain. It is
 proprietary (© 2003 Norfok Inc. Font Design) and its embedded licence forbids
 redistribution outright — *"copying of the product even if modified, merged, or
 included with other software … is expressly forbidden"* — which is what serving
-it from this domain did. Removed. The canvas effect is the theme's own code and
-still runs; its glyph set is plain ASCII, so it now draws in the platform
-monospace stack.
+it from this domain did. Removed. The code-rain canvas it styled is also gone — the refurbish
+dropped all bespoke effect JS in favour of CyberCore's CSS-only effects.
 
-**Atkinson Hyperlegible** is kept and is explicitly clear: *"free of charge for
+**Rajdhani** provides the display face (headings, nav, labels). OFL-1.1,
+© 2014 Indian Type Foundry, verified against `google/fonts` before use;
+redistribution is explicitly permitted and the licence text ships alongside it
+at `public/fonts/Rajdhani-OFL.txt`. Latin subset only, with a matching
+`unicode-range`, so Japanese, Korean and Chinese headings fall through to the
+system stack rather than rendering in a font with no glyphs for them.
+
+**Atkinson Hyperlegible** is kept for body prose and is explicitly clear: *"free of charge for
 all non-commercial and commercial work. No attribution required."* (Braille
 Institute of America). It is used unaltered, as that licence requires.
 
@@ -86,13 +113,13 @@ switch until those helpers are made base-aware.
 ## Template Install
 
 ```bash
-npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+npm create astro@latest -- --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 Or with `pnpm`:
 
 ```bash
-pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+pnpm create astro@latest --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 ## Requirements
@@ -137,7 +164,7 @@ pnpm preview
 For package updates in projects created from `#starter`, start with:
 
 ```bash
-npm update @anglefeint/astro-theme
+npm update @cyberdream/astro-theme
 npm install
 npm run doctor
 # if doctor reports adapter drift:
@@ -148,7 +175,7 @@ npm run build
 
 If release notes mention starter-side contract changes, pull those changes into your project as well. `npm update` alone only updates the published package.
 
-If your custom code still imports `src/consts` or `@anglefeint/astro-theme/consts`, migrate to `src/config/site.ts`.
+If your custom code still imports `src/consts` or `@cyberdream/astro-theme/consts`, migrate to `src/config/site.ts`.
 
 For Astro major-version migrations, follow the official Astro guide first:
 
@@ -170,7 +197,7 @@ Optional locale override:
 ```bash
 npm run new-post -- my-first-post --locales en,fr
 # or
-ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+CYBERDREAM_LOCALES=en,fr npm run new-post -- my-first-post
 ```
 
 How URL works:
@@ -185,22 +212,15 @@ How URL works:
 `new-post` creates blog content only. For custom pages, use:
 
 ```bash
-npm run new-page -- projects --theme base
+npm run new-page -- projects
 ```
 
-Available themes: `base`, `ai`, `cyber`, `hacker`, `matrix`.
-The command creates `src/pages/[lang]/projects.astro` with locale routes via `getStaticPaths()`.
-Slug rule: lowercase letters, numbers, and hyphens only; nested paths are allowed (example: `projects/labs`). `_` and uppercase are invalid.
+The command creates `src/pages/[lang]/projects.astro` with locale routes via
+`getStaticPaths()`. Slug rule: lowercase letters, numbers, and hyphens only;
+nested paths are allowed (example: `projects/labs`). `_` and uppercase are
+invalid.
 
-Examples:
-
-```bash
-npm run new-page -- projects --theme base
-npm run new-page -- projects --theme ai
-npm run new-page -- projects --theme cyber
-npm run new-page -- projects --theme hacker
-npm run new-page -- projects --theme matrix
-```
+There is no `--theme` flag: cyberdream has a single shell.
 
 ## Languages
 

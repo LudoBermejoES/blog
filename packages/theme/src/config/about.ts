@@ -41,7 +41,7 @@ export const ABOUT_CONFIG = {
       lines: [
         '~ $ ai --status --verbose',
         '',
-        'model: anglefeint-core',
+        'model: cyberdream-core',
         'mode: reasoning + builder',
         'context window: 128k',
         'tools: codex / cursor / claude-code',

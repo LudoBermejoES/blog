@@ -74,16 +74,16 @@ function validateReadmeBranchPolicy(files, branch) {
     if (!text.includes('#starter')) {
       issues.push(`${file}: missing '#starter' template install reference`);
     }
-    if (!text.includes('npm update @anglefeint/astro-theme')) {
-      issues.push(`${file}: missing theme upgrade command 'npm update @anglefeint/astro-theme'`);
+    if (!text.includes('npm update @cyberdream/astro-theme')) {
+      issues.push(`${file}: missing theme upgrade command 'npm update @cyberdream/astro-theme'`);
     }
 
     const wrongNpm =
-      /npm create astro@latest -- --template anglefeint\/astro-theme-anglefeint(?!#starter)/.test(
+      /npm create astro@latest -- --template cyberdream\/astro-theme-cyberdream(?!#starter)/.test(
         text
       );
     const wrongPnpm =
-      /pnpm create astro@latest --template anglefeint\/astro-theme-anglefeint(?!#starter)/.test(
+      /pnpm create astro@latest --template cyberdream\/astro-theme-cyberdream(?!#starter)/.test(
         text
       );
     if (wrongNpm || wrongPnpm) {

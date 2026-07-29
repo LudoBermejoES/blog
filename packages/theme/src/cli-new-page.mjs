@@ -5,7 +5,6 @@ import { constants } from 'node:fs';
 import path from 'node:path';
 import {
   buildNewPageTemplate,
-  isValidNewPageTheme,
   parseNewPageArgs,
   usageNewPage,
   validatePageSlug,
@@ -29,8 +28,14 @@ async function main() {
     process.exit(0);
   }
 
-  const { slug, theme: rawTheme } = parseNewPageArgs(process.argv);
-  const theme = String(rawTheme || '').toLowerCase();
+  const { slug, removedThemeFlag } = parseNewPageArgs(process.argv);
+
+  if (removedThemeFlag) {
+    console.error(
+      '--theme was removed: cyberdream has a single shell (CyberdreamShell). Drop the flag.'
+    );
+    process.exit(1);
+  }
 
   if (!slug) {
     console.error(usageNewPage());
@@ -42,11 +47,6 @@ async function main() {
     );
     process.exit(1);
   }
-  if (!isValidNewPageTheme(theme)) {
-    console.error('Invalid theme. Use one of: base, cyber, ai, hacker, matrix.');
-    process.exit(1);
-  }
-
   const targetPath = path.join(PAGES_ROOT, `${slug}.astro`);
 
   if (await exists(targetPath)) {
@@ -56,10 +56,9 @@ async function main() {
 
   const targetDir = path.dirname(targetPath);
   await mkdir(targetDir, { recursive: true });
-  await writeFile(targetPath, buildNewPageTemplate({ slug, theme }), 'utf8');
+  await writeFile(targetPath, buildNewPageTemplate({ slug }), 'utf8');
 
   console.log(`Created page: ${targetPath}`);
-  console.log(`Theme: ${theme}`);
   console.log('This route is generated for all locales via getStaticPaths().');
 }
 

@@ -1,12 +1,12 @@
 ---
-title: 'Anglefeint Starter Guide 2：配置多语言与路由'
+title: 'Cyberdream Starter Guide 2：配置多语言与路由'
 subtitle: '默认语言、fallback 和 URL 结构怎么工作'
 description: '用 src/site.config.ts 里的单一 locale registry 驱动路由、标签、fallback、messages、hero 和 About 内容。'
 pubDate: '2026-03-07'
 heroImage: '../../../assets/blog/default-covers/cyber-03.webp'
 ---
 
-Anglefeint 把多语言入口统一收敛在 `src/site.config.ts`。
+Cyberdream 把多语言入口统一收敛在 `src/site.config.ts`。
 
 路由、语言标签、fallback、界面文案、首页 hero 文案，以及 About 内容，都从这一个 registry 派生。
 

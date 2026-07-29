@@ -1,10 +1,10 @@
-<h1 align="center">Anglefeint</h1>
+<h1 align="center">Cyberdream</h1>
 <p align="center">映画的な表現と複数の雰囲気を持つ Astro テーマです。</p>
 
 <p align="center">
-  <a href="https://demo.anglefeint.com/">デモ</a>
+  <a href="https://demo.cyberdream.com/">デモ</a>
   ·
-  <a href="https://github.com/anglefeint/astro-theme-anglefeint">リポジトリ</a>
+  <a href="https://github.com/cyberdream/astro-theme-cyberdream">リポジトリ</a>
   ·
   <a href="ASTRO_THEME_LISTING.md">テーマ掲載文案</a>
 </p>
@@ -20,13 +20,13 @@
 ## テンプレートの導入
 
 ```bash
-npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+npm create astro@latest -- --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 `pnpm` を使う場合:
 
 ```bash
-pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+pnpm create astro@latest --template cyberdream/astro-theme-cyberdream#starter
 ```
 
 ## 動作要件
@@ -71,7 +71,7 @@ pnpm preview
 `#starter` から作成したプロジェクトで package 側の更新を取り込むときは、まず次を実行します:
 
 ```bash
-npm update @anglefeint/astro-theme
+npm update @cyberdream/astro-theme
 npm install
 npm run doctor
 # doctor が adapter 差分を報告した場合:
@@ -82,7 +82,7 @@ npm run build
 
 release note に starter 側 contract の変更がある場合は、その差分もプロジェクトへ取り込んでください。`npm update` だけで更新されるのは公開 package 側だけです。
 
-カスタムコードが `src/consts` または `@anglefeint/astro-theme/consts` を参照している場合は、`src/config/site.ts` へ移行してください。
+カスタムコードが `src/consts` または `@cyberdream/astro-theme/consts` を参照している場合は、`src/config/site.ts` へ移行してください。
 
 Astro のメジャーアップグレードは、まず公式ガイドを参照してください:
 
@@ -104,7 +104,7 @@ Slug ルール: 小文字英字・数字・ハイフンのみを使用してく�
 ```bash
 npm run new-post -- my-first-post --locales en,fr
 # または
-ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+CYBERDREAM_LOCALES=en,fr npm run new-post -- my-first-post
 ```
 
 URL のルール:

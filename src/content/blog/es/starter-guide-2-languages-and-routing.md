@@ -1,5 +1,5 @@
 ---
-title: 'Anglefeint Starter Guide 2: Languages and Routing'
+title: 'Cyberdream Starter Guide 2: Languages and Routing'
 subtitle: 'default locale, fallback y reglas de URL'
 description: 'El registro único de locales controla routing, labels, fallback, messages, hero y About content.'
 pubDate: '2026-03-07'

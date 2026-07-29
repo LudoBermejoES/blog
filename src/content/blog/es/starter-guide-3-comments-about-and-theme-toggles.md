@@ -1,5 +1,5 @@
 ---
-title: 'Anglefeint Starter Guide 3: Comments, About, and Toggles'
+title: 'Cyberdream Starter Guide 3: Comments, About, and Toggles'
 subtitle: 'Giscus, About, pagination y efectos del post'
 description: 'Las opciones avanzadas que hoy sí están activas son Giscus comments, About content, Red Queen effect, home counts y pagination.'
 pubDate: '2026-03-07'
