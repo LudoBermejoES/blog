@@ -433,6 +433,33 @@ main {
 	border-top: 1px solid var(--color-border-default);
 }
 
+/* --------------------------------------------------------------- about body */
+
+/*
+  Section numbers as a CSS counter rather than literal text in the Markdown.
+  The author writes `## Quién soy`; the `01 /` prefix follows automatically, so
+  inserting a section never means renumbering six translated files by hand.
+  decimal-leading-zero gives 01, 02 … which is the look this replaces.
+*/
+.cd-about-body {
+	counter-reset: cd-about-section;
+}
+
+.cd-about-body h2 {
+	counter-increment: cd-about-section;
+}
+
+.cd-about-body h2::before {
+	/*
+	  The `/ ""` is CSS Content Level 3 alt text: it gives the generated content
+	  an empty alternative so assistive tech announces "Quién soy" rather than
+	  "zero one slash Quién soy". Browsers without support just read the digits,
+	  which is a cosmetic annoyance rather than a barrier.
+	*/
+	content: counter(cd-about-section, decimal-leading-zero) " / " / "";
+	color: var(--cyber-magenta-500);
+}
+
 /* -------------------------------------------------------------- post header */
 
 .cd-post-header {

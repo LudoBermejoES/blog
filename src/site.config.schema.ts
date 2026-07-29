@@ -9,76 +9,6 @@ export interface SocialLink {
   icon?: 'mastodon' | 'twitter' | 'github';
 }
 
-export interface AboutConfig {
-  metaLine: string;
-  sections: {
-    who: string;
-    what: string;
-    ethos: string[];
-    now: string;
-    contactLead: string;
-    signature: string;
-  };
-  contact: {
-    email: string;
-    githubUrl: string;
-    githubLabel: string;
-  };
-  sidebar: {
-    dlData: string;
-    ai: string;
-    decryptor: string;
-    help: string;
-    allScripts: string;
-  };
-  scriptsPath: string;
-  labels: {
-    modalOutput: string;
-    modalClose: string;
-    responseOutput: string;
-    contactEmailLead: string;
-    contactConnectLead: string;
-    backToTop: string;
-    quickAccess: string;
-    contactEmailLabel: string;
-  };
-  modals: {
-    dlData: {
-      title: string;
-      subtitle: string;
-    };
-    ai: {
-      title: string;
-      lines: string[];
-    };
-    decryptor: {
-      title: string;
-      header: string;
-      keysLabel: string;
-      currentPassphraseLabel: string;
-      masterKeyLabel: string;
-      transientKeyLabel: string;
-    };
-    help: {
-      title: string;
-      statsLabel: string;
-      typedPrefix: string;
-      typedSuffix: string;
-    };
-    allScripts: {
-      title: string;
-    };
-  };
-  effects: {
-    backgroundLines: string[];
-    scrollToasts: {
-      p30: string;
-      p60: string;
-      p90: string;
-    };
-  };
-}
-
 export interface ThemeConfig {
   site: {
     title: string;
@@ -148,7 +78,6 @@ export interface LocaleSiteConfig {
 export interface LocaleConfig {
   meta: LocaleMetaConfig;
   site?: LocaleSiteConfig;
-  about?: DeepPartial<AboutConfig>;
   messages?: DeepPartial<Messages>;
 }
 
@@ -172,7 +101,6 @@ export interface NormalizedLocaleConfig {
   site: {
     hero?: string;
   };
-  about?: DeepPartial<AboutConfig>;
   messages?: DeepPartial<Messages>;
 }
 

@@ -1,17 +1,48 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
 import AboutPage from '@cyberdream/astro-theme/layouts/AboutPage.astro';
-import { getAboutConfig } from '../../config/about';
 import { THEME } from '../../config/theme';
 import { ENABLED_LOCALES, type Locale, DEFAULT_LOCALE, isLocale } from '../../i18n/config';
 
-export const getStaticPaths = (() => {
+export const getStaticPaths = (async () => {
   if (!THEME.ABOUT_PAGE_ENABLED) return [];
-  return ENABLED_LOCALES.map((locale) => ({ params: { lang: locale } }));
+
+  const entries = await getCollection('about');
+  const byLocale = new Map(entries.map((entry) => [entry.id, entry]));
+
+  /*
+    Every enabled locale gets a route even when its own entry does not exist yet,
+    falling back to the default locale and then to whatever exists. A single
+    untranslated page is better served in another language than 404ing, and the
+    layout tells the reader which language they are actually reading — unlike
+    posts, where a missing translation simply removes the post from that locale.
+  */
+  const fallback = byLocale.get(DEFAULT_LOCALE) ?? entries[0];
+  if (!fallback) return [];
+
+  return ENABLED_LOCALES.map((locale) => {
+    const entry = byLocale.get(locale) ?? fallback;
+    return {
+      params: { lang: locale },
+      props: { locale, entry, isFallback: entry.id !== locale },
+    };
+  });
 }) satisfies GetStaticPaths;
 
-const raw = Astro.params.lang ?? DEFAULT_LOCALE;
+const { entry, isFallback } = Astro.props;
+const raw = Astro.props.locale ?? Astro.params.lang ?? DEFAULT_LOCALE;
 const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
+const { Content } = await render(entry);
 ---
 
-<AboutPage locale={locale} about={getAboutConfig(locale)} />
+<AboutPage
+  locale={locale}
+  title={entry.data.title}
+  description={entry.data.description}
+  metaLine={entry.data.metaLine}
+  signature={entry.data.signature}
+  fallbackFrom={isFallback ? entry.id : undefined}
+>
+  <Content />
+</AboutPage>

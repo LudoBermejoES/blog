@@ -5,7 +5,6 @@
 import { defineThemeConfig } from './site.config.defaults.ts';
 
 export type {
-  AboutConfig,
   LocaleCode,
   LocaleConfig,
   LocaleMetaConfig,
@@ -16,7 +15,7 @@ export type {
   ThemeConfig,
   ThemeI18nConfig,
 } from './site.config.schema.ts';
-export { DEFAULT_ABOUT_CONFIG, defineThemeConfig } from './site.config.defaults.ts';
+export { defineThemeConfig } from './site.config.defaults.ts';
 export { normalizeI18nConfig } from './site.config.runtime.ts';
 
 /**

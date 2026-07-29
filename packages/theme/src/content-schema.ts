@@ -44,4 +44,28 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+/*
+  About page, one entry per locale at src/content/about/<locale>.md.
+
+  This used to live in src/site.config.ts as a deeply nested `about` object per
+  locale — six copies of a structure whose prose you had to edit inside a
+  TypeScript file. It is content, so it is authored as Markdown like a post and
+  the translator agents can handle it.
+
+  Frontmatter is page chrome only. Everything a reader sees in the body is
+  Markdown, including the contact links, so the sections are not fixed at five
+  and their headings are the author's words rather than theme strings.
+*/
+const about = defineCollection({
+  loader: glob({ base: './src/content/about', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** Terminal-style line above the title. Omit for none. */
+    metaLine: z.string().optional(),
+    /** Closing pull-quote, rendered after the body. Omit for none. */
+    signature: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, about };

@@ -7,4 +7,3 @@
 export * from './site.ts';
 export * from './social.ts';
 export * from './theme.ts';
-export * from './about.ts';

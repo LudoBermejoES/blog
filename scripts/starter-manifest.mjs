@@ -2,7 +2,6 @@ export const ADAPTER_TEMPLATE_MAP = [
   ['scripts/adapter-templates/src/config/site.ts', 'src/config/site.ts'],
   ['scripts/adapter-templates/src/config/theme.ts', 'src/config/theme.ts'],
   ['scripts/adapter-templates/src/config/social.ts', 'src/config/social.ts'],
-  ['scripts/adapter-templates/src/config/about.ts', 'src/config/about.ts'],
   ['scripts/adapter-templates/src/config/index.ts', 'src/config/index.ts'],
   ['scripts/adapter-templates/src/i18n/config.ts', 'src/i18n/config.ts'],
   ['scripts/adapter-templates/src/i18n/runtime.ts', 'src/i18n/runtime.ts'],

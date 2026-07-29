@@ -30,6 +30,7 @@ export type Messages = {
     now: string;
     contact: string;
     regenerate: string;
+    notTranslated: string;
   };
   blog: {
     title: string;
@@ -104,6 +105,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       now: 'Now',
       contact: 'Contact',
       regenerate: 'Replay scan',
+      notTranslated: 'This page is not translated yet. Showing the {lang} version.',
     },
     blog: {
       title: 'Blog',
@@ -176,6 +178,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       now: '現在',
       contact: '連絡先',
       regenerate: 'スキャン再生',
+      notTranslated: 'このページはまだ翻訳されていません。{lang}版を表示しています。',
     },
     blog: {
       title: 'ブログ',
@@ -248,6 +251,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       now: '지금',
       contact: '연락처',
       regenerate: '스캔 재생',
+      notTranslated: '이 페이지는 아직 번역되지 않았습니다. {lang} 버전을 표시합니다.',
     },
     blog: {
       title: '블로그',
@@ -320,6 +324,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       now: 'Ahora',
       contact: 'Contacto',
       regenerate: 'Repetir escaneo',
+      notTranslated: 'Esta página aún no está traducida. Se muestra la versión en {lang}.',
     },
     blog: {
       title: 'Blog',
@@ -393,6 +398,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       now: '现在',
       contact: '联系',
       regenerate: '重播扫描',
+      notTranslated: '本页尚未翻译，正在显示 {lang} 版本。',
     },
     blog: {
       title: '博客',
@@ -465,6 +471,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       now: 'Nun',
       contact: 'Kontakto',
       regenerate: 'Reludi skanadon',
+      notTranslated: 'Ĉi tiu paĝo ankoraŭ ne estas tradukita. Montriĝas la {lang}-versio.',
     },
     blog: {
       title: 'Blogo',

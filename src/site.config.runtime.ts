@@ -71,7 +71,6 @@ export function normalizeI18nConfig(config: ThemeI18nConfig): NormalizedThemeI18
       site: {
         hero: localeConfig.site?.hero,
       },
-      about: localeConfig.about,
       messages: localeConfig.messages,
     };
   }

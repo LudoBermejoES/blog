@@ -43,7 +43,6 @@ async function runAdapterSmokeCheck(cwd) {
       i18nConfig,
       i18nRuntime,
       siteAdapter,
-      aboutAdapter,
       themeAdapter,
       socialAdapter,
     ] = await Promise.all([
@@ -52,13 +51,11 @@ async function runAdapterSmokeCheck(cwd) {
       importModule('src/i18n/config.ts'),
       importModule('src/i18n/runtime.ts'),
       importModule('src/config/site.ts'),
-      importModule('src/config/about.ts'),
       importModule('src/config/theme.ts'),
       importModule('src/config/social.ts'),
     ]);
 
     const defaultLocale = i18nConfig.DEFAULT_LOCALE;
-    const aboutConfig = aboutAdapter.getAboutConfig(defaultLocale);
     const payload = {
       defaultLocaleMatches:
         defaultLocale === siteConfig.THEME_CONFIG.i18n.defaultLocale &&
@@ -76,10 +73,6 @@ async function runAdapterSmokeCheck(cwd) {
         siteAdapter.SITE_AUTHOR === siteConfig.THEME_CONFIG.site.author &&
         siteAdapter.SITE_TAGLINE === siteConfig.THEME_CONFIG.site.tagline &&
         typeof siteAdapter.getSiteHero(defaultLocale) === 'string',
-      aboutAdapterValid:
-        typeof aboutAdapter.getAboutConfig === 'function' &&
-        typeof aboutConfig.metaLine === 'string' &&
-        aboutConfig.metaLine.length > 0,
       themeAdapterValid:
         themeAdapter.THEME.BLOG_PAGE_SIZE === siteConfig.THEME_CONFIG.theme.blogPageSize &&
         themeAdapter.THEME.HOME_LATEST_COUNT === siteConfig.THEME_CONFIG.theme.homeLatestCount &&
@@ -87,7 +80,6 @@ async function runAdapterSmokeCheck(cwd) {
       socialAdapterValid: Array.isArray(socialAdapter.SOCIAL_LINKS),
       configIndexValid:
         typeof configIndex.SITE_TITLE === 'string' &&
-        typeof configIndex.getAboutConfig === 'function' &&
         typeof configIndex.SOCIAL_LINKS !== 'undefined',
     };
 
@@ -108,11 +100,10 @@ async function runAdapterSmokeCheck(cwd) {
 }
 
 async function runAdapterSourceFallbackCheck(cwd) {
-  const [configIndexSource, siteSource, aboutSource, themeSource, socialSource] = await Promise.all(
+  const [configIndexSource, siteSource, themeSource, socialSource] = await Promise.all(
     [
       readFile(path.join(cwd, 'src/config/index.ts'), 'utf8'),
       readFile(path.join(cwd, 'src/config/site.ts'), 'utf8'),
-      readFile(path.join(cwd, 'src/config/about.ts'), 'utf8'),
       readFile(path.join(cwd, 'src/config/theme.ts'), 'utf8'),
       readFile(path.join(cwd, 'src/config/social.ts'), 'utf8'),
     ]
@@ -125,17 +116,13 @@ async function runAdapterSourceFallbackCheck(cwd) {
       siteSource.includes('THEME_CONFIG.site.author') &&
       siteSource.includes('THEME_CONFIG.site.tagline') &&
       siteSource.includes('getSiteHero'),
-    aboutAdapterValid:
-      aboutSource.includes('export function getAboutConfig') &&
-      aboutSource.includes('getLocaleResolutionChain'),
     themeAdapterValid:
       themeSource.includes('THEME_CONFIG.theme') && themeSource.includes('ABOUT_PAGE_ENABLED'),
     socialAdapterValid: socialSource.includes('THEME_CONFIG.social.links'),
     configIndexValid:
       configIndexSource.includes("export * from './site.ts'") &&
       configIndexSource.includes("export * from './social.ts'") &&
-      configIndexSource.includes("export * from './theme.ts'") &&
-      configIndexSource.includes("export * from './about.ts'"),
+      configIndexSource.includes("export * from './theme.ts'"),
   };
 }
 
@@ -194,11 +181,6 @@ async function main() {
   if (!smoke.siteAdapterValid) {
     issues.push(
       'Adapter smoke check failed: src/config/site.ts does not map THEME_CONFIG correctly.'
-    );
-  }
-  if (!smoke.aboutAdapterValid) {
-    issues.push(
-      'Adapter smoke check failed: src/config/about.ts does not expose a valid about selector.'
     );
   }
   if (!smoke.themeAdapterValid) {

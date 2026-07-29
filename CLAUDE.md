@@ -78,6 +78,29 @@ Shared rules they all follow, and that any translation must respect:
 4. **Translate frontmatter prose only:** `title`, `description`, `subtitle`, `heroImageAlt`, free-text `tags`. Copy `pubDate`, `updatedDate`, `heroImage`, asset paths, and `author` unchanged.
 5. **`Hadinapló` is a proper noun** and is identical in every language.
 
+### The About page is content, not config
+
+`src/content/about/<locale>.md` — one entry per locale, authored in Markdown like
+a post, so `/translate` handles it. It used to be a deeply nested `about` object
+per locale inside `src/site.config.ts`; that whole surface is gone, along with
+the `sidebar`, `scriptsPath`, `modals` and `effects` blocks that drove the old
+interactive terminal About page.
+
+Frontmatter is page chrome only (`title`, `description`, `metaLine`,
+`signature`). Everything a reader sees is the Markdown body, including the
+contact links — so the sections are not fixed at five and their headings are your
+words, not theme strings.
+
+**Do not type the section numbers.** The `01 /`, `02 /` prefixes are a CSS
+counter (`.cd-about-body h2::before` in `cyberdream.css`). Write `## Quién soy`
+and the numbering follows. Hand-numbering is what produced the 01, 02, 04, 03
+bug in the previous version.
+
+Unlike posts, a missing About translation falls back to the default locale rather
+than disappearing — a single page is better served in another language than
+404ing. The reader is told so in their own language, and the body carries a
+`lang` attribute for its real language.
+
 ### The content schema is deliberately small
 
 `packages/theme/src/content-schema.ts` carries only fields the theme renders.
