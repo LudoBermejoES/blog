@@ -204,6 +204,21 @@ main {
 	list-style: none;
 }
 
+/*
+  .cyber-nav__link hides its slide-in underline with `overflow: hidden` plus a
+  translateX(-101%) on a ::before. `overflow` does nothing on a non-replaced
+  inline box, and CyberCore's own markup only works because the <a> is a direct
+  flex child of .cyber-nav__links, which blockifies it.
+
+  These links sit inside <li> for correct list semantics, so the <a> stays inline
+  and the clip silently stops working — every inactive link then paints its
+  underline offset to the left, one of which lands under the site brand.
+  Blockifying the link restores the clip.
+*/
+.cd-nav-links .cyber-nav__link {
+	display: inline-block;
+}
+
 .cd-nav-tail {
 	display: flex;
 	align-items: center;

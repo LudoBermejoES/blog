@@ -1,13 +1,208 @@
 ---
-import { getCollection } from 'astro:content';
-import HomePage from '@cyberdream/astro-theme/layouts/HomePage.astro';
-import { THEME } from '../config/theme';
-import { DEFAULT_LOCALE } from '../i18n/config';
-import { postsForLocale } from '../i18n/posts';
+/**
+ * Language dispatcher at `/`.
+ *
+ * The site runs with `defaultLocalePrefix: 'always'`, so every locale lives
+ * under a prefix and `/en/` — not `/` — is the canonical English home. That left
+ * `/` as a byte-identical duplicate of `/en/`, self-canonicalising. It now earns
+ * its keep: it matches the visitor's browser languages against the enabled
+ * locales and sends them to the right one, falling back to English.
+ *
+ * Static host, so there is no Accept-Language header to read. The match runs
+ * client side, inline in <head>, before the body paints.
+ *
+ * The page is real content rather than a blank redirect shim: with JS off, and
+ * for crawlers, it is a self-describing list of languages each written in its own
+ * language. That is also why it needs no translation of its own.
+ */
+import {
+  DEFAULT_LOCALE,
+  ENABLED_LOCALES,
+  ENABLED_LOCALE_LABELS,
+  getLocaleHreflang,
+  localePath,
+} from '../i18n/config';
+import { SITE_TITLE, SITE_URL } from '../config/site';
 
-const locale = DEFAULT_LOCALE;
-const allPosts = await getCollection('blog');
-const latestPosts = postsForLocale(allPosts, locale).slice(0, THEME.HOME_LATEST_COUNT);
+const siteURL = new URL(SITE_URL);
+
+const locales = ENABLED_LOCALES.map((locale) => ({
+  locale,
+  label: ENABLED_LOCALE_LABELS[locale] ?? locale,
+  hreflang: getLocaleHreflang(locale),
+  path: localePath(locale, '/'),
+}));
+
+/*
+ * Handed to the client as data rather than hardcoded in the script, so adding a
+ * locale to the config is the only edit ever needed.
+ */
+const dispatchTable = {
+  fallback: localePath(DEFAULT_LOCALE, '/'),
+  locales: locales.map(({ locale, hreflang, path }) => ({ locale, hreflang, path })),
+};
 ---
 
-<HomePage locale={locale} posts={latestPosts} />
+<!doctype html>
+<html lang={DEFAULT_LOCALE}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{SITE_TITLE}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    {/*
+      Nothing here to rank, and indexing it would compete with the real localised
+      homes. x-default points at this page, which is what Google documents for a
+      language selector.
+    */}
+    <meta name="robots" content="noindex, follow" />
+    {
+      locales.map((entry) => (
+        <link
+          rel="alternate"
+          hreflang={entry.hreflang}
+          href={new URL(entry.path, siteURL).toString()}
+        />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={siteURL.toString()} />
+
+    <script is:inline define:vars={{ dispatchTable }}>
+      /*
+        Runs in <head> before the body paints, so there is no flash of this page
+        for the overwhelming majority of visitors.
+
+        Precedence:
+          1. An explicit choice made in the language switcher. Honouring this is
+             the point — detection must never override someone who already told
+             us what they want.
+          2. navigator.languages, most-preferred first.
+          3. English.
+      */
+      (function () {
+        var table = dispatchTable;
+
+        function go(path) {
+          // replace() so the dispatcher never sits in history and trap Back.
+          window.location.replace(path);
+        }
+
+        try {
+          var chosen = window.localStorage.getItem('cd:locale');
+          if (chosen) {
+            for (var c = 0; c < table.locales.length; c++) {
+              if (table.locales[c].locale === chosen) {
+                go(table.locales[c].path);
+                return;
+              }
+            }
+          }
+        } catch (error) {
+          // localStorage throws in some privacy modes. Detection below still
+          // works, so there is nothing to recover from.
+        }
+
+        var preferred =
+          navigator.languages && navigator.languages.length
+            ? navigator.languages
+            : [navigator.language || ''];
+
+        for (var i = 0; i < preferred.length; i++) {
+          var tag = String(preferred[i]).toLowerCase();
+          if (!tag) continue;
+          var primary = tag.split('-')[0];
+
+          /*
+            Full tag first, so a locale declaring `zh-CN` wins over a bare `zh`
+            match. Then the primary subtag, which is what resolves es-419, es-MX,
+            zh-Hans and friends onto their base language.
+          */
+          for (var j = 0; j < table.locales.length; j++) {
+            if (table.locales[j].hreflang.toLowerCase() === tag) {
+              go(table.locales[j].path);
+              return;
+            }
+          }
+          for (var k = 0; k < table.locales.length; k++) {
+            var entry = table.locales[k];
+            if (
+              entry.locale === primary ||
+              entry.hreflang.toLowerCase().split('-')[0] === primary
+            ) {
+              go(entry.path);
+              return;
+            }
+          }
+        }
+
+        go(table.fallback);
+      })();
+    </script>
+
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: grid;
+        place-content: center;
+        gap: 1.5rem;
+        padding: 2rem;
+        background: #0d0e14;
+        color: #f0f1f5;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #00f0ff;
+      }
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      a {
+        display: inline-block;
+        padding: 0.6rem 1.1rem;
+        border: 1px solid #2a2d3a;
+        border-radius: 4px;
+        color: #00f0ff;
+        text-decoration: none;
+      }
+      a:hover {
+        border-color: #00f0ff;
+      }
+      a:focus-visible {
+        outline: 2px solid #84d6ff;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{SITE_TITLE}</h1>
+    <ul>
+      {
+        locales.map((entry) => (
+          <li>
+            <a href={entry.path} hreflang={entry.hreflang} lang={entry.locale}>
+              {entry.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </body>
+</html>

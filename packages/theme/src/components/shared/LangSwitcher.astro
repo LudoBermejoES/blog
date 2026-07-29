@@ -28,7 +28,7 @@ const { label, currentLocale, options } = Astro.props as Props;
   <select id="cd-lang-select" class="cyber-select" data-lang-select>
     {
       options.map((option) => (
-        <option value={option.href} selected={option.locale === currentLocale}>
+        <option value={option.href} data-locale={option.locale} selected={option.locale === currentLocale}>
           {option.label}
         </option>
       ))
@@ -52,7 +52,24 @@ const { label, currentLocale, options } = Astro.props as Props;
 <script>
   document.querySelectorAll<HTMLSelectElement>('[data-lang-select]').forEach((select) => {
     select.addEventListener('change', () => {
-      if (select.value) window.location.href = select.value;
+      if (!select.value) return;
+
+      /*
+        Remember the choice so the `/` language dispatcher stops guessing for
+        this visitor. Picking a language explicitly has to outrank whatever the
+        browser reports, or someone reading in their second language gets bounced
+        back on every visit to the root.
+      */
+      const locale = select.selectedOptions[0]?.dataset.locale;
+      if (locale) {
+        try {
+          window.localStorage.setItem('cd:locale', locale);
+        } catch {
+          // Private mode / storage disabled. Navigation below still works.
+        }
+      }
+
+      window.location.href = select.value;
     });
   });
 </script>
