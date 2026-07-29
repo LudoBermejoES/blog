@@ -22,7 +22,7 @@
     "check:workspace-link": "node scripts/check-workspace-link.mjs",
     "check:adapters": "node scripts/check-adapter-contract.mjs && node scripts/sync-adapters.mjs --check",
     "check:fonts": "node scripts/check-font-assets.mjs",
-    "check:no-build": "npm run check:workspace-link && npm run check:adapters && npm run check:fonts && npm run check:scaffold && astro check",
+    "check:no-build": "npm run check:workspace-link && npm run check:adapters && npm run check:fonts && npm run check:scaffold && npm run check:translations && astro check",
     "sync-adapters": "node scripts/sync-adapters.mjs",
     "doctor": "npm run check:adapters && npm run check",
     "check": "npm run check:no-build",
@@ -32,7 +32,8 @@
     "new-post": "cyberdream-new-post",
     "new-page": "cyberdream-new-page",
     "astro": "astro",
-    "check:scaffold": "node scripts/check-scaffold.mjs"
+    "check:scaffold": "node scripts/check-scaffold.mjs",
+    "check:translations": "node scripts/check-translations.mjs"
   },
   "dependencies": {
     "@cyberdream/astro-theme": "workspace:*",

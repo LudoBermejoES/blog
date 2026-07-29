@@ -22,15 +22,26 @@ The site ships six locales. A post is not finished until it exists in **all** of
 | `zh` | 中文 (Simplified, `hreflang` `zh-CN`) | `src/content/blog/zh/` |
 | `eo` | Esperanto | `src/content/blog/eo/` |
 
-Write the post in whichever language comes naturally, then translate it into the other five. Do not ship a post in one language and promise the rest later — a locale with a missing translation degrades quietly rather than erroring, so the gap is easy to miss.
+**Spanish is the authoring language.** The author writes `es`; the other five are
+produced by translation. The workflow:
 
-Scaffold all six files at once with:
-
-```bash
-npm run new-post -- my-post-slug
+```
+/post <slug>      # scaffold src/content/blog/es/<slug>.md as a draft
+                  # ...author writes it in Spanish...
+/translate <slug> # fan out all five translator agents in parallel, then publish
 ```
 
-That creates the same slug under every configured locale.
+`npm run check:translations` enforces the rule — it fails when a post is
+published in at least one locale but missing from others. It is in the `check`
+chain and therefore in CI, so an incomplete post cannot ship. Without it the
+failure is silent: a green build, but the language switcher drops readers on the
+archive and hreflang points at the wrong URL.
+
+`draft: true` is the escape hatch, and the reason the workflow works at all: it
+exempts a post from the check and excludes it from every listing, feed, route and
+the sitemap. That is what lets a finished Spanish post be committed before its
+translations exist. Drop the flag from **all six** files when publishing —
+leaving it on one copy makes the post incomplete again.
 
 ### The slug is the join key — never localise it
 
@@ -63,6 +74,18 @@ Shared rules they all follow, and that any translation must respect:
 4. **Translate frontmatter prose only:** `title`, `description`, `subtitle`, `heroImageAlt`, free-text `tags`. Copy `pubDate`, `updatedDate`, `heroImage`, asset paths, and `author` unchanged.
 5. **`Hadinapló` is a proper noun** and is identical in every language.
 
+### The content schema is deliberately small
+
+`packages/theme/src/content-schema.ts` carries only fields the theme renders.
+The upstream schema also had `aiModel`, `aiMode`, `aiState`, `aiLatencyMs`,
+`aiConfidence`, `tokenCount`, `context`, `canonicalTopic` and `sourceLinks` —
+props for the old AI-terminal layout. They were removed rather than left inert,
+because dead frontmatter is a question every author has to ask once. Don't
+reintroduce a field without something rendering it.
+
+`readMinutes` and `wordCount` are derived from the body at build time when
+absent, so an author never fills them in.
+
 ### UI strings and site metadata
 
 Post content is not the only thing that needs all six languages.
@@ -85,8 +108,9 @@ Post content is not the only thing that needs all six languages.
 ```bash
 npm run dev              # dev server
 npm run build            # production build
-npm run check            # workspace link + adapters + fonts + scaffold + astro check
-npm run new-post -- slug # scaffold a post in all six locales
+npm run check            # workspace link + adapters + fonts + scaffold + translations + astro check
+npm run check:translations # every published post exists in all six locales
+npm run new-post -- slug --locales es  # Spanish only; /post wraps this
 npm run assets:monitor   # regenerate the generated CC0 monitor loops and OG still
 npm run assets:favicon   # rebuild favicon.ico from favicon.svg
 ```

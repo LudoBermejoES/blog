@@ -17,13 +17,15 @@ export function countWords(markdown: string): number {
 	return text.split(/\s+/).filter(Boolean).length;
 }
 
+/**
+ * 220 wpm is a common average for adult silent reading of general prose.
+ * The upstream version also invented tokenCount, aiLatencyMs and aiConfidence
+ * for the old AI-terminal layout; nothing renders those now.
+ */
 export function deriveMetrics(words: number) {
 	const safeWords = Math.max(words, 1);
 	return {
 		readMinutes: Math.max(1, Math.ceil(safeWords / 220)),
 		wordCount: words,
-		tokenCount: Math.round(safeWords * 1.3),
-		aiLatencyMs: Math.round(140 + Math.min(safeWords, 2800) * 0.11),
-		aiConfidence: Number(Math.min(0.98, 0.78 + Math.log10(Math.max(safeWords, 20)) * 0.04).toFixed(2)),
 	};
 }

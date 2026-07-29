@@ -7,11 +7,18 @@ import { THEME } from '../config/theme';
 
 export const BLOG_PAGE_SIZE = THEME.BLOG_PAGE_SIZE;
 
+/**
+ * Posts for one locale, newest first, drafts excluded.
+ *
+ * Every listing, feed and route goes through here, so filtering drafts in one
+ * place is what keeps a draft out of the archive, the home page, the RSS feed,
+ * the sitemap and its own URL — without each caller having to remember.
+ */
 export function postsForLocale(
   posts: CollectionEntry<'blog'>[],
   locale: Locale
 ): CollectionEntry<'blog'>[] {
   return posts
-    .filter((post) => post.id.startsWith(`${locale}/`))
+    .filter((post) => post.id.startsWith(`${locale}/`) && !post.data.draft)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }

@@ -51,11 +51,6 @@ const resolvedData = {
   locale: resolvedLocale,
   readMinutes: post.data.readMinutes ?? computed.readMinutes,
   wordCount: post.data.wordCount ?? computed.wordCount,
-  tokenCount: post.data.tokenCount ?? computed.tokenCount,
-  aiLatencyMs: post.data.aiLatencyMs ?? computed.aiLatencyMs,
-  aiLatencyEstimated: post.data.aiLatencyMs === undefined,
-  aiConfidence: post.data.aiConfidence ?? computed.aiConfidence,
-  aiConfidenceEstimated: post.data.aiConfidence === undefined,
 };
 ---
 
