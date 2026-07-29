@@ -1,0 +1,56 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Allows a manual re-deploy from the Actions tab without a new commit.
+  workflow_dispatch:
+
+# GITHUB_TOKEN permissions needed by deploy-pages. id-token is required for the
+# OIDC exchange the Pages deployment uses; contents: read is enough to build.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a newer push supersede an in-flight run, but never cancel a deployment
+# that is already writing, or Pages can be left on a half-published state.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          # package.json requires >=22.12.0.
+          node-version: 22
+          cache: npm
+
+      # npm ci respects the lockfile and links the packages/theme workspace.
+      - run: npm ci
+
+      # Type-check and validate the theme/site contract before spending a build.
+      # check:no-build covers the workspace link, adapter sync, font assets and
+      # astro check — the full `check` script is skipped because it builds twice.
+      - run: npm run check:no-build
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

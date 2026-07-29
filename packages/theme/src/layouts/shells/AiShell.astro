@@ -9,6 +9,8 @@ interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata;
+	/** Alt text for `image`. BaseHead falls back to the page title. */
+	imageAlt?: string;
 	pageType?: 'website' | 'article';
 	publishedTime?: Date;
 	modifiedTime?: Date;
@@ -24,6 +26,7 @@ const {
 	title,
 	description,
 	image,
+	imageAlt,
 	pageType,
 	publishedTime,
 	modifiedTime,
@@ -40,6 +43,7 @@ const {
 	title={title}
 	description={description}
 	image={image}
+	imageAlt={imageAlt}
 	pageType={pageType}
 	publishedTime={publishedTime}
 	modifiedTime={modifiedTime}

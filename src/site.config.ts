@@ -24,6 +24,13 @@ export { normalizeI18nConfig } from './site.config.runtime.ts';
  * Omitted fields safely fall back to theme defaults.
  */
 export const THEME_CONFIG = defineThemeConfig({
+  site: {
+    // Drives canonical URLs, hreflang alternates, Open Graph, JSON-LD, the
+    // sitemap and the RSS feeds. astro.config.mjs reads it as `site`, so this
+    // is the single place the deployed origin is declared.
+    // Served at the domain root via public/CNAME, so no `base` is needed.
+    url: 'https://blog.ludobermejo.es',
+  },
   // Example:
   // i18n: {
   //   defaultLocale: 'en',
