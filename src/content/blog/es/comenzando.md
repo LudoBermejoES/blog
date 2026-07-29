@@ -2,7 +2,7 @@
 title: 'Comenzando'
 description: 'Primera entrada de este diario: por qué existe y qué esperar.'
 pubDate: '2026-07-29'
-heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
+heroImage: '../../../assets/blog/comenzando.webp'
 ---
 
 Este no es el primer blog que tengo. A lo largo de mi vida tuve varios y todos terminaron fracasando. Podría decir que era una cuestión de constancia, pero en realidad es porque, seamos francos, tenía poco que decir. Sin embargo, con el paso de los años me he dado cuenta de que dejaba atrás muchas de las cosas que hacía y que ahora me gustaría recordar. Así que he decidido volver a hacerme un blog, sin pretensiones, más como un diario de guerra que otra cosa. De ahí el nombre de este blog, Hadinapló, que en húngaro significa «Diario de guerra», y que pretende ser un puro diario de lo que hago cada día, siempre que tenga un mínimo interés.

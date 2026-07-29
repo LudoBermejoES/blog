@@ -2,7 +2,7 @@
 title: 'Komencante'
 description: 'La unua enskribo de ĉi tiu taglibro: kial ĝi ekzistas kaj kion atendi.'
 pubDate: '2026-07-29'
-heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
+heroImage: '../../../assets/blog/comenzando.webp'
 ---
 
 Ĉi tiu ne estas la unua blogo, kiun mi havas. Dum mia vivo mi havis plurajn, kaj ĉiuj finiĝis per fiasko. Mi povus diri, ke temis pri persisto, sed vere ĝi estas ĉar, ni estu sinceraj, mi havis malmulton por diri. Tamen, kun la paso de la jaroj mi konstatis, ke mi postlasis multajn el la aferoj, kiujn mi faris kaj kiujn mi nun volus memori. Do mi decidis denove krei por mi blogon, sen pretendoj, pli kiel militan taglibron ol io alia. De tie venas la nomo de ĉi tiu blogo, Hadinapló, kiu en la hungara signifas «Milita taglibro», kaj kiu celas esti pura taglibro de tio, kion mi faras ĉiutage, kondiĉe ke ĝi havu minimuman intereson.

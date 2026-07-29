@@ -26,11 +26,18 @@ const { title, description, pubDate, heroImage, heroImageAlt, tags } = post.data
   {
     heroImage && (
       <a class="cd-card__media" href={href} tabindex="-1" aria-hidden="true">
+        {/*
+          fit="cover" so a cover whose aspect ratio isn't 16:9 gets cropped
+          rather than squashed. Without it Astro resizes to exactly 640x360,
+          which visibly distorts the 2:1 images in
+          src/assets/blog/default-covers/.
+        */}
         <Image
           src={heroImage}
           alt={heroImageAlt ?? ''}
           width={640}
           height={360}
+          fit="cover"
           loading={eager ? 'eager' : 'lazy'}
           decoding="async"
         />
