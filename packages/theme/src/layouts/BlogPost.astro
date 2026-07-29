@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import themeRedqueen1 from '../assets/theme/red-queen/theme-redqueen1.webp';
-// Animated WebP rather than GIF: same frames at native resolution, ~half the
-// bytes. These are referenced only via .src, so Astro emits them untouched —
-// nothing in the image pipeline will compress them for us.
-import themeRedqueen2 from '../assets/theme/red-queen/theme-redqueen2.webp';
+import monitorSignalSweep from '../assets/theme/monitor/monitor-signal-sweep.webp';
+// Procedurally generated CC0 loops (npm run assets:monitor). Referenced only
+// via .src, so Astro emits them untouched — nothing in the image pipeline will
+// compress them for us, which is why the generator encodes them tightly.
+import monitorDataCascade from '../assets/theme/monitor/monitor-data-cascade.webp';
 import FormattedDate from '../components/FormattedDate.astro';
 import Giscus from '../components/Giscus.astro';
 import AiShell from './shells/AiShell.astro';
@@ -127,8 +127,8 @@ const hasCommentsConfig = Boolean(
         <aside class="rq-tv rq-tv-collapsed">
           <div
             class="rq-tv-stage"
-            data-rq-src={themeRedqueen1.src}
-            data-rq-src2={themeRedqueen2.src}
+            data-rq-src={monitorSignalSweep.src}
+            data-rq-src2={monitorDataCascade.src}
           />
           <div class="rq-tv-badge">
             {messages.blog.rqBadge}

@@ -27,6 +27,7 @@
     "sync-adapters": "node scripts/sync-adapters.mjs",
     "doctor": "npm run check:adapters && npm run check",
     "check": "npm run check:no-build && npm run check:about-runtime",
+    "assets:monitor": "node scripts/generate-monitor-assets.mjs",
     "preview": "astro preview",
     "new-post": "anglefeint-new-post",
     "new-page": "anglefeint-new-page",
