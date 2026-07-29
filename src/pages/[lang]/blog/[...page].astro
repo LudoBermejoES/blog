@@ -1,0 +1,165 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from '@anglefeint/astro-theme/components/FormattedDate.astro';
+import CyberShell from '@anglefeint/astro-theme/layouts/shells/CyberShell.astro';
+import CyberPagination from '@anglefeint/astro-theme/components/pagination/CyberPagination.astro';
+import { SITE_TITLE } from '../../../config/site';
+import { THEME } from '../../../config/theme';
+import {
+  DEFAULT_LOCALE,
+  ENABLED_LOCALES,
+  type Locale,
+  blogIdToSlugAnyLocale,
+  isLocale,
+  localePath,
+} from '../../../i18n/config';
+import { getMessages } from '../../../i18n/messages';
+import { BLOG_PAGE_SIZE, postsForLocale } from '../../../i18n/posts';
+import { buildPaginationModel } from '@anglefeint/astro-theme/utils/pagination';
+
+export const getStaticPaths = (async () => {
+  const all = await getCollection('blog');
+  return ENABLED_LOCALES.flatMap((locale) => {
+    const localizedPosts = postsForLocale(all, locale);
+    const totalPages = Math.max(1, Math.ceil(localizedPosts.length / BLOG_PAGE_SIZE));
+
+    return Array.from({ length: totalPages }, (_, pageIndex) => {
+      const currentPage = pageIndex + 1;
+      const start = pageIndex * BLOG_PAGE_SIZE;
+      const data = localizedPosts.slice(start, start + BLOG_PAGE_SIZE);
+
+      return {
+        params: currentPage === 1 ? { lang: locale } : { lang: locale, page: String(currentPage) },
+        props: {
+          locale,
+          page: {
+            data,
+            currentPage,
+            lastPage: totalPages,
+          },
+        },
+      };
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const locale = (Astro.props.locale ?? Astro.params.lang ?? DEFAULT_LOCALE) as Locale;
+const resolvedLocale: Locale = isLocale(locale) ? locale : DEFAULT_LOCALE;
+const messages = getMessages(resolvedLocale);
+const posts = page.data;
+const paginationModel = buildPaginationModel({
+  currentPage: page.currentPage,
+  totalPages: page.lastPage,
+  windowSize: THEME.PAGINATION.WINDOW_SIZE,
+  showJumpThreshold: THEME.PAGINATION.SHOW_JUMP_THRESHOLD,
+});
+const blogRoot = localePath(resolvedLocale, '/blog/');
+const jumpToText = messages.blog.jumpTo || 'Jump to page';
+const jumpInputLabelText = messages.blog.jumpInputLabel || 'Page number';
+const allPosts = await getCollection('blog');
+const localeHrefs = Object.fromEntries(
+  ENABLED_LOCALES.map((targetLocale) => {
+    const totalPages = Math.max(
+      1,
+      Math.ceil(postsForLocale(allPosts, targetLocale).length / BLOG_PAGE_SIZE)
+    );
+    const href =
+      page.currentPage <= totalPages
+        ? page.currentPage === 1
+          ? localePath(targetLocale, '/blog/')
+          : localePath(targetLocale, `/blog/${page.currentPage}`)
+        : localePath(targetLocale, '/blog/');
+    return [targetLocale, href];
+  })
+) as Partial<Record<Locale, string>>;
+const pageTitle =
+  page.currentPage === 1
+    ? `${messages.blog.title} | ${SITE_TITLE}`
+    : `${messages.blog.pageTitle} ${page.currentPage} | ${SITE_TITLE}`;
+const pageDescription =
+  page.currentPage === 1
+    ? messages.blog.archiveDescription
+    : `${messages.blog.pageDescription} ${page.currentPage}.`;
+---
+
+<CyberShell
+  locale={resolvedLocale}
+  title={pageTitle}
+  description={pageDescription}
+  localeHrefs={localeHrefs}
+>
+  <Fragment slot="body-start">
+    <h1 class="sr-only">{pageTitle}</h1>
+    <div class="cyber-rain" data-cyber-rain aria-hidden="true"></div>
+    <div class="cyber-dust" data-cyber-dust aria-hidden="true"></div>
+  </Fragment>
+  <section>
+    <h2 class="sr-only">{messages.blog.title}</h2>
+    <ul>
+      {
+        posts.map((post, index) => (
+          <li>
+            <a href={localePath(resolvedLocale, `/blog/${blogIdToSlugAnyLocale(post.id)}`)}>
+              {post.data.heroImage && (
+                <div class="img-wrapper">
+                  <Image
+                    width={index === 0 ? 1200 : 720}
+                    height={index === 0 ? 600 : 360}
+                    sizes={
+                      index === 0
+                        ? '(max-width: 720px) 100vw, 960px'
+                        : '(max-width: 720px) 100vw, 480px'
+                    }
+                    src={post.data.heroImage}
+                    alt=""
+                  />
+                </div>
+              )}
+              <h2 class="title">{post.data.title}</h2>
+              <p class="date">
+                <FormattedDate date={post.data.pubDate} locale={resolvedLocale} />
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  {
+    page.lastPage > 1 && (
+      <CyberPagination
+        model={paginationModel}
+        locale={resolvedLocale}
+        blogRoot={blogRoot}
+        pathname={Astro.url.pathname}
+        labels={{
+          previous: messages.blog.previous,
+          next: messages.blog.next,
+          paginationAria: messages.blog.paginationAria,
+          jumpTo: jumpToText,
+          jumpInputLabel: jumpInputLabelText,
+          jumpGo: messages.blog.jumpGo || 'Go',
+        }}
+        config={{
+          jump: {
+            enabled: THEME.PAGINATION.JUMP.ENABLED,
+            enterToGo: THEME.PAGINATION.JUMP.ENTER_TO_GO,
+          },
+          style: {
+            enabled: THEME.PAGINATION.STYLE.ENABLED,
+            mode: THEME.PAGINATION.STYLE.MODE,
+            variants: THEME.PAGINATION.STYLE.VARIANTS,
+            fixedVariant: THEME.PAGINATION.STYLE.FIXED_VARIANT,
+          },
+        }}
+      />
+    )
+  }
+  <script>
+    import { initCyberRainAndDust } from '../../../scripts/cyber-rain-dust.js';
+    initCyberRainAndDust();
+  </script>
+</CyberShell>

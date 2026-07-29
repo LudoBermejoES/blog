@@ -1,0 +1,16 @@
+---
+import type { Locale } from '@anglefeint/site-i18n/config';
+import BaseShell from './shells/BaseShell.astro';
+
+interface Props {
+	locale?: Locale;
+	title: string;
+	description: string;
+}
+
+const { locale, title, description } = Astro.props as Props;
+---
+
+<BaseShell locale={locale} title={title} description={description}>
+	<slot />
+</BaseShell>

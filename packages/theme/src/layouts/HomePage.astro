@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, getSiteHero } from '@anglefeint/site-config/site';
+import { type Locale, blogIdToSlugAnyLocale, localePath } from '@anglefeint/site-i18n/config';
+import { getMessages } from '@anglefeint/site-i18n/messages';
+import MatrixShell from './shells/MatrixShell.astro';
+
+interface Props {
+  locale: Locale;
+  latestPosts: CollectionEntry<'blog'>[];
+}
+
+const { locale, latestPosts } = Astro.props;
+const messages = getMessages(locale);
+const heroText = getSiteHero(locale) ?? messages.home.hero;
+const pageDescription = messages.siteDescription || SITE_DESCRIPTION;
+---
+
+<MatrixShell locale={locale} title={SITE_TITLE} description={pageDescription}>
+  <h1>{SITE_TITLE}</h1>
+  <p class="home-hero-copy">{heroText}</p>
+
+  <section class="home-latest">
+    <h2 class="home-section-title">{messages.home.latest}</h2>
+    <ul class="home-post-list">
+      {
+        latestPosts.length > 0 ? (
+          latestPosts.map((post) => (
+            <li>
+              <a
+                class="home-post-title"
+                href={localePath(locale, `/blog/${blogIdToSlugAnyLocale(post.id)}`)}
+              >
+                {post.data.title}
+              </a>
+              <div class="home-post-meta">
+                <FormattedDate date={post.data.pubDate} locale={locale} />
+                {post.data.description && <> · {post.data.description}</>}
+              </div>
+            </li>
+          ))
+        ) : (
+          <li>{messages.home.noPosts}</li>
+        )
+      }
+    </ul>
+    <p><a href={localePath(locale, '/blog/')}>{messages.home.viewAll}</a></p>
+  </section>
+</MatrixShell>

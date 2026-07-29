@@ -1,0 +1,129 @@
+---
+import type { Locale } from '@anglefeint/site-i18n/config';
+
+interface LocaleOption {
+	locale: Locale;
+	label: string;
+	href: string;
+}
+
+interface Props {
+	label: string;
+	currentLocale: Locale;
+	options: LocaleOption[];
+}
+
+const { label, currentLocale, options } = Astro.props as Props;
+---
+
+<div class="lang-switcher">
+	<label class="lang-label" for="lang-select">{label}</label>
+	<select id="lang-select" class="lang-select" data-lang-select>
+		{
+			options.map((option) => (
+				<option value={option.href} selected={option.locale === currentLocale}>
+					{option.label}
+				</option>
+			))
+		}
+	</select>
+	{/* Without JS the select cannot navigate, so expose plain links as a fallback. */}
+	<noscript>
+		<ul class="lang-fallback">
+			{
+				options.map((option) => (
+					<li>
+						<a href={option.href} hreflang={option.locale}>
+							{option.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</noscript>
+</div>
+
+<script>
+	// Replaces an inline onchange handler, which required 'unsafe-inline' in any
+	// Content-Security-Policy the site wanted to set.
+	document.querySelectorAll<HTMLSelectElement>('[data-lang-select]').forEach((select) => {
+		select.addEventListener('change', () => {
+			if (select.value) window.location.href = select.value;
+		});
+	});
+</script>
+
+<style>
+	.lang-switcher {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.2rem 0.4rem;
+		margin-right: 0.1rem;
+		border: 1px solid var(--lang-switcher-border, rgba(132, 214, 255, 0.2));
+		border-radius: 999px;
+		background: var(--lang-switcher-bg, rgba(6, 16, 30, 0.35));
+		flex-shrink: 0;
+	}
+	.lang-label {
+		display: inline-block;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 0.6rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--lang-label-color, rgba(190, 226, 248, 0.78));
+		white-space: nowrap;
+	}
+	.lang-select {
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background:
+			linear-gradient(45deg, transparent 50%, var(--lang-select-arrow, rgba(204, 236, 252, 0.82)) 50%) calc(100% - 0.9rem) 50% /
+				0.35rem 0.35rem no-repeat,
+			linear-gradient(135deg, var(--lang-select-arrow, rgba(204, 236, 252, 0.82)) 50%, transparent 50%) calc(100% - 0.7rem) 50% /
+				0.35rem 0.35rem no-repeat,
+			var(--lang-select-bg, rgba(9, 22, 40, 0.68));
+		border: 1px solid var(--lang-select-border, rgba(132, 214, 255, 0.2));
+		border-radius: 999px;
+		padding: 0.2rem 1.45rem 0.2rem 0.55rem;
+		min-width: 6rem;
+		font-size: 0.62rem;
+		line-height: 1;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		color: var(--lang-select-text, rgba(204, 236, 252, 0.86));
+		cursor: pointer;
+	}
+	/*
+	  Hover/mouse focus keeps the soft glow, but the previous rule also cleared
+	  the outline for keyboard users and replaced it with an 0.18-alpha ring that
+	  is effectively invisible. :focus-visible restores a real ring.
+	*/
+	.lang-select:focus {
+		border-color: var(--lang-select-focus-border, rgba(132, 214, 255, 0.5));
+		box-shadow: 0 0 0 2px var(--lang-select-focus-ring, rgba(98, 180, 228, 0.18));
+	}
+	.lang-select:focus-visible {
+		outline: 2px solid var(--focus-ring, #84d6ff);
+		outline-offset: 2px;
+	}
+	.lang-fallback {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: 0.62rem;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	}
+	.lang-select option {
+		color: var(--lang-select-option-text, #ccecfb);
+		background: var(--lang-select-option-bg, #0b1c32);
+	}
+	@media (max-width: 720px) {
+		.lang-switcher {
+			margin-right: 0;
+		}
+	}
+</style>

@@ -1,0 +1,239 @@
+<h1 align="center">Anglefeint</h1>
+<p align="center">映画的な表現と複数の雰囲気を持つ Astro テーマです。</p>
+
+<p align="center">
+  <a href="https://demo.anglefeint.com/">デモ</a>
+  ·
+  <a href="https://github.com/anglefeint/astro-theme-anglefeint">リポジトリ</a>
+  ·
+  <a href="ASTRO_THEME_LISTING.md">テーマ掲載文案</a>
+</p>
+
+<p align="center">
+  <img alt="Astro" src="https://img.shields.io/badge/Astro-6.1.3-BC52EE?logo=astro&logoColor=white" />
+  <img alt="Node" src="https://img.shields.io/badge/Node.js-22.12%2B-339933?logo=node.js&logoColor=white" />
+  <img alt="Locales" src="https://img.shields.io/badge/i18n-en%20%7C%20ja%20%7C%20ko%20%7C%20es%20%7C%20zh-0A7EA4" />
+  <img alt="Deployment" src="https://img.shields.io/badge/Deploy-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white" />
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-2EA043" />
+</p>
+
+## テンプレートの導入
+
+```bash
+npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+```
+
+`pnpm` を使う場合:
+
+```bash
+pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+```
+
+## 動作要件
+
+- Node.js `22.12.0+`（LTS 推奨）
+- パッケージマネージャー: `npm` / `pnpm` / `yarn` / `bun`
+
+## クイックスタート
+
+```bash
+npm install
+npm run dev
+```
+
+ビルドとプレビュー:
+
+```bash
+npm run build
+npm run preview
+```
+
+品質チェック:
+
+```bash
+npm run lint
+npm run format:check
+npm run e2e:install
+npm run e2e
+```
+
+`pnpm` を使う場合:
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm preview
+```
+
+## テーマのアップグレード
+
+`#starter` から作成したプロジェクトで package 側の更新を取り込むときは、まず次を実行します:
+
+```bash
+npm update @anglefeint/astro-theme
+npm install
+npm run doctor
+# doctor が adapter 差分を報告した場合:
+# npm run sync-adapters
+npm run check
+npm run build
+```
+
+release note に starter 側 contract の変更がある場合は、その差分もプロジェクトへ取り込んでください。`npm update` だけで更新されるのは公開 package 側だけです。
+
+カスタムコードが `src/consts` または `@anglefeint/astro-theme/consts` を参照している場合は、`src/config/site.ts` へ移行してください。
+
+Astro のメジャーアップグレードは、まず公式ガイドを参照してください:
+
+- https://docs.astro.build/en/guides/upgrade-to/
+- その後、このプロジェクトで `npm run check` と `npm run build` を実行します。
+
+## 新しい記事を作成
+
+全ロケール（`en`, `ja`, `ko`, `es`, `zh`）に同じ slug の記事を一括作成します:
+
+```bash
+npm run new-post -- my-first-post
+```
+
+Slug ルール: 小文字英字・数字・ハイフンのみを使用してください（例: `my-first-post`）。
+`src/assets/blog/default-covers/` に画像がある場合、slug ハッシュで安定したデフォルトカバーを自動設定します（後で `heroImage` を手動変更可能）。
+ロケールを明示指定する場合:
+
+```bash
+npm run new-post -- my-first-post --locales en,fr
+# または
+ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+```
+
+URL のルール:
+
+- ファイル: `src/content/blog/ja/my-first-post.md`
+- URL: `/ja/blog/my-first-post/`
+- ブログ一覧: `/ja/blog/`
+- ルートを手動で追加する必要はありません。Astro が build 時に自動生成します。
+
+## 新しいページを作成
+
+`new-post` はブログ記事専用です。カスタムページは次のコマンドを使用します:
+
+```bash
+npm run new-page -- projects --theme base
+```
+
+利用可能なテーマ: `base`, `ai`, `cyber`, `hacker`, `matrix`。  
+`src/pages/[lang]/projects.astro` が生成され、`getStaticPaths()` で全ロケールに展開されます。
+slug ルール: 小文字・数字・ハイフンのみ（例: `projects/labs` のようなネストは可）。`_` と大文字は不可です。
+
+例:
+
+```bash
+npm run new-page -- projects --theme base
+npm run new-page -- projects --theme ai
+npm run new-page -- projects --theme cyber
+npm run new-page -- projects --theme hacker
+npm run new-page -- projects --theme matrix
+```
+
+## 言語
+
+[English](README.md) · [简体中文](README.zh-CN.md) · 日本語（このファイル） · [Español](README.es.md) · [한국어](README.ko.md)
+
+## プレビュー
+
+| ホーム                                                         | ブログ一覧                                                               |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| ![Home preview](docs/previews/preview-home.png) | ![Blog list preview](docs/previews/preview-blog-list.png) |
+
+| 記事ページ                                                                    |
+| ----------------------------------------------------------------------------- |
+| ![Blog post preview](docs/previews/preview-blog-post-open.png) |
+
+| About                                                            |
+| ---------------------------------------------------------------- |
+| ![About preview](docs/previews/preview-about.png) |
+
+## ルートごとの雰囲気
+
+- `/<default-locale>/`（デフォルトでは `/` がここへリダイレクト）：Matrix 風ターミナルのホーム
+- `/:lang/blog`：サイバーパンク調のアーカイブ
+- `/:lang/blog/[slug]`：AI インターフェース風の読書レイアウト
+- `/:lang/about`：任意で有効化できるハッカー風 About ページ
+
+## テーマ命名ルール
+
+- テーマ引数: `base`, `ai`, `cyber`, `hacker`, `matrix`
+- 内部セレクタ/スクリプト接頭辞: `ai-*`, `cyber-*`, `hacker-*`
+- 構成レイヤー: `ThemeFrame -> Shell -> Layout -> Page`
+
+## 主な機能
+
+- Astro 6 の静的出力
+- Markdown + MDX コンテンツコレクション
+- スターター同梱のサンプルロケール: `en`, `ja`, `ko`, `es`, `zh`
+- ロケール別 RSS
+- Sitemap + robots 対応
+- 設定駆動のカスタマイズ
+- 短いページでもフッターを下部に固定
+
+## テーマ設定
+
+1. `.env.example` を `.env` にコピーし、サイト情報を設定。
+2. `src/site.config.ts` を編集:
+   - `site.title`、`site.description`、`site.url`、`site.author`、`site.tagline`: サイト identity と既定メタデータ
+   - `i18n.defaultLocale`: 既定ロケールを設定
+   - `i18n.routing.defaultLocalePrefix`: 既定ロケールを `/<default-locale>/`（デフォルト）に置くか `/` に置くかを設定
+   - `i18n.locales`: 単一の設定源として対応ロケールを追加・削除
+   - `i18n.locales.<code>.messages`: ロケール別 UI 文言の上書き
+   - `i18n.locales.<code>.site.hero`: ロケール別ホーム hero 文言の上書き
+   - `social.links`: SNS リンク
+   - `i18n.locales.<code>.about`: ロケール別 About コンテンツとランタイム文言
+   - `theme.enableAboutPage`: About の表示切り替え
+   - `theme.effects.enableRedQueen`: 記事ページのサイドモニター演出をオン/オフ
+   - `theme.comments`: Giscus を有効化・設定（コア ID + 動作パラメータ）
+3. `src/content/blog/<locale>/` のサンプル記事を差し替え。
+
+### 任意: Giscus コメント
+
+コメントはデフォルトで無効です。有効化するには:
+
+1. `src/site.config.ts` で `theme.comments.enabled = true` を設定。
+2. 必須項目を設定:
+   - `theme.comments.repo`
+   - `theme.comments.repoId`
+   - `theme.comments.category`
+   - `theme.comments.categoryId`
+3. 任意項目:
+   - `theme.comments.mapping`
+   - `theme.comments.term`（`mapping = "specific"` のとき必須）
+   - `theme.comments.number`（`mapping = "number"` のとき必須）
+   - `theme.comments.strict`
+   - `theme.comments.reactionsEnabled`
+   - `theme.comments.emitMetadata`
+   - `theme.comments.inputPosition`（`top` または `bottom`）
+   - `theme.comments.theme`
+   - `theme.comments.lang`
+   - `theme.comments.loading`
+   - `theme.comments.crossorigin`
+
+必須項目が不足している場合、コメントブロックは描画されません。
+
+## 設定ポイント
+
+- 単一エントリ: `src/site.config.ts`
+- アダプタ層（直接編集は非推奨）: `src/config/site.ts`, `src/config/theme.ts`, `src/config/about.ts`, `src/config/social.ts`
+- サイト情報は `PUBLIC_*` 環境変数でも上書き可能
+
+## ドキュメント
+
+- アーキテクチャ: `docs/ARCHITECTURE.md`
+- ビジュアルシステム: `docs/VISUAL_SYSTEMS.md`
+- 提出チェックリスト: `docs/THEME_SUBMISSION_CHECKLIST.md`
+- テーマ掲載文案: `ASTRO_THEME_LISTING.md`
+- アップグレードガイド: `UPGRADING.md`
+- 変更履歴: `CHANGELOG.md`
+
+## ライセンス
+
+MIT License。`LICENSE` を参照。

@@ -1,0 +1,363 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import themeRedqueen1 from '../assets/theme/red-queen/theme-redqueen1.webp';
+// Animated WebP rather than GIF: same frames at native resolution, ~half the
+// bytes. These are referenced only via .src, so Astro emits them untouched —
+// nothing in the image pipeline will compress them for us.
+import themeRedqueen2 from '../assets/theme/red-queen/theme-redqueen2.webp';
+import FormattedDate from '../components/FormattedDate.astro';
+import Giscus from '../components/Giscus.astro';
+import AiShell from './shells/AiShell.astro';
+import blogPostCssUrl from '../styles/blog-post.css?url';
+import { SITE_AUTHOR } from '@anglefeint/site-config/site';
+import { THEME } from '@anglefeint/site-config/theme';
+import {
+  DEFAULT_LOCALE,
+  type Locale,
+  isLocale,
+  localePath,
+  blogIdToSlugAnyLocale,
+} from '@anglefeint/site-i18n/config';
+import { getMessages } from '@anglefeint/site-i18n/messages';
+
+type Props = CollectionEntry<'blog'>['data'] & {
+  locale?: string;
+  related?: CollectionEntry<'blog'>[];
+  localeHrefs?: Partial<Record<Locale, string>>;
+  aiLatencyEstimated?: boolean;
+  aiConfidenceEstimated?: boolean;
+};
+
+const {
+  title,
+  subtitle,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  heroImageAlt,
+  context,
+  readMinutes,
+  aiModel,
+  aiMode,
+  aiState,
+  aiLatencyMs,
+  aiLatencyEstimated = false,
+  aiConfidence,
+  aiConfidenceEstimated = false,
+  wordCount,
+  tokenCount,
+  author,
+  tags,
+  locale = DEFAULT_LOCALE,
+  related = [],
+  localeHrefs,
+} = Astro.props;
+const resolvedLocale: Locale = isLocale(locale) ? locale : DEFAULT_LOCALE;
+const messages = getMessages(resolvedLocale);
+
+// 终端风格日期
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+const compact = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
+const contextText = context ?? description;
+const hasSystemMeta = Boolean(aiModel || aiMode || aiState);
+const hasResponseMeta = aiLatencyMs !== undefined || aiConfidence !== undefined;
+const hasStats = aiModel || wordCount !== undefined || tokenCount !== undefined;
+const confidenceText = aiConfidence !== undefined ? aiConfidence.toFixed(2) : undefined;
+const enableRedQueen = THEME.EFFECTS.ENABLE_RED_QUEEN;
+const comments = THEME.COMMENTS;
+const normalizedCommentTerm = comments.TERM.trim();
+const normalizedCommentNumber = comments.NUMBER.trim();
+const hasValidCommentNumber =
+  /^[1-9]\d*$/.test(normalizedCommentNumber) &&
+  Number.isSafeInteger(Number(normalizedCommentNumber));
+const hasMappingParam =
+  comments.MAPPING === 'specific'
+    ? Boolean(normalizedCommentTerm)
+    : comments.MAPPING === 'number'
+      ? hasValidCommentNumber
+      : true;
+const hasCommentsConfig = Boolean(
+  comments.ENABLED &&
+  comments.REPO &&
+  comments.REPO_ID &&
+  comments.CATEGORY &&
+  comments.CATEGORY_ID &&
+  hasMappingParam
+);
+---
+
+<AiShell
+  locale={resolvedLocale}
+  title={title}
+  description={description}
+  image={heroImage}
+  imageAlt={heroImageAlt}
+  pageType="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  author={author ?? SITE_AUTHOR}
+  tags={tags}
+  localeHrefs={localeHrefs}
+>
+  <link slot="head" rel="stylesheet" href={blogPostCssUrl} />
+  <Fragment slot="body-start">
+    <div class="ai-bg" aria-hidden="true">
+      <div class="ai-glow ai-glow-shift"></div>
+      <div class="ai-haze" aria-hidden="true"></div>
+      <div class="ai-vignette" aria-hidden="true"></div>
+      <div class="ai-stripe"></div>
+      <div class="ai-noise" aria-hidden="true"></div>
+      <div class="ai-hex-grid" aria-hidden="true"></div>
+      <div class="ai-thought-particles" aria-hidden="true">
+        {
+          [...Array(12)].map((_, i) => (
+            <span
+              class="ai-particle"
+              style={`--x: ${20 + ((i * 7) % 60)}%; --y: ${10 + ((i * 11) % 70)}%; --d: ${3 + (i % 4)}s`}
+            />
+          ))
+        }
+      </div>
+      <canvas class="ai-network-canvas" aria-hidden="true"></canvas>
+    </div>
+    {
+      enableRedQueen && (
+        <aside class="rq-tv rq-tv-collapsed">
+          <div
+            class="rq-tv-stage"
+            data-rq-src={themeRedqueen1.src}
+            data-rq-src2={themeRedqueen2.src}
+          />
+          <div class="rq-tv-badge">
+            {messages.blog.rqBadge}
+            <span class="rq-tv-dot" />
+          </div>
+          <button
+            type="button"
+            class="rq-tv-toggle"
+            aria-label={messages.blog.rqReplayAria}
+            aria-expanded="false"
+          >
+            ▶
+          </button>
+        </aside>
+      )
+    }
+    <div class="ai-read-progress" aria-hidden="true"></div>
+    <button
+      type="button"
+      class="ai-back-to-top"
+      aria-label={messages.blog.backToTop}
+      title={messages.blog.backToTop}>↑</button
+    >
+    <div
+      class="ai-stage-toast"
+      aria-live="polite"
+      aria-atomic="true"
+      data-toast-p10={messages.blog.toastP10}
+      data-toast-p30={messages.blog.toastP30}
+      data-toast-p60={messages.blog.toastP60}
+      data-toast-done={messages.blog.toastDone}
+    >
+    </div>
+    <div class="ai-mouse-glow" aria-hidden="true"></div>
+    <div class="ai-depth-blur" aria-hidden="true"></div>
+    <div class="ai-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+  </Fragment>
+  <div class="ai-load-scan" aria-hidden="true"></div>
+  <article class="ai-article">
+    {
+      heroImage && (
+        <div class="hero-shell">
+          <div class="hero-pane">
+            <div class="hero-image">
+              <div class="hero-stack">
+                <div class="hero-base-wrap">
+                  <Image
+                    class="hero-base-image"
+                    src={heroImage}
+                    alt={heroImageAlt ?? ''}
+                    loading="eager"
+                    decoding="async"
+                    fetchpriority="high"
+                  />
+                </div>
+                <div class="hero-canvas-wrap" aria-hidden="true">
+                  <canvas class="hero-canvas" data-hero-src={heroImage.src} />
+                </div>
+              </div>
+              <div class="hero-frame" aria-hidden="true">
+                <span>{messages.blog.heroMonitor}</span>
+                <span class="hero-frame-dot" />
+              </div>
+            </div>
+            <div class="hero-threat-bar" aria-hidden="true">
+              <span>{messages.blog.heroSignalSync}</span>
+              <span>{messages.blog.heroModelOnline}</span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    <div class="prose">
+      <div class="title ai-title">
+        <div class="ai-meta-terminal">
+          $ {messages.blog.metaPublished}
+          {fmt(pubDate)}
+          {
+            updatedDate && (
+              <>
+                {' '}
+                | {messages.blog.metaUpdated} {fmt(updatedDate)}
+              </>
+            )
+          }
+          {
+            readMinutes !== undefined && (
+              <>
+                {' '}
+                | ~{readMinutes} {messages.blog.metaReadMinutes}
+              </>
+            )
+          }
+        </div>
+        {
+          hasSystemMeta && (
+            <div class="ai-system-row" aria-label={messages.blog.systemStatusAria}>
+              {aiModel && (
+                <span class="ai-system-chip">
+                  {messages.blog.systemModelLabel}: {aiModel}
+                </span>
+              )}
+              {aiMode && (
+                <span class="ai-system-chip">
+                  {messages.blog.systemModeLabel}: {aiMode}
+                </span>
+              )}
+              {aiState && (
+                <span class="ai-system-chip">
+                  {messages.blog.systemStateLabel}: {aiState}
+                </span>
+              )}
+            </div>
+          )
+        }
+        {
+          contextText && (
+            <div class="ai-prompt-line">
+              {messages.blog.promptContextLabel}: <span class="ai-prompt-topic">{contextText}</span>{' '}
+              →
+            </div>
+          )
+        }
+        <h1 class="ai-title-text">{title}</h1>
+        {subtitle && <p class="ai-subtitle-text">{subtitle}</p>}
+        <hr />
+        <div class="ai-title-flow" aria-hidden="true"></div>
+      </div>
+      <div class="ai-response-wrap">
+        <div class="ai-response-header">
+          <div class="ai-response-avatar" aria-hidden="true"></div>
+          <span class="ai-response-label">{messages.blog.responseOutput}</span>
+          {
+            hasResponseMeta && (
+              <div class="ai-response-meta">
+                {aiLatencyMs !== undefined && (
+                  <span>
+                    {messages.blog.latencyLabel}{' '}
+                    <strong>{aiLatencyEstimated ? `~${aiLatencyMs}` : aiLatencyMs}</strong> ms
+                  </span>
+                )}
+                {confidenceText !== undefined && (
+                  <span>
+                    {messages.blog.confidenceLabel}{' '}
+                    <strong>{aiConfidenceEstimated ? `~${confidenceText}` : confidenceText}</strong>
+                  </span>
+                )}
+              </div>
+            )
+          }
+        </div>
+        <div class="ai-prose-body ai-prose-fade">
+          <slot />
+          <span class="ai-block-cursor" aria-hidden="true"></span>
+        </div>
+      </div>
+      {
+        hasStats && (
+          <div class="ai-stats-corner">
+            {aiModel && <span class="ai-model-id">{aiModel}</span>}
+            {aiModel && (wordCount !== undefined || tokenCount !== undefined) && ' · '}
+            {wordCount !== undefined && (
+              <span>
+                {compact(wordCount)} {messages.blog.statsWords}
+              </span>
+            )}
+            {wordCount !== undefined && tokenCount !== undefined && ' · '}
+            {tokenCount !== undefined && (
+              <span>
+                {compact(tokenCount)} {messages.blog.statsTokens}
+              </span>
+            )}
+          </div>
+        )
+      }
+      <button
+        type="button"
+        class="ai-regenerate"
+        aria-label={messages.blog.regenerate}
+        title={messages.blog.regenerate}>{messages.blog.regenerate}</button
+      >
+    </div>
+  </article>
+  {
+    related.length > 0 && (
+      <section class="ai-related" aria-label={messages.blog.relatedAria}>
+        <h2 class="ai-related-title">{messages.blog.related}</h2>
+        <div class="ai-related-grid">
+          {related.map((p) => (
+            <a
+              href={localePath(resolvedLocale, `/blog/${blogIdToSlugAnyLocale(p.id)}`)}
+              class="ai-related-card"
+            >
+              {p.data.heroImage ? (
+                <div class="ai-related-img">
+                  <Image width={320} height={180} src={p.data.heroImage} alt="" />
+                </div>
+              ) : (
+                <div class="ai-related-placeholder">
+                  <span>{p.data.title.charAt(0)}</span>
+                </div>
+              )}
+              <h3 class="ai-related-card-title">{p.data.title}</h3>
+              <p class="ai-related-card-date">
+                <FormattedDate date={p.data.pubDate} locale={resolvedLocale} />
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+  <nav class="ai-back-to-blog" aria-label={messages.blog.backToBlogAria}>
+    <a href={localePath(resolvedLocale, '/blog/')}>
+      <span class="ai-back-prompt">$</span>
+      <span class="ai-back-text">← {messages.blog.backToBlog}</span>
+    </a>
+  </nav>
+  {
+    hasCommentsConfig && (
+      <section class="prose ai-comments" aria-label={messages.blog.comments}>
+        <Giscus comments={comments} resolvedLocale={resolvedLocale} />
+      </section>
+    )
+  }
+  <Fragment slot="body-end">
+    <script>
+      import { initBlogpostEffects } from '../scripts/blogpost-effects.js';
+      initBlogpostEffects();
+    </script>
+  </Fragment>
+</AiShell>

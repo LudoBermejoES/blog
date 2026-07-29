@@ -1,0 +1,239 @@
+<h1 align="center">Anglefeint</h1>
+<p align="center">개인 퍼블리싱을 위한 시네마틱 멀티 무드 Astro 테마입니다.</p>
+
+<p align="center">
+  <a href="https://demo.anglefeint.com/">라이브 데모</a>
+  ·
+  <a href="https://github.com/anglefeint/astro-theme-anglefeint">저장소</a>
+  ·
+  <a href="ASTRO_THEME_LISTING.md">테마 제출 문안</a>
+</p>
+
+<p align="center">
+  <img alt="Astro" src="https://img.shields.io/badge/Astro-6.1.3-BC52EE?logo=astro&logoColor=white" />
+  <img alt="Node" src="https://img.shields.io/badge/Node.js-22.12%2B-339933?logo=node.js&logoColor=white" />
+  <img alt="Locales" src="https://img.shields.io/badge/i18n-en%20%7C%20ja%20%7C%20ko%20%7C%20es%20%7C%20zh-0A7EA4" />
+  <img alt="Deployment" src="https://img.shields.io/badge/Deploy-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white" />
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-2EA043" />
+</p>
+
+## 템플릿 설치
+
+```bash
+npm create astro@latest -- --template anglefeint/astro-theme-anglefeint#starter
+```
+
+`pnpm` 사용:
+
+```bash
+pnpm create astro@latest --template anglefeint/astro-theme-anglefeint#starter
+```
+
+## 요구 사항
+
+- Node.js `22.12.0+` (LTS 권장)
+- 패키지 매니저: `npm`, `pnpm`, `yarn`, `bun`
+
+## 빠른 시작
+
+```bash
+npm install
+npm run dev
+```
+
+빌드 및 미리보기:
+
+```bash
+npm run build
+npm run preview
+```
+
+품질 점검 명령:
+
+```bash
+npm run lint
+npm run format:check
+npm run e2e:install
+npm run e2e
+```
+
+`pnpm` 사용:
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm preview
+```
+
+## 테마 업그레이드
+
+`#starter` 로 생성한 프로젝트에서 package 업데이트를 가져올 때는 먼저 아래를 실행합니다:
+
+```bash
+npm update @anglefeint/astro-theme
+npm install
+npm run doctor
+# doctor가 adapter drift를 보고하면:
+# npm run sync-adapters
+npm run check
+npm run build
+```
+
+release note 에 starter 쪽 contract 변경이 적혀 있으면 그 변경도 프로젝트에 동기화해야 합니다. `npm update` 는 공개 package 만 업데이트합니다.
+
+커스텀 코드가 `src/consts` 또는 `@anglefeint/astro-theme/consts` 를 참조하고 있다면 `src/config/site.ts` 로 마이그레이션하세요.
+
+Astro 메이저 버전 마이그레이션은 먼저 공식 가이드를 확인하세요:
+
+- https://docs.astro.build/en/guides/upgrade-to/
+- 이후 이 프로젝트에서 `npm run check` 와 `npm run build` 를 실행하세요.
+
+## 새 글 만들기
+
+모든 로케일(`en`, `ja`, `ko`, `es`, `zh`)에 같은 slug 글을 한 번에 생성합니다:
+
+```bash
+npm run new-post -- my-first-post
+```
+
+Slug 규칙: 소문자 영문, 숫자, 하이픈만 사용하세요 (예: `my-first-post`).
+`src/assets/blog/default-covers/` 에 기본 커버가 있으면 slug 해시 기반으로 안정적인 기본 이미지가 자동 할당됩니다 (`heroImage` 는 나중에 직접 변경 가능).
+선택 로케일 지정:
+
+```bash
+npm run new-post -- my-first-post --locales en,fr
+# 또는
+ANGLEFEINT_LOCALES=en,fr npm run new-post -- my-first-post
+```
+
+URL 규칙:
+
+- 파일: `src/content/blog/ko/my-first-post.md`
+- URL: `/ko/blog/my-first-post/`
+- 블로그 목록: `/ko/blog/`
+- 라우트를 수동으로 추가할 필요가 없습니다. Astro가 빌드 시 자동 생성합니다.
+
+## 새 페이지 만들기
+
+`new-post` 는 블로그 글만 생성합니다. 커스텀 페이지는 아래 명령으로 생성하세요:
+
+```bash
+npm run new-page -- projects --theme base
+```
+
+지원 테마: `base`, `ai`, `cyber`, `hacker`, `matrix`.  
+명령은 `src/pages/[lang]/projects.astro` 를 만들고 `getStaticPaths()` 로 모든 로케일 라우트를 생성합니다.
+slug 규칙: 소문자, 숫자, 하이픈만 허용하며 중첩 경로(예: `projects/labs`)를 지원합니다. `_` 와 대문자는 허용되지 않습니다.
+
+예시:
+
+```bash
+npm run new-page -- projects --theme base
+npm run new-page -- projects --theme ai
+npm run new-page -- projects --theme cyber
+npm run new-page -- projects --theme hacker
+npm run new-page -- projects --theme matrix
+```
+
+## 언어
+
+[English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md) · [Español](README.es.md) · 한국어 (현재 문서)
+
+## 미리보기
+
+| 홈                                                             | 블로그 목록                                                              |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| ![Home preview](docs/previews/preview-home.png) | ![Blog list preview](docs/previews/preview-blog-list.png) |
+
+| 글 상세                                                                       |
+| ----------------------------------------------------------------------------- |
+| ![Blog post preview](docs/previews/preview-blog-post-open.png) |
+
+| About                                                            |
+| ---------------------------------------------------------------- |
+| ![About preview](docs/previews/preview-about.png) |
+
+## 라우트별 분위기
+
+- `/<default-locale>/` (기본적으로 `/` 는 여기로 리다이렉트): Matrix 스타일 터미널 랜딩
+- `/:lang/blog`: 사이버펑크 아카이브 무드
+- `/:lang/blog/[slug]`: AI 인터페이스형 읽기 레이아웃
+- `/:lang/about`: 선택형 해커 스타일 About 페이지
+
+## 테마 네이밍 규약
+
+- 테마 파라미터: `base`, `ai`, `cyber`, `hacker`, `matrix`
+- 내부 셀렉터/스크립트 접두사: `ai-*`, `cyber-*`, `hacker-*`
+- 기본 구성 레이어: `ThemeFrame -> Shell -> Layout -> Page`
+
+## 주요 기능
+
+- Astro 6 정적 출력
+- Markdown + MDX 콘텐츠 컬렉션
+- 스타터에 포함된 예시 로케일: `en`, `ja`, `ko`, `es`, `zh`
+- 로케일별 RSS 피드
+- sitemap + robots 지원
+- 설정 중심의 커스터마이징
+- 짧은 페이지에서도 Footer 하단 고정
+
+## 테마 설정
+
+1. `.env.example` 를 `.env` 로 복사하고 사이트 정보를 설정합니다.
+2. `src/site.config.ts` 를 수정합니다:
+   - `site.title`, `site.description`, `site.url`, `site.author`, `site.tagline`: 사이트 정체성과 기본 메타데이터
+   - `i18n.defaultLocale`: 기본 언어를 설정
+   - `i18n.routing.defaultLocalePrefix`: 기본 언어를 `/<default-locale>/`(기본값) 또는 `/` 중 어디에 둘지 설정
+   - `i18n.locales`: 지원 언어를 한 곳에서 추가/제거하는 단일 소스
+   - `i18n.locales.<code>.messages`: 로케일별 UI 문구 오버라이드
+   - `i18n.locales.<code>.site.hero`: 로케일별 홈 hero 문구 오버라이드
+   - `social.links`: 소셜 링크
+   - `i18n.locales.<code>.about`: 로케일별 About 콘텐츠와 런타임 문구
+   - `theme.enableAboutPage`: About 노출 제어
+   - `theme.effects.enableRedQueen`: 글 상세 사이드 모니터 이펙트 on/off
+   - `theme.comments`: Giscus 활성화/설정 (핵심 ID + 동작 파라미터)
+3. `src/content/blog/<locale>/` 의 샘플 글을 교체합니다.
+
+### 선택: Giscus 댓글
+
+댓글은 기본적으로 비활성화되어 있습니다. 활성화하려면:
+
+1. `src/site.config.ts` 에서 `theme.comments.enabled = true` 로 설정합니다.
+2. 필수 항목을 입력합니다:
+   - `theme.comments.repo`
+   - `theme.comments.repoId`
+   - `theme.comments.category`
+   - `theme.comments.categoryId`
+3. 선택 항목:
+   - `theme.comments.mapping`
+   - `theme.comments.term` (`mapping = "specific"` 일 때 필수)
+   - `theme.comments.number` (`mapping = "number"` 일 때 필수)
+   - `theme.comments.strict`
+   - `theme.comments.reactionsEnabled`
+   - `theme.comments.emitMetadata`
+   - `theme.comments.inputPosition` (`top` 또는 `bottom`)
+   - `theme.comments.theme`
+   - `theme.comments.lang`
+   - `theme.comments.loading`
+   - `theme.comments.crossorigin`
+
+필수 항목이 누락되면 댓글 블록은 렌더링되지 않습니다.
+
+## 설정 표면
+
+- 단일 엔트리: `src/site.config.ts`
+- 어댑터 레이어(직접 수정 비권장): `src/config/site.ts`, `src/config/theme.ts`, `src/config/about.ts`, `src/config/social.ts`
+- 사이트 정보는 `PUBLIC_*` 환경 변수로도 덮어쓸 수 있습니다
+
+## 문서
+
+- 아키텍처: `docs/ARCHITECTURE.md`
+- 비주얼 시스템: `docs/VISUAL_SYSTEMS.md`
+- 제출 체크리스트: `docs/THEME_SUBMISSION_CHECKLIST.md`
+- 테마 등록 초안: `ASTRO_THEME_LISTING.md`
+- 업그레이드 가이드: `UPGRADING.md`
+- 변경 이력: `CHANGELOG.md`
+
+## 라이선스
+
+MIT License. `LICENSE` 를 참고하세요.
