@@ -17,6 +17,30 @@
   <img alt="License" src="https://img.shields.io/badge/License-MIT-2EA043" />
 </p>
 
+## This Deployment
+
+Published to <https://blog.ludobermejo.es> from `main` by
+`.github/workflows/deploy.yml`, using the GitHub Pages **Actions** source (no
+`gh-pages` branch). `public/CNAME` claims the domain; `src/site.config.ts`
+declares the origin, and `astro.config.mjs` reads it as `site`.
+
+Two things worth knowing before you change them:
+
+- **The theme lives in `packages/theme/` as an npm workspace**, not in
+  `node_modules`. Edit it there. `npm update @anglefeint/astro-theme` will *not*
+  update it — the workspace link wins, which is the point.
+- **TypeScript is held at `6.x` deliberately.** `npm outdated` will keep
+  offering 7.x; taking it breaks `npm run check`. TypeScript 7's native compiler
+  does not expose the programmatic API `@astrojs/check` needs, and the Astro
+  language server rejects it outright. Track
+  [withastro/roadmap#1321](https://github.com/withastro/roadmap/discussions/1321).
+
+Serving from a custom domain at the root also avoids an Astro `base` path. That
+is load-bearing: the theme's i18n helpers emit root-absolute links and
+`stripLocaleFromPath` assumes the locale is the first path segment, so a
+`user.github.io/blog/` style subpath would break every nav link and locale
+switch until those helpers are made base-aware.
+
 ## Template Install
 
 ```bash
