@@ -46,10 +46,12 @@ Frontmatter: translate `title`, `description`, `subtitle`, `heroImageAlt` and
 free-text `tags`. Copy `pubDate`, `updatedDate`, `heroImage`, `author` and
 `draft` unchanged. `Hadinapló` is a proper noun — identical in every language.
 
-## 3. Publish
+## 3. Do NOT publish
 
-Once all six exist, drop `draft: true` from **all six** files — leaving it on one
-copy makes the post incomplete again, and `check:translations` will say so.
+Leave `draft: true` in place on all six files. Publishing is `/publish`'s job —
+it is the step that checks `pubDate`, drops the flag, verifies the rendered
+routes and deploys. Doing it here too would mean two commands racing over the
+same decision.
 
 ## 4. Verify before reporting done
 
@@ -61,8 +63,13 @@ npm run check && npm run build
 missing. Then confirm the post actually renders in a couple of locales:
 
 ```bash
-ls dist/*/blog/<slug>/index.html
+ls src/content/blog/*/<slug>.md   # six files, identical slug
 ```
+
+Note that a `draft: true` post emits **no route**, so `dist/*/blog/<slug>/` will
+be empty and that is correct. Verify the six source files instead, and confirm
+the frontmatter invariants match the Spanish original: `pubDate`, `heroImage` and
+`draft` copied unchanged in every locale.
 
 ## 5. Report
 
@@ -70,3 +77,5 @@ ls dist/*/blog/<slug>/index.html
   Translators are told to flag rather than silently fix source errors, so relay
   those — they are for the author to decide on.
 - Do not claim success if `check` or `build` failed.
+- End by telling the user to run `/publish <slug>` when they are happy with the
+  translations. That is the step that makes the post live.
