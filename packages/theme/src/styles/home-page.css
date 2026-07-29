@@ -1,12 +1,15 @@
-@font-face {
-	font-family: "Matrix Code NFI";
-	src:
-		url("/fonts/ff2a407fe06752facf8828a86955e988.woff2") format("woff2"),
-		url("/fonts/ff2a407fe06752facf8828a86955e988.ttf") format("truetype");
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
+/*
+  The "Matrix Code NFI" @font-face that lived here was removed. That font is
+  proprietary (© 2003 Norfok Inc. Font Design) and its embedded licence forbids
+  redistribution outright — "copying of the product even if modified, merged, or
+  included with other software ... is expressly forbidden" — which is exactly
+  what serving it from this domain did. It was also a fan replica of a film's
+  glyph design.
+
+  The home-page code rain now draws its ASCII glyphs in the platform monospace
+  stack (see packages/theme/src/scripts/home-matrix.js). The effect is intact;
+  only the glyph styling changed.
+*/
 
 body.page-home {
 	--matrix-green: rgba(96, 255, 128, 0.92);

@@ -1,8 +1,11 @@
 export function initHomeMatrix() {
 	const chars =
 		'!"#$%&\'()*+,-./:;<=>?[\\]^_{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	// Platform monospace only. The former first entry, "Matrix Code NFI", was a
+	// proprietary font whose licence forbade redistribution; the glyph set above
+	// is plain ASCII, so a monospace face renders the effect unchanged.
 	const matrixFont =
-		'"Matrix Code NFI", "Atkinson", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+		'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
 	const MAX_DPR = 2;
 
 	const canvas = document.getElementById('matrix-bg');
