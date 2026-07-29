@@ -90,7 +90,10 @@ const messages = getMessages(locale);
     <main id="main-content" class={mainClass}>
       <slot />
     </main>
-    <CommonFooter scanlines={scanlines} />
+    {/* CommonFooter already accepted a tagline prop but nothing passed one, so
+        the footer always showed the single global SITE_TAGLINE regardless of
+        locale. messages.tagline makes it translatable. */}
+    <CommonFooter tagline={messages.tagline} scanlines={scanlines} />
     <slot name="body-end" />
   </body>
 </html>

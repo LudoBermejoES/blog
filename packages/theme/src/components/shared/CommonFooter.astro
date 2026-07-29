@@ -14,8 +14,11 @@ const { tagline = SITE_TAGLINE, scanlines = false } = Astro.props as Props;
 ---
 
 <footer>
-  &copy; {today.getFullYear()}
-  {SITE_TITLE}. {tagline}
+  {/* Kept on one line deliberately. Astro 7 defaults compressHTML to 'jsx',
+      which drops whitespace-only line breaks between expressions like JSX does;
+      split across lines this rendered as "© 2026Hadinapló." Same-line spaces
+      survive. */}
+  &copy; {today.getFullYear()} {SITE_TITLE}. {tagline}
   <div class="social-links">
     <SocialMenu links={SOCIAL_LINKS} tone="footer" gap="0.85rem" />
   </div>

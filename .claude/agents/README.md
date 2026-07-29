@@ -12,6 +12,15 @@ so they travel with the repo and stay scoped to Astro conventions.
 | `astro-deploy-engineer` | Adapters, host config, CI, redirects, headers, custom domains |
 | `blog-ux-designer` | Typography and reading experience, color and dark mode, design tokens, component inventory |
 | `es-en-translator` | Spanish ↔ English translation of posts, frontmatter, and UI strings; Astro i18n layouts |
+| `translator-ja` | → Japanese (`ja`) |
+| `translator-ko` | → Korean (`ko`) |
+| `translator-zh` | → Simplified Chinese (`zh`, `hreflang` `zh-CN`) |
+| `translator-eo` | → Esperanto (`eo`) |
+
+Every post ships in all six locales — see `CLAUDE.md`. The four target-language
+agents are independent, so dispatch them in parallel from a single message
+rather than one at a time. All of them must reuse the source filename verbatim:
+the slug is the join key that links translations together.
 
 ## Installed skills
 

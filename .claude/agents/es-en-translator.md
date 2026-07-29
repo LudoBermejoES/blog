@@ -20,7 +20,7 @@ You translate technical blog content between Spanish and English. Default direct
 | Field | Action |
 | --- | --- |
 | `title`, `description` | Translate. Respect the schema's length limits — a Spanish description near the 160-char cap usually shrinks in English, which is fine; if it grows past the limit, rewrite tighter rather than truncating. |
-| `slug` / filename | Regenerate as English kebab-case. Never machine-transliterate the Spanish slug. |
+| `slug` / filename | **Copy byte-for-byte. Do not translate or regenerate it.** In this repo the slug is the join key across locales: `src/pages/[lang]/blog/[...slug].astro` builds the language switcher and `hreflang` alternates by looking for `<targetLocale>/<same-slug>`. A renamed slug means switching language on that post silently lands the reader on `/en/blog/` instead of the translation. (General-purpose advice would say to localise slugs for SEO; that does not apply here without reworking `localeHrefs` first.) |
 | `tags` | Translate free-text tags; keep them if the site uses a fixed English taxonomy. Check existing posts before deciding. |
 | `pubDate`, `updatedDate`, `draft` | Copy unchanged. |
 | `heroImage` and other asset paths | Copy unchanged; translate only the `alt` text. |

@@ -4,6 +4,8 @@ export type Messages = {
   siteTitle: string;
   siteDescription: string;
   langLabel: string;
+  /** Footer tagline. Per-locale so it can be translated alongside siteDescription. */
+  tagline: string;
   nav: {
     home: string;
     blog: string;
@@ -76,6 +78,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
     siteTitle: 'Angle Feint',
     siteDescription: 'Cinematic web interfaces and AI-era engineering essays.',
     langLabel: 'Language',
+    tagline: 'Built with Astro.',
     nav: {
       home: 'Home',
       blog: 'Blog',
@@ -146,6 +149,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
     siteTitle: 'Angle Feint',
     siteDescription: '映画的なWebインターフェースとAI時代のエンジニアリング考察。',
     langLabel: '言語',
+    tagline: 'Astro で構築。',
     nav: {
       home: 'ホーム',
       blog: 'ブログ',
@@ -216,6 +220,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
     siteTitle: 'Angle Feint',
     siteDescription: '시네마틱 웹 인터페이스와 AI 시대 엔지니어링 에세이.',
     langLabel: '언어',
+    tagline: 'Astro로 제작.',
     nav: {
       home: '홈',
       blog: '블로그',
@@ -286,6 +291,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
     siteTitle: 'Angle Feint',
     siteDescription: 'Interfaces web cinematográficas y ensayos de ingeniería en la era de IA.',
     langLabel: 'Idioma',
+    tagline: 'Hecho con Astro.',
     nav: {
       home: 'Inicio',
       blog: 'Blog',
@@ -357,6 +363,7 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
     siteTitle: 'Angle Feint',
     siteDescription: '电影感网页界面与 AI 时代工程实践文章。',
     langLabel: '语言',
+    tagline: '使用 Astro 构建。',
     nav: {
       home: '首页',
       blog: '博客',
@@ -421,6 +428,77 @@ export const DEFAULT_MESSAGES: Record<string, Messages> = {
       toastP30: '语境解析 30%',
       toastP60: '推理稳定 60%',
       toastDone: '输出完成',
+    },
+  },
+  eo: {
+    siteTitle: 'Angle Feint',
+    siteDescription: 'Kinecaj retinterfacoj kaj inĝenieraj eseoj el la epoko de artefarita inteligenteco.',
+    langLabel: 'Lingvo',
+    tagline: 'Konstruita per Astro.',
+    nav: {
+      home: 'Hejmo',
+      blog: 'Blogo',
+      about: 'Pri',
+      status: 'sistemo: enreta',
+      statusAria: 'Stato de la sistemo',
+      skipToContent: 'Salti al la enhavo',
+    },
+    home: {
+      hero: 'Skribu mallongan enkondukon pri via retejo kaj pri tio, kion legantoj povas atendi de viaj afiŝoj.',
+      latest: 'Plej novaj afiŝoj',
+      viewAll: 'Vidi ĉiujn afiŝojn',
+      noPosts: 'Ankoraŭ ne estas afiŝoj en ĉi tiu lingvo.',
+    },
+    about: {
+      title: 'Pri — Hakera etoso',
+      description: 'Kiu mi estas, kion mi konstruas, kaj la hakera etoso malantaŭ mia laboro.',
+      who: 'Kiu mi estas',
+      what: 'Kion mi konstruas',
+      ethos: 'Hakera etoso',
+      now: 'Nun',
+      contact: 'Kontakto',
+      regenerate: 'Reludi skanadon',
+    },
+    blog: {
+      title: 'Blogo',
+      pageTitle: 'Blogo - Paĝo',
+      archiveDescription: 'Eseoj pri metio en la epoko de artefarita inteligenteco, retinĝenierado kaj sistemarkitekturo.',
+      pageDescription: 'Arkiva paĝo de la blogo',
+      previous: 'Antaŭa',
+      next: 'Sekva',
+      jumpTo: 'Salti al paĝo',
+      jumpGo: 'Iri',
+      jumpInputLabel: 'Numero de paĝo',
+      backToBlog: 'Reen al la blogo',
+      backToTop: 'Reen supren',
+      related: 'Rilataj',
+      comments: 'Komentoj',
+      responseOutput: 'Eligo',
+      rqBadge: 'monitora fluo',
+      rqReplayAria: 'Reludi la monitoran fluon',
+      metaPublished: 'publikigita',
+      metaUpdated: 'ĝisdatigita',
+      metaReadMinutes: 'min da legado',
+      systemStatusAria: 'Stato de la modelo',
+      systemModelLabel: 'modelo',
+      systemModeLabel: 'reĝimo',
+      systemStateLabel: 'stato',
+      promptContextLabel: 'Kunteksto',
+      latencyLabel: 'takso de latenteco',
+      confidenceLabel: 'fido',
+      statsWords: 'vortoj',
+      statsTokens: 'ĵetonoj',
+      heroMonitor: 'neŭrala monitoro',
+      heroSignalSync: 'signalsinkronigo aktiva',
+      heroModelOnline: 'modelo enreta',
+      regenerate: 'Reludi skanadon',
+      relatedAria: 'Rilataj afiŝoj',
+      backToBlogAria: 'Reen al la blogo',
+      paginationAria: 'Paĝonumerado',
+      toastP10: 'kunteksto analizita 10%',
+      toastP30: 'kunteksto analizita 30%',
+      toastP60: 'konkludado stabila 60%',
+      toastDone: 'eligo finpretigita',
     },
   },
 };

@@ -295,13 +295,19 @@ const aboutRuntimeConfig = {
           <p>{ABOUT_CONFIG.sections.now}</p>
 
           <h2 class="about-section-title">05 / {messages.about.contact}</h2>
+          {/*
+            Explicit {' '} between every text run and inline link. Astro 7
+            defaults compressHTML to 'jsx', which drops whitespace-only line
+            breaks between expressions, so relying on the line breaks rendered
+            this as "roles).Reach me via<a>email</a>or connect on<a>GitHub</a>".
+          */}
           <p>
-            {ABOUT_CONFIG.sections.contactLead}
-            {ABOUT_CONFIG.labels.contactEmailLead}
+            {ABOUT_CONFIG.sections.contactLead}{' '}
+            {ABOUT_CONFIG.labels.contactEmailLead}{' '}
             <a href={`mailto:${ABOUT_CONFIG.contact.email}`}
               >{ABOUT_CONFIG.labels.contactEmailLabel}</a
-            >
-            {ABOUT_CONFIG.labels.contactConnectLead}
+            >{' '}
+            {ABOUT_CONFIG.labels.contactConnectLead}{' '}
             <a href={ABOUT_CONFIG.contact.githubUrl} target="_blank" rel="noopener noreferrer"
               >{ABOUT_CONFIG.contact.githubLabel}</a
             >.

@@ -204,8 +204,9 @@ const hasCommentsConfig = Boolean(
     <div class="prose">
       <div class="title ai-title">
         <div class="ai-meta-terminal">
-          $ {messages.blog.metaPublished}
-          {fmt(pubDate)}
+          {/* One line on purpose: see the compressHTML note in CommonFooter.
+              Split across lines this rendered as "$ publicado2026-02-17". */}
+          $ {messages.blog.metaPublished} {fmt(pubDate)}
           {
             updatedDate && (
               <>
