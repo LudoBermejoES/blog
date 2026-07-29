@@ -7,26 +7,24 @@ signature: '> Sustituye esto por tu propia línea de cierre.'
 
 ## Quién soy
 
-Escribe aquí una introducción breve sobre ti, tu trayectoria y en qué te centras
-ahora mismo.
+Soy Ludo. Trabajo como director de tecnología o CTO, también soy profesor de escritura creativa, escritor, director de juego en rol de mesa, antiguo director de rol en vivo y, a veces, hago algunas cosas con motores gráficos.
 
-## Qué construyo
+## De qué va esto
 
-Describe lo que construyes, tus habilidades principales y el tipo de proyectos
-por los que te gustaría que te conocieran.
+Este blog tratará de tecnología, escritura, enseñanza, rol, software, 3D, juegos, todo mezclado. Me gusta mestizar mis conocimientos a todos los niveles.
 
 ## Ethos
 
-- La claridad antes que la complejidad.
-- Sistemas mantenibles antes que soluciones de un solo uso.
-- Iteraciones pequeñas y aprender de lo que devuelven.
-- Comunicación directa y decisiones documentadas.
+- No seas cabrón.
+- Entretener a otros es de las mejores cosas a las que puede aspirar una persona.
+- Haz las cosas porque quieres hacerlas, no porque quieres que te sigan.
+- Caminamos a hombros de gigantes.
 
 ## Ahora
 
-Cuenta qué estás construyendo, publicando o aprendiendo en este momento.
+Escribiendo una novela, automatizando sistemas de rol, escribiendo un blog.
 
 ## Contacto
 
-Si quieres escribirme, puedes hacerlo por [correo](mailto:tu@correo.es) o
+Si quieres escribirme, puedes hacerlo por [correo](mailto:ludobermejo@gmail.com) o
 encontrarme en [GitHub](https://github.com/LudoBermejoES).

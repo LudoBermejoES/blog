@@ -5,6 +5,18 @@ argument-hint: [slug]  # omit to translate every incomplete post
 
 Translate Spanish posts into the other five locales: `en`, `ja`, `ko`, `zh`, `eo`.
 
+There are two translatable collections. Check both.
+
+**Blog posts** — `src/content/blog/<locale>/<slug>.md`. The filename is the slug
+and must be **identical across locales**.
+
+**The About page** — `src/content/about/<locale>.md`. One entry per locale, named
+by locale code, so the target filename is `en.md`, `ja.md` and so on — *not* the
+source filename. Its frontmatter is `title`, `description`, `metaLine` and
+`signature`, all translatable prose; there is no `pubDate`, `heroImage` or
+`draft`. **Never write the `01 /` section numbers** — they are a CSS counter, and
+literal numbers would double them.
+
 ## 1. Work out what needs translating
 
 If `$1` is given, that slug. Otherwise find every incomplete post:
@@ -16,6 +28,16 @@ npm run check:translations
 Its failure output lists each published-but-incomplete slug and exactly which
 locales are missing. If the target post is still `draft: true` it will not
 appear there, so also check `src/content/blog/es/` directly for drafts.
+
+`check:translations` covers **posts only**, deliberately: a missing post
+translation fails silently, whereas a missing About translation falls back to the
+default locale with a visible notice. So check the About collection by hand:
+
+```bash
+ls src/content/about/
+```
+
+Six files expected — `en ja ko zh eo es`. Anything missing needs translating too.
 
 Read the Spanish source before dispatching anything, so you can sanity-check the
 translations that come back.
@@ -48,7 +70,9 @@ free-text `tags`. Copy `pubDate`, `updatedDate`, `heroImage`, `author` and
 
 ## 3. Do NOT publish
 
-Leave `draft: true` in place on all six files. Publishing is `/publish`'s job —
+Applies to posts only; the About page has no draft flag and goes live on deploy.
+
+Leave `draft: true` in place on all six post files. Publishing is `/publish`'s job —
 it is the step that checks `pubDate`, drops the flag, verifies the rendered
 routes and deploys. Doing it here too would mean two commands racing over the
 same decision.
