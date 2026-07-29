@@ -28,8 +28,12 @@ produced by translation. The workflow:
 ```
 /post <slug>      # scaffold src/content/blog/es/<slug>.md as a draft
                   # ...author writes it in Spanish...
-/translate <slug> # fan out all five translator agents in parallel, then publish
+/translate <slug> # fan out all five translator agents in parallel
+/publish <slug>   # drop the draft flag in all six, verify, commit, deploy
 ```
+
+`/publish` refuses to act on a post that is not present in all six locales, so
+the incomplete-post failure cannot reach production through it.
 
 `npm run check:translations` enforces the rule — it fails when a post is
 published in at least one locale but missing from others. It is in the `check`
