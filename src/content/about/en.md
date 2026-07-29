@@ -1,8 +1,8 @@
 ---
 title: 'About Me'
 description: 'Who I am, what I build, and why I keep this diary.'
-metaLine: '$ profile started | mode: builder'
-signature: '> Replace this with your own closing line.'
+metaLine: '$ profile started | mode: maker'
+signature: '> And sometimes, when you fall, you fly.'
 ---
 
 ## Who I Am
@@ -15,7 +15,7 @@ This blog will be about technology, writing, teaching, roleplaying games, softwa
 
 ## Ethos
 
-- Don't be a dick.
+- Don't be an idiot.
 - Entertaining other people is one of the best things anyone can aspire to.
 - Do things because you want to do them, not because you want to be followed.
 - We stand on the shoulders of giants.

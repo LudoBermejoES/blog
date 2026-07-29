@@ -1,8 +1,8 @@
 ---
 title: 'Sobre mí'
 description: 'Quién soy, qué construyo y por qué escribo este diario.'
-metaLine: '$ perfil iniciado | modo: constructor'
-signature: '> Sustituye esto por tu propia línea de cierre.'
+metaLine: '$ perfil iniciado | modo: creador'
+signature: '> Y a veces, cuando caes, vuelas.'
 ---
 
 ## Quién soy
@@ -15,7 +15,7 @@ Este blog tratará de tecnología, escritura, enseñanza, rol, software, 3D, jue
 
 ## Ethos
 
-- No seas cabrón.
+- No seas imbécil.
 - Entretener a otros es de las mejores cosas a las que puede aspirar una persona.
 - Haz las cosas porque quieres hacerlas, no porque quieres que te sigan.
 - Caminamos a hombros de gigantes.

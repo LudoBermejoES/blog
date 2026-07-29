@@ -1,8 +1,8 @@
 ---
 title: 'Pri mi'
 description: 'Kiu mi estas, kion mi konstruas kaj kial mi verkas ĉi tiun taglibron.'
-metaLine: '$ profilo lanĉita | reĝimo: konstruanto'
-signature: '> Anstataŭigu ĉi tion per via propra ferma linio.'
+metaLine: '$ profilo lanĉita | reĝimo: kreanto'
+signature: '> Kaj foje, kiam oni falas, oni flugas.'
 ---
 
 ## Kiu mi estas
@@ -15,7 +15,7 @@ Mi estas Ludo. Mi laboras kiel teknologia direktoro, tio estas CTO; mi ankaŭ es
 
 ## Etoso
 
-- Ne estu fiulo.
+- Ne estu stultulo.
 - Amuzi aliajn estas unu el la plej bonaj aferoj, al kiuj homo povas aspiri.
 - Faru la aferojn ĉar vi volas fari ilin, ne ĉar vi volas, ke oni sekvu vin.
 - Ni marŝas sur la ŝultroj de gigantoj.
