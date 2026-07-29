@@ -2,7 +2,6 @@
 title: '开始'
 description: '这本日记的第一篇：它为什么存在，以及可以期待什么。'
 pubDate: '2026-07-29'
-draft: true
 heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
 ---
 

@@ -2,7 +2,6 @@
 title: 'Starting Out'
 description: 'The first entry in this diary: why it exists and what to expect.'
 pubDate: '2026-07-29'
-draft: true
 heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
 ---
 

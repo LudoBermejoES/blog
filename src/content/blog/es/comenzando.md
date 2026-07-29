@@ -2,7 +2,6 @@
 title: 'Comenzando'
 description: 'Primera entrada de este diario: por qué existe y qué esperar.'
 pubDate: '2026-07-29'
-draft: true
 heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
 ---
 

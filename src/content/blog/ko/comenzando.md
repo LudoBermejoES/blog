@@ -2,7 +2,6 @@
 title: '시작하며'
 description: '이 일기의 첫 글. 이 일기가 존재하는 이유와 앞으로 기대할 수 있는 것.'
 pubDate: '2026-07-29'
-draft: true
 heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
 ---
 

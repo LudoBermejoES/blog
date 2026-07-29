@@ -2,7 +2,6 @@
 title: 'Komencante'
 description: 'La unua enskribo de ĉi tiu taglibro: kial ĝi ekzistas kaj kion atendi.'
 pubDate: '2026-07-29'
-draft: true
 heroImage: '../../../assets/blog/default-covers/hacker-01.webp'
 ---
 
