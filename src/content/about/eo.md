@@ -13,7 +13,7 @@ Mi estas Ludo. Mi laboras kiel teknologia direktoro, tio estas CTO; mi ankaŭ es
 
 Ĉi tiu blogo temos pri teknologio, verkado, instruado, rolludoj, programaro, 3D, ludoj, ĉio miksita. Mi ŝatas krucbredi miajn sciojn je ĉiuj niveloj.
 
-## Etoso
+## Ethos
 
 - Ne estu stultulo.
 - Amuzi aliajn estas unu el la plej bonaj aferoj, al kiuj homo povas aspiri.
