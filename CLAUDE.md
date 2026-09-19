@@ -111,7 +111,14 @@ because dead frontmatter is a question every author has to ask once. Don't
 reintroduce a field without something rendering it.
 
 `readMinutes` and `wordCount` are derived from the body at build time when
-absent, so an author never fills them in.
+absent, so an author never fills them in. **The counting is script-aware** — see
+`src/utils/metrics.ts`. Whitespace splitting alone reported a whole Japanese post
+as 14 "words", because Han and kana do not space between words; they are counted
+as characters instead, at separate reading rates (Han is slower than kana, which
+is why the rate is per script rather than per language and needs no locale
+argument). Korean is deliberately *not* in that set: it spaces between eojeol and
+already counted correctly. The `ja` and `zh` unit labels are 文字 and 字 rather
+than "words", because the figure is now a character count.
 
 ### UI strings and site metadata
 
@@ -128,6 +135,9 @@ Post content is not the only thing that needs all six languages.
 - **Check licences before adding any asset or font.** A font's terms are embedded in its `name` table and are readable — the starter shipped a proprietary font whose licence forbade redistribution, plus commercial film footage. See `README.md`.
 - **CyberCore uppercases every heading.** The theme layer resets `text-transform` on content headings (post titles, card titles, prose headings) because all-caps slows reading and mangles accented Latin across six languages. Chrome labels keep their caps. If you add a heading class, decide which side it is on.
 - **`check:scaffold` had rotted** — it asserted on a `SUPPORTED_LOCALES` export that does not exist and was never wired into `npm run check`. It is now in the chain. Keep it there.
+- **Don't "simplify" word counting back to `split(/\s+/)`.** It looks redundant
+  next to the character counting and it is not: that is the bug, not the
+  cleanup. A Japanese post counted 14 words and read "~1 min".
 - **A dark hero image is not a broken hero image.** Screenshot JPEG compression makes the dark covers read as empty boxes; check `img.complete` / `naturalWidth` or sample pixels before "fixing" it.
 
 ## Commands

@@ -137,11 +137,29 @@ Nothing here is broken; these are decisions only you can make.
    `x-default`. That was a deliberate call (English as `x-default` suits an
    international audience, and the dispatcher sends Spanish speakers to `/es/`
    anyway). Changing it is one line, but do it **before** anything is indexed.
-5. **A `docs/glossary.md`** was offered and not created — it would pin the
+5. **Post cards never show a read time.** `PostCard` renders it only when
+   `readMinutes` is passed, and the archive and home pages pass
+   `post.data.readMinutes` — frontmatter, which nobody fills in. So the code path
+   is dead and the cards show only a date. Fixing it means either deriving
+   metrics inside `PostCard` from `post.body` (which would mean moving
+   `src/utils/metrics.ts` into the theme, since the theme cannot import site
+   utils) or plumbing the values down from the two layouts. Not done because it
+   crosses the site/theme boundary and deserves a deliberate call.
+6. **A `docs/glossary.md`** was offered and not created — it would pin the
    terminology decisions above so the agents stay consistent. Worth doing once
    there are a few posts.
 
 ---
+
+### Reading-rate approximations
+
+`src/utils/metrics.ts` uses 220 words/min for spaced scripts, 300 chars/min for
+Han and 600 for kana. Those are mid-range published figures and good enough for a
+number the UI prefixes with "~", with one known soft spot: **Korean eojeol are
+counted as "words" at the Latin rate**, and an eojeol carries more than an English
+word does, so Korean read times likely run a little short. The first post shows
+~1 min in Korean against ~2 elsewhere. Fixable with a Hangul-specific rate if it
+ever matters.
 
 ## 5. Known-unverified
 
