@@ -6,11 +6,12 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 import { type Locale, blogIdToSlugAnyLocale, localePath } from '@cyberdream/site-i18n/config';
+import { countText, deriveMetrics } from '../utils/metrics';
 
 interface Props {
   post: CollectionEntry<'blog'>;
   locale: Locale;
-  /** Reading time, in minutes, already resolved by the caller. */
+  /** Frontmatter override. Left out, the card derives it from the body. */
   readMinutes?: number;
   readLabel: string;
   /** Cards near the top of the first screen shouldn't be lazy-loaded. */
@@ -20,6 +21,16 @@ interface Props {
 const { post, locale, readMinutes, readLabel, eager = false } = Astro.props as Props;
 const href = localePath(locale, `/blog/${blogIdToSlugAnyLocale(post.id)}/`);
 const { title, description, pubDate, heroImage, heroImageAlt, tags } = post.data;
+
+/*
+  Derived here rather than plumbed down from the layouts. `readMinutes` is an
+  optional frontmatter field that in practice nobody fills in, so every caller
+  passing `post.data.readMinutes` was passing undefined and the card silently
+  showed a date and nothing else. Deriving from the body makes the read time
+  appear by default and leaves the frontmatter as a deliberate override.
+*/
+const resolvedReadMinutes =
+  readMinutes ?? (post.body ? deriveMetrics(countText(post.body)).readMinutes : undefined);
 ---
 
 <li class="cyber-card cyber-card--interactive cd-card">
@@ -47,7 +58,7 @@ const { title, description, pubDate, heroImage, heroImageAlt, tags } = post.data
 
   <p class="cd-meta">
     <FormattedDate date={pubDate} locale={locale} />
-    {readMinutes !== undefined && <span>{readMinutes} {readLabel}</span>}
+    {resolvedReadMinutes !== undefined && <span>~{resolvedReadMinutes} {readLabel}</span>}
   </p>
 
   <h3 class="cd-card__title"><a href={href}>{title}</a></h3>

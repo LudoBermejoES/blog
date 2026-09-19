@@ -40,6 +40,7 @@
     "./styles/*": "./src/styles/*",
     "./assets/*": "./src/assets/*",
     "./utils/merge": "./src/utils/merge.ts",
+    "./utils/metrics": "./src/utils/metrics.ts",
     "./utils/number": "./src/utils/number.ts",
     "./utils/pagination": "./src/utils/pagination.ts",
     "./utils/*": "./src/utils/*",
