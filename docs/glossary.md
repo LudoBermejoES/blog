@@ -57,14 +57,14 @@ the name in whatever form the target language already uses for it.
 | Source (`es`) | `en` | `ja` | `ko` | `zh` | `eo` |
 | --- | --- | --- | --- | --- | --- |
 | Estación Victoria | Victoria Station | ヴィクトリア駅 | 빅토리아역 | 维多利亚车站 | la stacio Victoria |
-| Berlin en tinieblas | Berlin in Darkness | 闇のベルリン | 어둠 속의 베를린 | 黑暗中的柏林 | Berlino en tenebroj |
+| Berlín en tinieblas | Berlin in Darkness | 闇のベルリン | 어둠 속의 베를린 | 黑暗中的柏林 | Berlino en tenebroj |
 
 **`Estación Victoria` is not the author's coinage** — it is the Spanish edition's
 name for **Victoria Station**, a location in the published Mage books. That is
 why it translates. It was initially left in Spanish in five locales on the
 assumption that it was his invention; the author corrected it.
 
-**`Berlin en tinieblas` is his own campaign title**, and it was released for
+**`Berlín en tinieblas` is his own campaign title**, and it was released for
 translation under the same rule. Its difficulty is that in Spanish it reuses the
 line's own noun — *el viejo Mundo de Tinieblas* sits in the same sentence — so
 the title visibly borrows from the line. Whether that echo survives depends
@@ -118,8 +118,9 @@ where the line was never published there.
 aniversario` → 《换生灵 20 周年纪念版》, 『チェンジリング 20周年記念版』,
 체인질링 20주년 기념판.
 
-**`Changeling` has one `l`.** The Spanish source misspells it "Changelling" /
-"changellings". Do not carry the misspelling across; flag it instead.
+**`Changeling` has one `l`.** The Spanish source misspelled it "Changelling" /
+"changellings" on the first pass and has since been corrected. If it reappears,
+flag it rather than carrying it across.
 
 **`zh` `Wraith` → 亡魂 is the least settled of the six.** 幽魂 also circulates in
 Chinese fandom. Revisit if the author prefers it.
@@ -222,5 +223,10 @@ Left as-is by decision, not oversight.
 
 **The film in `un-sabado-tranquilo`** is linked as *Resurrection (2025)*
 (`tt29002950`), which is the international title of Bi Gan's 《狂野时代》. Chinese
-readers know it by the original title, not by the Spanish "Resurección". Changing
-that means editing the Spanish source first, so the six stay in step.
+readers know it by the original title, not by the Spanish *Resurrección*. Left as
+the author wrote it; substituting the Chinese title would mean the `zh` version
+names a film the other five don't.
+
+**IMDb links carry no locale path.** The first draft linked `imdb.com/es-es/…`,
+which served the Spanish interface to every reader in all six locales. Strip the
+locale segment — `imdb.com/title/<id>/` — and IMDb negotiates it per reader.
