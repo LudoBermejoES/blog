@@ -12,6 +12,11 @@ Register conventions (です・ます, 합니다체, mainland Simplified, standa
 Esperanto orthography, Title Case English) live in `CLAUDE.md` under
 "Precedents already set". This file is only about *words*.
 
+> **If you are one of several agents translating at once, do not append a new
+> table.** Fill your own column in the existing rows. A parallel pass once left
+> this file with three overlapping tables and two contradictory rulings on the
+> same term.
+
 ## Fixed terms
 
 | Source (`es`) | `en` | `ja` | `ko` | `zh` | `eo` |
@@ -23,6 +28,106 @@ Esperanto orthography, Title Case English) live in `CLAUDE.md` under
 | escenarios digitales | 3D environments | 3D シーン | 환경 | 场景 | medioj |
 | motores de videojuegos | game engines | ゲームエンジン | 게임 엔진 | 游戏引擎 | videoludaj motoroj |
 | mapas (in a game-engine context) | maps | マップ | 맵 | 数字地图 | mapoj |
+| escenario (of a tabletop RPG) | scenario | シナリオ | 시나리오 | 剧本 | scenaro |
+| partida (de rol) | session / game | セッション | 세션 | 跑团 | sesio |
+| campaña | campaign | キャンペーン | 캠페인 | 战役 | kampanjo |
+| ambientación (an RPG setting's atmosphere) | setting | 舞台設定 | 배경 | 设定 | etoso |
+| Ligeia | Ligeia | Ligeia | Ligeia | Ligeia | Ligeia |
+| Fabrica tu propia mierda | Build Your Own Shit | 自分のクソは自分で作れ | 네 좆같은 건 네가 만들어라 | 自己造自己的狗屎 | Fabriku vian propran merdon |
+| Esta no es otra de tus putas novelas juveniles | This Isn't Another One of Your Fucking YA Novels | これはまたぞろお前のクソみたいなヤングアダルト小説なんかじゃない | 이건 네 그 씨발 청소년 소설 중 또 하나가 아니야 | 《这不是又一本你那些他妈的青春小说》 | Ĉi tiu ne estas plia el viaj fikaj junularaj romanoj |
+| Alzarreyes (Eslizo's name for Kingmaker) | *unchanged* | *unchanged* | *unchanged* | *unchanged* | *unchanged* |
+
+## Post titles
+
+Titles are translated, and pinned here so a later pass can't quietly re-render
+one. The **filename never changes** — `comenzando`, `un-sabado-tranquilo` — it
+is the join key `[...slug].astro` uses to match the six versions.
+
+| Slug | `es` | `en` | `ja` | `ko` | `zh` | `eo` |
+| --- | --- | --- | --- | --- | --- | --- |
+| comenzando | Comenzando | Starting Out | はじめに | 시작하며 | 开始 | Komencante |
+| un-sabado-tranquilo | Un sábado tranquilo | A Quiet Saturday | 静かな土曜日 | 조용한 토요일 | 平静的周六 | Trankvila sabato |
+
+## Names: the generic translates, the name doesn't
+
+The rule the author gave for `Estación Victoria`, and it generalises: in a name
+built from a **generic word plus a proper name**, translate the generic and keep
+the name in whatever form the target language already uses for it.
+
+| Source (`es`) | `en` | `ja` | `ko` | `zh` | `eo` |
+| --- | --- | --- | --- | --- | --- |
+| Estación Victoria | Victoria Station | ヴィクトリア駅 | 빅토리아역 | 维多利亚车站 | la stacio Victoria |
+| Berlin en tinieblas | Berlin in Darkness | 闇のベルリン | 어둠 속의 베를린 | 黑暗中的柏林 | Berlino en tenebroj |
+
+**`Estación Victoria` is not the author's coinage** — it is the Spanish edition's
+name for **Victoria Station**, a location in the published Mage books. That is
+why it translates. It was initially left in Spanish in five locales on the
+assumption that it was his invention; the author corrected it.
+
+**`Berlin en tinieblas` is his own campaign title**, and it was released for
+translation under the same rule. Its difficulty is that in Spanish it reuses the
+line's own noun — *el viejo Mundo de Tinieblas* sits in the same sentence — so
+the title visibly borrows from the line. Whether that echo survives depends
+entirely on what the line is called in the target:
+
+- **`zh` keeps it.** The line is 黑暗世界, so 黑暗中的柏林 reproduces the effect
+  exactly.
+- **`ko` mostly keeps it.** The official name is the transliterated 월드 오브
+  다크니스, but 어둠의 세계 circulates alongside it, so 어둠 속의 베를린 still
+  rhymes for a reader who knows the line.
+- **`ja` and `eo` lose it**, and that is accepted rather than worked around. In
+  Japanese the line is ワールド・オブ・ダークネス, so the echo word would have to
+  be ダークネス — and 「ベルリン・イン・ダークネス」 is an English title invented
+  in order to be transliterated, i.e. routing the author's Spanish through a
+  third language. In Esperanto the line stays the English *World of Darkness*,
+  so the pun is unreachable short of esperantising a product name.
+
+Grammar notes worth keeping, because they are the traps:
+
+- `ko` — 빅토리아역 ends in a consonant, so the object particle is `을`, not
+  `를`. The locative `에` after 베를린 does not alternate and stays.
+- `eo` — both terms dodge an accusative apposition, by different routes: `la
+  stacio Victoria` agrees with an uninflected `unu el…` head, and «Berlino en
+  tenebroj» is a citation form inside guillemets, so the case is carried by the
+  generic head. Capitalise only the genuine name.
+- `ja` — a Latin run takes half-width spaces around it; once the term is in
+  Japanese script those spaces must go.
+- `zh` — the `，…，` framing only worked because the term was a Latin run. In an
+  all-Chinese run it takes full-width quotes attached to the preceding noun.
+  `“ ”` for a home campaign, `《》` reserved for published books.
+
+## White Wolf game lines
+
+These recur in every roleplaying post. The Spanish names are translations *of*
+English originals, so they go back to the original — and each locale then uses
+that line's **officially published name in its own market**, or the English name
+where the line was never published there.
+
+| Source (`es`) | Line | `en` | `ja` | `ko` | `zh` | `eo` |
+| --- | --- | --- | --- | --- | --- | --- |
+| Mundo de Tinieblas | World of Darkness | World of Darkness | ワールド・オブ・ダークネス | 월드 오브 다크니스 | 黑暗世界 | World of Darkness |
+| Mago | Mage: The Ascension | Mage | メイジ | 메이지 | 法师 | Mage |
+| Changeling | Changeling: The Dreaming | Changeling | チェンジリング | 체인질링 | 换生灵 | Changeling |
+| Hombre lobo | Werewolf: The Apocalypse | Werewolf | ワーウルフ | 워울프 | 狼人 | Werewolf |
+| Vampiro | Vampire: The Masquerade | Vampire | ヴァンパイア | 뱀파이어 | 吸血鬼 | Vampire |
+| Wraith | Wraith: The Oblivion | Wraith | レイス | 레이스 | 亡魂 | Wraith |
+
+`viejo Mundo de Tinieblas` → 旧版黑暗世界 (`zh`), 旧ワールド・オブ・ダークネス
+(`ja`), 구 월드 오브 다크니스 (`ko`). Anniversary editions follow the line:
+`Mago 20` → 《法师 20 周年版》, 『メイジ 20』, 메이지 20; `Changeling 20
+aniversario` → 《换生灵 20 周年纪念版》, 『チェンジリング 20周年記念版』,
+체인질링 20주년 기념판.
+
+**`Changeling` has one `l`.** The Spanish source misspells it "Changelling" /
+"changellings". Do not carry the misspelling across; flag it instead.
+
+**`zh` `Wraith` → 亡魂 is the least settled of the six.** 幽魂 also circulates in
+Chinese fandom. Revisit if the author prefers it.
+
+`Pathfinder`, `Kingmaker`, *Changeling the Podcast* and *Mage: The Podcast* stay
+in English in all six locales, URLs included. `Pathfinder segunda Edición` →
+Pathfinder Second Edition / パスファインダー第2版 / 패스파인더 2판 /
+《开拓者》第二版.
 
 ## Why each one is what it is
 
@@ -52,6 +157,10 @@ The trap is that the same sentence also lists *juegos de rol*, which primes
 every translator toward the roleplaying reading. Expect it to keep happening;
 the disambiguation matters every time both appear together.
 
+**`escenario` on its own is the opposite case.** In a tabletop context it *is*
+the adventure sense — シナリオ, 시나리오, 剧本, `scenaro`. The disambiguator is
+whether game engines are in the sentence, not the word itself.
+
 **motores de videojuegos** takes the short form in every target — "game
 engines", ゲームエンジン, 게임 엔진, 游戏引擎. The long form ("video game
 engines", 비디오 게임 엔진, 电子游戏引擎) is unidiomatic outside Spanish, and in
@@ -61,6 +170,33 @@ clause — a repetition Spanish tolerates and the others don't.
 **mapas** shifts register with context. Next to game engines it means level
 geometry, so `ja`/`ko` use the loanword (マップ, 맵) rather than the cartographic
 word (地図, 지도), which would pull the reader toward GIS.
+
+**Ligeia** is the author's own audio-management software. Product name, never
+translated in any locale.
+
+**"Fabrica tu propia mierda"** and **"Esta no es otra de tus putas novelas
+juveniles"** are the author's own coinages — a personal movement and a
+provisional novel title. Both are **translated, and the crude register is kept**.
+Sanitising "mierda" to "stuff" or "putas" to "damn" is a rewrite: the bluntness
+is the joke in both. `mierda` → shit, `putas` (adjectival) → fucking.
+
+**Esperanto takes the English line names**, because no White Wolf line has ever
+been published in Esperanto and there is no market name to fall back on. They are
+left uninflected and the sentence is restructured where a case ending would
+otherwise be needed: `Changeling 20 aniversario` becomes `la libron de la 20-a
+datreveno de Changeling`. `changelings` (the creatures) stays tied to the line
+name rather than becoming the folkloric `ŝanĝinfanoj`.
+
+**The author's own proper nouns stay in Spanish in all six locales** — the
+player nickname `Eslizo`, and `Alzarreyes`, the name Eslizo gave the Pathfinder
+adventure path *Kingmaker* in Spanish. `Kingmaker` itself is the official product
+name and is never localised.
+
+`Berlin en tinieblas` and `Estación Victoria` were briefly in this category and
+are not — see "Names: the generic translates, the name doesn't" above.
+
+**Podcast names are English proper nouns.** *Changeling the Podcast* and *Mage:
+The Podcast* stay exactly as written in all six locales, URLs included.
 
 ## Pending
 
@@ -83,3 +219,8 @@ worth no more than the agents' own:
 | `eo` | None. *The Sandman* has never been published in Esperanto, so the original rendering is permanent here. |
 
 Left as-is by decision, not oversight.
+
+**The film in `un-sabado-tranquilo`** is linked as *Resurrection (2025)*
+(`tt29002950`), which is the international title of Bi Gan's 《狂野时代》. Chinese
+readers know it by the original title, not by the Spanish "Resurección". Changing
+that means editing the Spanish source first, so the six stay in step.
