@@ -83,8 +83,7 @@ title: '${resolvedTitle}'
 subtitle: ''
 description: '${resolvedDescription}'
 pubDate: '${pubDate}'
-${heroImage ? `heroImage: '${heroImage}'` : ''}
----
+${heroImage ? `heroImage: '${heroImage}'\n` : ''}---
 
 ${resolvedBody}
 `;

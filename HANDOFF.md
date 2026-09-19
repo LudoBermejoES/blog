@@ -69,8 +69,8 @@ agents' own.
 
 ## 4. Open — waiting on you
 
-**Replace the 12 default covers.** See section 5 — it is the one open item, and
-it is yours because it needs your Midjourney account.
+Nothing right now. The list below is what was decided and why, so it doesn't
+get re-opened.
 
 ### Settled — don't re-open these
 
@@ -98,30 +98,26 @@ Decided deliberately. Each one looked like a bug and isn't.
 - **`docs/glossary.md` exists.** Terminology fixed across the six languages, and
   the reason for each. The translator agents are told to read it and to add to
   it.
+- **The 12 default covers were deleted, not replaced.** They came with the
+  upstream theme and their licensing was undocumented — the last asset class on
+  the repo that couldn't be accounted for. Replacing them with Midjourney art
+  was considered and dropped: **no post ever referenced them**, they were absent
+  from `dist/` entirely, and the author makes a bespoke cover per post anyway.
+  Twelve generated images for a pool nobody draws from is work for nothing.
+
+  `src/assets/blog/default-covers/` is now empty and the mechanism degrades
+  cleanly — `loadDefaultCovers` returns `[]`, `pickDefaultCoverBySlug` returns
+  `''`, and the template omits the `heroImage` line rather than emitting an
+  empty one, which the `image().optional()` schema is happy with. Dropping
+  images back in turns auto-assignment on again.
+
+  `check:scaffold` is unaffected: it writes its own `ai-01.webp` fixture into a
+  `mkdtemp` directory and never reads the repo's.
 
 ---
 
 ## 5. Known-unverified
 
-- **The 12 default covers** in `src/assets/blog/default-covers/` came with the
-  upstream theme. They are synthetic cyberpunk art with no recognisable footage,
-  likeness or mark — but their **licensing is undocumented**, so they are not
-  *certified* clean. Everything else on the site has verified provenance (see
-  `README.md`).
-
-  **Decided: replace them with Midjourney art from your own account.** Keep the
-  12 filenames (`ai-01..03`, `cyber-01..04`, `hacker-01..02`, `matrix-01..03`)
-  and the 2000×1000 size — `cli-new-post.mjs` assigns a cover by slug hash over
-  that directory and `check-scaffold.mjs` asserts on `ai-01.webp` by name.
-
-  Generating them procedurally, the way the monitor loops were, was considered
-  and rejected: that was worth doing for the monitor loops because they ship
-  inside the npm package (`files` in `packages/theme/package.json`), and these
-  covers live in `src/assets/` and never leave the site. A script would buy
-  better paperwork and worse pictures. When they're in, the provenance paragraph
-  in `README.md` and the first line of this bullet both need rewriting — and the
-  honest wording is "generated with Midjourney under a private account", not
-  "certified clean".
 - **`README.es.md`, `README.ja.md`, `README.ko.md` and `README.zh-CN.md` are
   stale.** They still describe the pre-refurbish theme with five atmospheres and
   a `--theme` flag that no longer exists. The English `README.md` is current.

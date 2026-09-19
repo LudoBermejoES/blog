@@ -23,10 +23,10 @@ Then open `src/content/blog/es/$1.md` and:
    - `readMinutes` and `wordCount` are derived from the body at build time —
      only set them if the automatic count would mislead (a post that is mostly
      code blocks, say).
-   - `heroImage` has been auto-assigned from `src/assets/blog/default-covers/`
-     by slug hash. Replace it if you have a better image, and add
-     `heroImageAlt` **only** if the image carries meaning; leave it off for
-     decorative covers so it renders `alt=""`.
+   - `heroImage` is **not** set. The default-cover pool was removed, so the
+     scaffolder omits the line entirely and the author supplies a cover per
+     post. Add `heroImageAlt` **only** if the image carries meaning; leave it
+     off for decorative covers so it renders `alt=""`.
 3. Validate the slug: lowercase letters, numbers and hyphens only. It becomes
    the join key across all six locales and must never change afterwards.
 
