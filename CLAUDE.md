@@ -7,7 +7,48 @@ Personal blog. Astro 7 static site, deployed to <https://blog.ludobermejo.es> vi
 - **The theme is `cyberdream`, built on [CYBERCORE CSS](https://github.com/sebyx07/cybercore-css)** (MIT), installed as a normal npm dependency. CyberCore supplies tokens, components (`.cyber-nav`, `.cyber-card`, `.cyber-btn`, `.cyber-terminal`, `.cyber-badge`, `.cyber-select`) and CSS-only effects (`.cyber-glitch`, `.cyber-scanlines`, `.cyber-heading`). Reach for a CyberCore class before writing CSS.
 - **One shell, one stylesheet.** `layouts/CyberdreamShell.astro` and `styles/cyberdream.css`. The five atmosphere shells, 21 stylesheets and 16 effect scripts are gone; a page ships one inline script (the locale switcher). Don't reintroduce per-page JS without a reason.
 - **CyberCore wraps its rules in `@layer`**, so the theme layer is unlayered and overrides it with no `!important`. Keep it that way.
-- Background on the deploy, the TypeScript 6 pin, and asset provenance is in `README.md`.
+- **Asset provenance** is in `README.md` — worth reading once, since the upstream
+  theme shipped commercial film footage and a font whose licence forbade
+  redistribution.
+- **`HANDOFF.md`** holds what this file deliberately does not: machine setup, the
+  decisions still waiting on the author, and known-unverified repo state.
+
+## Deploy
+
+Pushes to `main` build and deploy via `.github/workflows/deploy.yml`. The GitHub
+Pages source is **`workflow`** (the Actions build), not a `gh-pages` branch.
+
+- **The custom domain is held in two places and both must stay:** `public/CNAME`
+  in the repo *and* the `cname` field on the Pages API config. With the Actions
+  source the `CNAME` file alone does **not** set the domain.
+- **Setting the `cname` resets `https_enforced` to false.** Re-enable it once the
+  certificate is issued, or the site serves plain HTTP.
+
+### Why the site has no `base` path
+
+Serving from a custom domain at the root is load-bearing, not cosmetic. The
+i18n helpers emit root-absolute links and `stripLocaleFromPath` assumes the
+locale is the first path segment, so a `user.github.io/blog/` style subpath would
+break every nav link and locale switch until `localeHrefs` is made base-aware.
+If the custom domain is ever dropped, that work comes first.
+
+## The root URL is a language dispatcher, not a page
+
+`defaultLocalePrefix` is `'always'`, so `/en/` is the canonical English home and
+`/` would otherwise duplicate it. `src/pages/index.astro` instead matches
+`navigator.languages` against the enabled locales and redirects, falling back to
+English. Each of these is load-bearing:
+
+- An explicit choice in the language switcher is stored in `localStorage` under
+  `cd:locale` and **takes precedence over detection**. Without it, someone
+  reading in their second language gets bounced back on every visit to the root.
+- The full BCP-47 tag is tried before the primary subtag, so `zh-CN` beats a bare
+  `zh` while `es-419` and `es-MX` still resolve to `es`.
+- It uses `location.replace()`, so the dispatcher never traps the Back button.
+- It is `noindex` with `x-default` pointing at itself — what Google documents for
+  a language selector. Don't "fix" it to indexable.
+- With JS off it is a real page listing each language in its own language, which
+  is why it needs no translation of its own.
 
 ## Every post must exist in all six languages
 
@@ -78,6 +119,24 @@ Shared rules they all follow, and that any translation must respect:
 4. **Translate frontmatter prose only:** `title`, `description`, `subtitle`, `heroImageAlt`, free-text `tags`. Copy `pubDate`, `updatedDate`, `heroImage`, asset paths, and `author` unchanged.
 5. **`Hadinapló` is a proper noun** and is identical in every language.
 
+#### Precedents already set — match them, don't re-decide
+
+The agents chose these on the first translation and will not remember them next
+session. Later posts must match or each language drifts into two voices.
+
+| Language | Register | Notes |
+| --- | --- | --- |
+| `ja` | **です・ます** | Plain/imperative form for maxim bullets only — a conventional list exception, not a register slip. |
+| `ko` | **합니다체** | Reader-facing, not the flatter diary `~다`. |
+| `zh` | mainland, direct | Simplified only. Half-width space between Chinese and Latin runs. |
+| `eo` | standard orthography | Real diacritics `ĉ ĝ ĥ ĵ ŝ ŭ` — **never** the x- or h-system. |
+| `en` | Title Case titles, American spelling | Matches the theme's own UI strings. Spanish sentence-case titles get converted. |
+
+Terminology already fixed: `mestizar` → crossbreed / 交雑 / 이종교배 / 杂交 /
+`krucbredi` (the biological metaphor is the point, don't flatten it to
+"combine"); `Ethos` → cognate in `ja`/`eo` but native word in `ko`/`zh`; LARP
+carries a `(LARP)` gloss in `ja`/`ko` and deliberately none in `zh`.
+
 ### The About page is content, not config
 
 `src/content/about/<locale>.md` — one entry per locale, authored in Markdown like
@@ -118,7 +177,9 @@ as characters instead, at separate reading rates (Han is slower than kana, which
 is why the rate is per script rather than per language and needs no locale
 argument). Korean is deliberately *not* in that set: it spaces between eojeol and
 already counted correctly. The `ja` and `zh` unit labels are 文字 and 字 rather
-than "words", because the figure is now a character count.
+than "words", because the figure is now a character count. One known soft spot:
+Korean eojeol are counted as "words" at the Latin rate, and an eojeol carries
+more than an English word, so Korean read times run a little short.
 
 ### UI strings and site metadata
 
@@ -138,6 +199,30 @@ Post content is not the only thing that needs all six languages.
 - **Don't "simplify" word counting back to `split(/\s+/)`.** It looks redundant
   next to the character counting and it is not: that is the bug, not the
   cleanup. A Japanese post counted 14 words and read "~1 min".
+- **TypeScript is pinned to 6.x on purpose.** `npm outdated` will keep offering
+  7.x; taking it breaks `astro check`, because TypeScript 7's native compiler
+  does not expose the programmatic API the Astro language server needs. Tested,
+  not assumed.
+- **Astro caches the content store.** Deleting or renaming content files and then
+  building can still emit the *old* routes — after removing the starter posts the
+  build kept producing them. `rm -rf .astro dist` before rebuilding whenever
+  content files have been deleted.
+- **A `draft: true` post emits no route at all.** `ls dist/*/blog/<slug>/` being
+  empty is correct, not a failure. Verify drafts against the six *source* files.
+- **zsh globs filenames in `for f in $FILES`.** Paths like
+  `src/pages/[lang]/blog/[...slug].astro` contain glob characters and silently
+  break unquoted loops — a rename pass once appeared to succeed while changing
+  nothing. Use python/node for bulk file edits, not a shell loop.
+- **`grep -c` exits non-zero on zero matches**, so `n=$(grep -c x f || echo 0)`
+  yields `"0\n0"` and every comparison against it fails. That produced a wrong
+  conclusion about dead code.
+- **Prefer computed styles over screenshots** for layout questions. Screenshots
+  of the site can time out, and `getComputedStyle` / `img.naturalWidth` is both
+  faster and better evidence.
+- **The `rq-tv-*` class names and `red-queen-tv.js` are meaningless leftovers.**
+  They survive from the removed upstream widget; renaming ~100 class occurrences
+  risked a working component for no benefit once the infringing content was gone.
+  Don't read intent into those names.
 - **A dark hero image is not a broken hero image.** Screenshot JPEG compression makes the dark covers read as empty boxes; check `img.complete` / `naturalWidth` or sample pixels before "fixing" it.
 
 ## Commands
