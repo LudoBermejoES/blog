@@ -1,7 +1,7 @@
 ---
 title: 'はじめに'
 description: 'この日記の最初の記事。なぜこれが存在するのか、そして何を書いていくのか。'
-pubDate: '2026-07-29'
+pubDate: '2026-09-18'
 heroImage: '../../../assets/blog/comenzando.webp'
 ---
 

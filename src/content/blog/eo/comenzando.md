@@ -1,7 +1,7 @@
 ---
 title: 'Komencante'
 description: 'La unua enskribo de ĉi tiu taglibro: kial ĝi ekzistas kaj kion atendi.'
-pubDate: '2026-07-29'
+pubDate: '2026-09-18'
 heroImage: '../../../assets/blog/comenzando.webp'
 ---
 

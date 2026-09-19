@@ -1,7 +1,7 @@
 ---
 title: 'Comenzando'
 description: 'Primera entrada de este diario: por qué existe y qué esperar.'
-pubDate: '2026-07-29'
+pubDate: '2026-09-18'
 heroImage: '../../../assets/blog/comenzando.webp'
 ---
 
