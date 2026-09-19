@@ -4,7 +4,6 @@ subtitle: ''
 description: 'A day off after a week at a trade show: software of my own, a Chinese movie, roleplaying podcasts, and a Mage scenario waiting to be revised.'
 pubDate: '2026-09-19'
 heroImage: '../../../assets/blog/un-sabado-tranquilo.webp'
-draft: true
 ---
 
 Saturday at last, after a particularly intense week. Work sent me to a trade show in Birmingham that threw most of my week off course, but at least I managed to finish chapter nine of the novella I'm writing, provisionally titled "This Isn't Another One of Your Fucking YA Novels". Today is the first genuinely free day I've had — or rather, the first free hours, which I've used to write up everything I learned at the show (work, and therefore boring), but also to do a few other things.

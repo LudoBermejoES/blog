@@ -4,7 +4,6 @@ subtitle: ''
 description: 'Libera tago post semajno da foiro: propra programaro, ĉina filmo, rolludaj podkastoj kaj scenaro de Mage revizienda.'
 pubDate: '2026-09-19'
 heroImage: '../../../assets/blog/un-sabado-tranquilo.webp'
-draft: true
 ---
 
 Fine sabato, post aparte intensa semajno. Pro laboraj kialoj mi devis ĉeesti foiron en Birmingham, kio malordigis bonan parton de mia semajno, sed almenaŭ mi kapablis fini la naŭan ĉapitron de la mallonga romano, kiun mi verkas kun la provizora titolo «Ĉi tiu ne estas plia el viaj fikaj junularaj romanoj». Hodiaŭ estas la unua vere libera tago, kiun mi havis, aŭ, se paroli precize, la unuaj liberaj horoj, kiujn mi profitis por dokumenti ĉion lernitan en la foiro (laboro, do enuiga), sed ankaŭ por fari kelkajn aliajn aferojn.

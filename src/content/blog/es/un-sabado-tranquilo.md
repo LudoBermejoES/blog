@@ -4,7 +4,6 @@ subtitle: ''
 description: 'Un día libre tras una semana de feria: software propio, una película china, podcasts de rol y un escenario de Mago por revisar.'
 pubDate: '2026-09-19'
 heroImage: '../../../assets/blog/un-sabado-tranquilo.webp'
-draft: true
 ---
 
 Sábado al fin, después de una semana particularmente intensa. Me tocó asistir a una feria por motivos de trabajo en Birmingham que trastocó buena parte de mi semana, pero al menos fui capaz de terminar el capítulo nueve de la novela corta que estoy escribiendo con el título provisional de "Esta no es otra de tus putas novelas juveniles". Hoy es el primer día de verdad libre que he tenido o, ya puestos, las primeras horas libres, que he aprovechado para documentar todo lo aprendido en la feria (trabajo, por tanto aburrido), pero también para hacer algunas otras cosas.
