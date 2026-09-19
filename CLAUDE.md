@@ -118,6 +118,7 @@ Shared rules they all follow, and that any translation must respect:
 3. **Never translate code.** Identifiers, keywords, commands, paths, package names, and output stay untouched inside fences, inline code, and MDX expressions.
 4. **Translate frontmatter prose only:** `title`, `description`, `subtitle`, `heroImageAlt`, free-text `tags`. Copy `pubDate`, `updatedDate`, `heroImage`, asset paths, and `author` unchanged.
 5. **`Hadinapló` is a proper noun** and is identical in every language.
+6. **Check `docs/glossary.md` before choosing a word**, and add the term there after choosing one.
 
 #### Precedents already set — match them, don't re-decide
 
@@ -132,10 +133,20 @@ session. Later posts must match or each language drifts into two voices.
 | `eo` | standard orthography | Real diacritics `ĉ ĝ ĥ ĵ ŝ ŭ` — **never** the x- or h-system. |
 | `en` | Title Case titles, American spelling | Matches the theme's own UI strings. Spanish sentence-case titles get converted. |
 
-Terminology already fixed: `mestizar` → crossbreed / 交雑 / 이종교배 / 杂交 /
-`krucbredi` (the biological metaphor is the point, don't flatten it to
-"combine"); `Ethos` → cognate in `ja`/`eo` but native word in `ko`/`zh`; LARP
-carries a `(LARP)` gloss in `ja`/`ko` and deliberately none in `zh`.
+**Terminology lives in `docs/glossary.md`**, not here — one table of every term
+already settled in all six languages, and why. Read it before translating and
+add to it the moment a new word gets decided, because the agents are stateless
+and the second rendering always looks as defensible as the first.
+
+Two that bite hardest:
+
+- **`escenarios digitales`** means real-time **3D environments built in a game
+  engine**, never a roleplaying scenario or an RPG setting. The first pass split
+  five languages across three different meanings. The same sentence lists
+  *juegos de rol*, which primes every translator toward the wrong one, so expect
+  it to keep happening.
+- **`mestizar`** → crossbreed / 交雑 / 이종교배 / 杂交 / `krucbredi`. The
+  biological metaphor is the point; don't flatten it to "combine".
 
 ### The About page is content, not config
 
