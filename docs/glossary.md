@@ -47,6 +47,79 @@ is the join key `[...slug].astro` uses to match the six versions.
 | --- | --- | --- | --- | --- | --- | --- |
 | comenzando | Comenzando | Starting Out | はじめに | 시작하며 | 开始 | Komencante |
 | un-sabado-tranquilo | Un sábado tranquilo | A Quiet Saturday | 静かな土曜日 | 조용한 토요일 | 平静的周六 | Trankvila sabato |
+| mapas-mapas-mapas | mapas, Mapas, MAPAS! | maps, Maps, MAPS! | ちず、チズ、地図！ | 맵, 또 맵, 맵 천지! | 地图，地图！地图！！！ | mapoj, Mapoj, MAPOJ! |
+
+## Tabletop and tooling vocabulary
+
+The author writes fluent anglicisms — `tokens`, `battlemaps`, `assets` — because
+that is how the hobby and the trade talk in Spanish. Each target uses whatever
+its own tabletop and dev circles actually say, which is sometimes the English
+word and sometimes not.
+
+| Source (`es`) | `en` | `ja` | `ko` | `zh` | `eo` |
+| --- | --- | --- | --- | --- | --- |
+| tokens | tokens | トークン | 토큰 | token | ĵetonoj |
+| battlemaps | battlemaps | バトルマップ | 배틀맵 | 战斗地图 | batalmapoj |
+| tags | tags | タグ | 태그 | 标签 | etikedoj |
+| assets | assets | アセット | 에셋 | 素材 | rimedoj |
+| e2e testing | e2e testing | E2E テスト | E2E 테스트 | 端到端测试 | e2e-testado |
+| web scraping | web scraping | ウェブスクレイピング | 웹 스크래핑 | 网页爬虫 | retĉerpado |
+| paquetes (de assets) | packs | パック | 패키지 | 资源包 | pakaĵoj |
+| rol de mesa | tabletop RPG | テーブルトーク RPG | 테이블톱 롤플레잉 게임 | 桌面角色扮演 | tablaj rolludoj |
+| PNJs | NPCs | NPC | NPC | NPC | neludantaj roluloj |
+| Un drama de primer mundo | a first world problem | ぜいたくな悩み | 배부른 투정 | 典型的第一世界烦恼 | Unuamonda problemo |
+
+**`NPC` stays Latin in `ja`/`ko`/`zh`.** All three tabletop scenes use the
+acronym; the expanded native forms (ノンプレイヤーキャラクター, 非玩家角色) are
+formal-register and read stiff inside a joke. Esperanto has no scene to defer to,
+so it naturalises.
+
+**Product names are never translated or transliterated, in any locale:**
+Inkarnate, Dungeondraft, DungeonFog, Photoshop, Clip Studio Paint, Forgotten
+Adventures, Tom Cartos, TC Modern, Patreon, Visual Studio, Godot Engine, Rust,
+EightBitz. Nor are the URLs, nor English page and repo titles used as link text.
+A genre name like `cyberpunk` is not a product and does naturalise
+(`kiberpunko`).
+
+**UI strings inside a screenshot's alt text stay in the language on screen.** The
+Inkarnate catalogue shot lists `Airport`, `Appliances`, `Books`… — translating
+them would describe an interface the reader is not looking at. All five agents
+reached this independently.
+
+## Typographic devices in titles
+
+`mapas, Mapas, MAPAS!` is one word three times, escalating **only** by letter
+case. Nothing about the meaning changes; the weight does. Two of the six locales
+can copy that directly and three cannot, so the precedent is worth keeping.
+
+| Locale | Title | Device |
+| --- | --- | --- |
+| `es` | mapas, Mapas, MAPAS! | case (source) |
+| `en` | maps, Maps, MAPS! | case — one-for-one |
+| `eo` | mapoj, Mapoj, MAPOJ! | case — one-for-one |
+| `ja` | ちず、チズ、地図！ | **script density**: hiragana → katakana → kanji |
+| `zh` | 地图，地图！地图！！！ | **punctuation weight**: `，` → `！` → `！！！` |
+| `ko` | 맵, 또 맵, 맵 천지! | **lexical**: bare → "another one" → "everywhere" |
+
+**English must override the Title Case convention here.** "Precedents already
+set" in `CLAUDE.md` converts Spanish sentence-case titles to Title Case; applying
+it would give `Maps, Maps, MAPS!` and destroy the first step. When the casing
+*is* the content, the convention loses.
+
+**Japanese and Chinese found true analogues.** Script density and punctuation
+weight are both purely typographic — same word, nothing added — so they transfer
+the device rather than paraphrase it. `ja` rejected `まっぷ、マップ、MAP！`
+because ending on a shouted Latin run routes the author's Spanish through
+English, the same objection that settled `闇のベルリン`.
+
+**Korean is a substitution and says so.** `또` and `맵 천지` are two words the
+Spanish does not have. Korean offers no typographic axis that escalates, and the
+faithful `맵, 맵, 맵!` is flat repetition rather than a crescendo, so the agent
+traded literal fidelity for the effect. If that trade is ever unwanted, the flat
+version is the fallback — but the title then carries nothing.
+
+**The lowercase first word is deliberate in `es`, `en` and `eo`.** It is step one
+of the device, not a typo, and no later pass should "correct" it.
 
 ## Names: the generic translates, the name doesn't
 
