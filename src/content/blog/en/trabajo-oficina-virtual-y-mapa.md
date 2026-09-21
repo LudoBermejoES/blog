@@ -2,13 +2,14 @@
 title: 'Work, Virtual Office and Carrying On with the Map'
 description: 'A slow day at work, a tweak to the office seat picker and one more room on the Berlin in Darkness map.'
 pubDate: '2026-09-21'
-draft: true
 heroImage: '../../../assets/blog/trabajo-oficina-virtual-y-mapa.webp'
 ---
 
 I'll keep it short today, it's late already. Not much to report: a so-so day at work that left me very little time to do anything, but at least I got to tweak a little program I made for the office, the one that lets my colleagues pick their seat when they come into the building in person. You can see a picture here:
 
 ![Pixel-art virtual office seen from above: rows of desks with monitors and chairs on a floor of light tiles. Some spots show a circular photo of the colleague who has booked them; others are decorated with balloons, a candle, a plant and a present.](../../../assets/blog/trabajo-oficina-virtual-y-mapa.webp)
+
+and you can download it at [https://github.com/LudoBermejoES/virtual\_office](https://github.com/LudoBermejoES/virtual_office)
 
 I've also carried on with a bit more of the map I'm working on; there's still plenty left, but I've got one more room now, Oda's, one of the characters in the Berlin in Darkness campaign. A small step forward, but at least it was good for something.
 

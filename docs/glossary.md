@@ -48,6 +48,7 @@ is the join key `[...slug].astro` uses to match the six versions.
 | comenzando | Comenzando | Starting Out | はじめに | 시작하며 | 开始 | Komencante |
 | un-sabado-tranquilo | Un sábado tranquilo | A Quiet Saturday | 静かな土曜日 | 조용한 토요일 | 平静的周六 | Trankvila sabato |
 | mapas-mapas-mapas | mapas, Mapas, MAPAS! | maps, Maps, MAPS! | ちず、チズ、地図！ | 맵, 또 맵, 맵 천지! | 地图，地图！地图！！！ | mapoj, Mapoj, MAPOJ! |
+| trabajo-oficina-virtual-y-mapa | Trabajo, oficina virtual y continuamos con el mapa | Work, Virtual Office and Carrying On with the Map | 仕事、バーチャルオフィス、そしてマップの続き | 업무, 가상 오피스, 그리고 이어가는 맵 작업 | 工作、虚拟办公室，还有继续画地图 | Laboro, virtuala oficejo kaj ni daŭrigas la mapon |
 
 ## Tabletop and tooling vocabulary
 
@@ -68,11 +69,28 @@ word and sometimes not.
 | rol de mesa | tabletop RPG | テーブルトーク RPG | 테이블톱 롤플레잉 게임 | 桌面角色扮演 | tablaj rolludoj |
 | PNJs | NPCs | NPC | NPC | NPC | neludantaj roluloj |
 | Un drama de primer mundo | a first world problem | ぜいたくな悩み | 배부른 투정 | 典型的第一世界烦恼 | Unuamonda problemo |
+| oficina virtual (the seat-booking tool) | virtual office | バーチャルオフィス | 가상 오피스 | 虚拟办公室 | virtuala oficejo |
+| sitio (a desk in that office) | seat | 席 | 자리 | 工位 | loko |
+| selector de sitios | seat picker | 席選び | 자리 선택 | 工位选择器 | *phrased as a clause* |
+| pixel art | pixel-art | ピクセルアート | 픽셀 아트 | 像素风 | bilderarta |
+| programita | little program | ちょっとしたプログラム | 조그만 프로그램 | 小工具 | programeto |
 
 **`NPC` stays Latin in `ja`/`ko`/`zh`.** All three tabletop scenes use the
 acronym; the expanded native forms (ノンプレイヤーキャラクター, 非玩家角色) are
 formal-register and read stiff inside a joke. Esperanto has no scene to defer to,
 so it naturalises.
+
+**`zh` must not render `programita` as 小程序.** It is the near-literal match, but
+in mainland usage it reads first as "WeChat Mini Program" and would misidentify
+what the author built. 小工具 keeps the offhand diminutive without the false
+product association.
+
+**`mapas (in a game-engine context)` → `数字地图` does not cover a battlemap the
+author is drawing.** That row is for digital maps in general, and `zh` uses
+`数字地图` for it in `comenzando` and `un-sabado-tranquilo`. The battlemap for
+`Berlín en tinieblas` is plain `地图` in both `mapas-mapas-mapas` and
+`trabajo-oficina-virtual-y-mapa`, and `マップ` / `맵` / `mapo` elsewhere. Same
+artifact, so keep it consistent rather than applying the engine row.
 
 **Product names are never translated or transliterated, in any locale:**
 Inkarnate, Dungeondraft, DungeonFog, Photoshop, Clip Studio Paint, Forgotten
@@ -266,6 +284,10 @@ player nickname `Eslizo`, and `Alzarreyes`, the name Eslizo gave the Pathfinder
 adventure path *Kingmaker* in Spanish. `Kingmaker` itself is the official product
 name and is never localised.
 
+`Oda` is a player character in `Berlín en tinieblas` and stays in Latin script in
+all six locales. In `ja` in particular it is **not** 織田 — it is a Spanish-language
+character name that happens to look Japanese.
+
 `Berlin en tinieblas` and `Estación Victoria` were briefly in this category and
 are not — see "Names: the generic translates, the name doesn't" above.
 
@@ -293,6 +315,17 @@ worth no more than the agents' own:
 | `eo` | None. *The Sandman* has never been published in Esperanto, so the original rendering is permanent here. |
 
 Left as-is by decision, not oversight.
+
+**`novela` vs `novela corta` — undecided.** `un-sabado-tranquilo` says `la novela
+corta`, and all five render it as a novella: *novella*, 中編小説, 중편소설, 中篇小说,
+`mallonga romano`. `trabajo-oficina-virtual-y-mapa` says just `la novela` for what
+is the same book, and all five followed the source into the generic word: *novel*,
+小説, 소설, 小说, `romano`.
+
+Both translations are faithful to their own source. The result is that the site
+calls the same work a novella in one post and a novel in the next. Fixing it means
+either changing one word in four files, or changing the Spanish — which is the
+author's call about his own book, so it is parked here rather than decided.
 
 **The film in `un-sabado-tranquilo`** is linked as *Resurrection (2025)*
 (`tt29002950`), which is the international title of Bi Gan's 《狂野时代》. Chinese
