@@ -14,7 +14,7 @@ Today has been an interesting day. At the literary workshop I run, a genre writi
 
 On top of that, I managed to fit two new rooms into the floor for my roleplaying session.
 
-![Top-down map of the lower floor of the dockside warehouse: on the left a bay with shelving and crates, caution markings painted on the floor and a room with a swimming pool; in the center a glass-walled office with a meeting table; on the right, outdoors, a vegetable garden of green raised beds and tilled soil.](../../../assets/blog/fantatrias-taller-literario-planta-inferior.webp)
+![Top-down map of one floor of the dockside warehouse, with more furnished rooms than before: bedrooms, bathrooms and kitchens in the corners, a library with shelving and chests, a dark room with a red sofa and junk piled up, and an armory with weapons hanging on the wall; in the center, a large clear bay with a circular emblem on the floor and a meeting table.](../../../assets/blog/fantatrias-taller-literario-planta-primera.webp)
 
 Not much else to tell, these days of intense work don't leave room for much. Ah, I'm wrong! I've managed to get back to the novel, I wrote some four hundred words very early on, which isn't a lot but puts me back at the point I need to be to write one of the book's difficult chapters, which is going to be, so to speak, the leap into the void, or the road with no turning back for the protagonist.
 

@@ -13,7 +13,7 @@ Hoy ha sido un día interesante. En el taller literario que dirijo, un taller de
 
 Además, he conseguido meter dos nuevos cuartos en la planta de mi partida de rol.
 
-![Mapa cenital de la planta inferior del almacén portuario: a la izquierda una nave con estanterías y cajas, señales de precaución pintadas en el suelo y una sala con una piscina; en el centro una oficina acristalada con mesa de reuniones; a la derecha, al aire libre, un huerto de bancales verdes y tierra labrada.](../../../assets/blog/fantatrias-taller-literario-planta-inferior.webp)
+![Mapa cenital de una planta del almacén portuario, con más cuartos amueblados que antes: dormitorios, baños y cocinas en las esquinas, una biblioteca con estanterías y arcones, un cuarto oscuro con un sofá rojo y trastos apilados, y un arsenal con armas colgadas de la pared; en el centro, una gran nave despejada con un emblema circular en el suelo y una mesa de reuniones.](../../../assets/blog/fantatrias-taller-literario-planta-primera.webp)
 
 Poco más que contar, estos días de trabajo intenso no dan para mucho. ¡Ah, me equivoco! He conseguido regresar a la novela, he escrito unas cuatrocientas palabras muy temprano que no son demasiadas pero me colocan de nuevo en el punto que necesito para escribir uno de los capítulos complejos de la obra, que va a ser, como si dijéramos, el salto al vacío, o el camino sin vuelta atrás del protagonista.
 
