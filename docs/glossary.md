@@ -49,6 +49,7 @@ is the join key `[...slug].astro` uses to match the six versions.
 | un-sabado-tranquilo | Un sábado tranquilo | A Quiet Saturday | 静かな土曜日 | 조용한 토요일 | 平静的周六 | Trankvila sabato |
 | mapas-mapas-mapas | mapas, Mapas, MAPAS! | maps, Maps, MAPS! | ちず、チズ、地図！ | 맵, 또 맵, 맵 천지! | 地图，地图！地图！！！ | mapoj, Mapoj, MAPOJ! |
 | trabajo-oficina-virtual-y-mapa | Trabajo, oficina virtual y continuamos con el mapa | Work, Virtual Office and Carrying On with the Map | 仕事、バーチャルオフィス、そしてマップの続き | 업무, 가상 오피스, 그리고 이어가는 맵 작업 | 工作、虚拟办公室，还有继续画地图 | Laboro, virtuala oficejo kaj ni daŭrigas la mapon |
+| fantatrias-taller-literario | Fantatrias, taller literario | Fantatrias, Literary Workshop | Fantatrias、文芸ワークショップ | Fantatrias, 문학 워크숍 | Fantatrias，文学工作坊 | Fantatrias, literatura metiejo |
 
 ## Tabletop and tooling vocabulary
 
@@ -186,6 +187,48 @@ Grammar notes worth keeping, because they are the traps:
 - `zh` — the `，…，` framing only worked because the term was a Latin run. In an
   all-Chinese run it takes full-width quotes attached to the preceding noun.
   `“ ”` for a home campaign, `《》` reserved for published books.
+
+## Literature and writing craft
+
+Settled while translating `fantatrias-taller-literario`, a post about a genre
+writing workshop. Real authors and real critical terms, so the standard here is
+**use the published term or say you couldn't verify it** — never invent a
+citation.
+
+| Source (`es`) | `en` | `ja` | `ko` | `zh` | `eo` |
+| --- | --- | --- | --- | --- | --- |
+| Fantatrias (the workshop) | *unchanged* | *unchanged* | *unchanged* | *unchanged* | *unchanged* |
+| taller literario | literary workshop | 文芸ワークショップ | 문학 워크숍 | 文学工作坊 | literatura metiejo |
+| escritura de género | genre writing | ジャンル小説の創作 | 장르 문학 창작 | 类型文学写作 | ĝenra verkado |
+| Fantástico / Terror / Ciencia ficción | Fantasy / Horror / Science Fiction | ファンタジー / ホラー / SF | 환상문학 / 공포 / SF | 奇幻 / 恐怖 / 科幻 | Fantasto / Hororo / Sciencfikcio |
+| ambientación (prose sense) | setting | 舞台設定 | 배경 | 设定 | etoso |
+| lista de sustantivos | noun list | 名詞リスト | 명사 목록 | 名词清单 | listo de substantivoj |
+| primer / segundo plano | foreground / background | 前景 / 後景 | 전경 / 후경 | 前景 / 后景 | antaŭplano / fono |
+| lo infraordinario | the infraordinary | アンフラオルディネール | 하위일상적인 것 | 次日常 | la infraordinara |
+| el agotamiento del lugar | the exhausting of a place | 場所の汲み尽くし | 장소의 소진 | 地点的穷尽 | la elĉerpo de la loko |
+| "La puerta se dilató" | "The door dilated" | 「ドアが拡張した」 | “문이 확장되었다” | “门扩张开了” | «La pordo dilatiĝis» |
+
+**Only `en` has a real quotation here.** *"The door dilated"* is the English
+original, so English can cite it; nobody found a settled published wording in the
+other four, and all four rendered it plainly and said so rather than borrowing
+the "iris diaphragm" versions that circulate (「ドアが虹彩絞りのように開いた」,
+门虹膜般张开了). Those insert an image the sentence does not contain, and the
+whole point of the line is that a mundane door takes an anatomical verb.
+
+**`lo infraordinario` is Perec's French coinage**, and `ja` transliterates it
+from the French (アンフラオルディネール), not from the English — routing it
+through English is the same mistake the glossary rejects for `ベルリン・イン・
+ダークネス`. `zh` 次日常 and `eo` la infraordinara are transparent formations;
+`ko` 하위일상적인 것 is a coinage, since Korean criticism has no settled term.
+
+**Real authors' names transliterate**, unlike product names, which stay Latin:
+サミュエル・R・ディレイニー, 레이 브래드버리, 乔治·佩雷克. Mainland Chinese
+convention adds the original in parentheses on first mention.
+
+**`Fantástico` is read narrowly in four locales and broadly in one.** `en`, `ja`
+and `zh` take it as the marketing genre (Fantasy / ファンタジー / 奇幻); `ko`
+takes it as *lo fantástico*, the broad category (환상문학). Listed beside Terror
+and Ciencia ficción it reads narrow, but the author has not ruled.
 
 ## White Wolf game lines
 
