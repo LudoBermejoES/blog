@@ -50,6 +50,7 @@ is the join key `[...slug].astro` uses to match the six versions.
 | mapas-mapas-mapas | mapas, Mapas, MAPAS! | maps, Maps, MAPS! | ちず、チズ、地図！ | 맵, 또 맵, 맵 천지! | 地图，地图！地图！！！ | mapoj, Mapoj, MAPOJ! |
 | trabajo-oficina-virtual-y-mapa | Trabajo, oficina virtual y continuamos con el mapa | Work, Virtual Office and Carrying On with the Map | 仕事、バーチャルオフィス、そしてマップの続き | 업무, 가상 오피스, 그리고 이어가는 맵 작업 | 工作、虚拟办公室，还有继续画地图 | Laboro, virtuala oficejo kaj ni daŭrigas la mapon |
 | fantatrias-taller-literario | Fantatrias, taller literario | Fantatrias, Literary Workshop | Fantatrias、文芸ワークショップ | Fantatrias, 문학 워크숍 | Fantatrias，文学工作坊 | Fantatrias, literatura metiejo |
+| berlin-en-tinieblas | Berlín en tinieblas | Berlin in Darkness | 闇のベルリン | 어둠 속의 베를린 | 黑暗中的柏林 | Berlino en tenebroj |
 
 ## Tabletop and tooling vocabulary
 
@@ -229,6 +230,63 @@ convention adds the original in parentheses on first mention.
 and `zh` take it as the marketing genre (Fantasy / ファンタジー / 奇幻); `ko`
 takes it as *lo fantástico*, the broad category (환상문학). Listed beside Terror
 and Ciencia ficción it reads narrow, but the author has not ruled.
+
+## The chantry, and other Mage vocabulary
+
+Settled while translating `berlin-en-tinieblas`.
+
+| Source (`es`) | `en` | `ja` | `ko` | `zh` | `eo` |
+| --- | --- | --- | --- | --- | --- |
+| la capilla (the Chantry) | chantry | チャントリー | 챈트리 | 圣所 | Chantry |
+| la Dama de Hierro | the Iron Lady | 鉄の女 | 철의 여인 | 铁娘子 | la Fera Damo |
+| misiones (quests) | quests | ミッション | 퀘스트 | 任务 | misioj |
+| gancho (plot hook) | hook | フック | 떡밥 | 剧情钩子 | hoko |
+| arco (narrative) | arc | ストーリーアーク | 이야기 아크 | 故事线 | arko |
+| biblia del guion | story bible | ストーリーバイブル | 설정집 | 剧本圣经 | rakonta biblio |
+| contador Geiger | Geiger counter | ガイガーカウンター | 가이거 계수기 | 盖革计数器 | Geiger-nombrilo |
+
+**`capilla` is the single most dangerous word on this site so far.** It is not a
+chapel. It is the Spanish Mage edition's translation of White Wolf's **Chantry**,
+a cabal's warded headquarters, and every locale must use its own market's term
+for that — never a word for a church building (礼拝堂, 예배당, 礼拜堂, kapelo
+would all be wrong). Five agents were about to render it as a religious building
+before the `en` agent worked it out.
+
+Two things confirm the reading from inside the post itself: the map's alt text
+lists bedrooms, an armoury and a gym, and the Aleph screenshot's own subcampaign
+filters read `La capilla` / `La discoteca` as locations, with one quest titled
+*Las guardas de la capilla* — the Chantry's wards.
+
+Mage was never published in Japanese, Korean or Esperanto, so チャントリー and
+챈트리 are fandom transliterations rather than citable terms, and `eo` keeps the
+English outright, as it does for the line names.
+
+**Wholly descriptive aliases translate.** `la Dama de Hierro` has no proper-noun
+component to preserve, so all five translated it — unlike `Eslizo`, `Oda` and
+`Alzarreyes`, which are names and stay Spanish. The Thatcher echo survives in
+every target, which is a bonus rather than the reason.
+
+## Screenshot UI labels: the rule, refined
+
+The earlier rule — *UI strings inside a screenshot's alt text stay in the
+language on screen* — was set on Inkarnate's **English** interface described to
+**Spanish** readers. `berlin-en-tinieblas` reverses the direction: the app is the
+author's own, its UI is in **Spanish**, and the readers are not.
+
+**Refined rule: on-screen labels stay in the source language only when the reader
+can see them and match them against the picture. When the alt text is doing the
+work of conveying what they mean, they translate.** Alt text serves a reader who
+cannot see the screen, so leaving `economía` untranslated inside a Japanese
+sentence conveys nothing. Four of five agents reached this independently; the
+fifth had argued the same case before being asked to switch.
+
+A second signal that settles it in practice: the Spanish source lowercases these
+into running prose (`las secciones de mundo, historia, economía y campaña`)
+rather than quoting them as buttons, the way the Inkarnate alt set its list off
+with em dashes.
+
+For `ja`, the half-width spaces around a Latin run disappear along with the run:
+`には mundo、` becomes `には世界、`.
 
 ## White Wolf game lines
 
